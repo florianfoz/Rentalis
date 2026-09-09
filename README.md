@@ -175,6 +175,7 @@ Forks and modified versions should clearly distinguish themselves from the offic
 Copyright © 2026 Florian Foz - Rentalis
 
 Tolza is distributed under the GNU AGPLv3 license
+
 Source: https://github.com/TheProgrammare/Rentalis
 
 Rentalis is maintained as an open-source project.
