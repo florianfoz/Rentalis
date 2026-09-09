@@ -174,11 +174,11 @@ Forks and modified versions should clearly distinguish themselves from the offic
 
 Copyright © 2026 Florian Foz - Rentalis
 
-Tolza is distributed under the GNU AGPLv3 license
+Rentalis is distributed under the GNU AGPLv3 license.
 
 Source: https://github.com/TheProgrammare/Rentalis
 
-Rentalis is maintained as an open-source project.
+The **Rentalis name, logo, wordmark and associated branding are separate from the source-code license and are reserved**.
 
 
 ## Links
