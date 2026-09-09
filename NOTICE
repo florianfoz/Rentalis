@@ -1,0 +1,61 @@
+# Rentalis — NOTICE
+
+Copyright © 2026 Foz Florian
+
+Rentalis is distributed under the **GNU Affero General Public License, Version 3 (AGPL-3.0)**.
+
+The source code of this project is licensed under the terms of the GNU AGPLv3. A copy of the license is available in the `LICENSE` file at the root of this repository.
+
+## Project Identity
+
+**Rentalis** is the name of the property management software project developed by Foz Florian.
+
+The Rentalis name, wordmark, logos, icons, visual identity, and other branding elements are separate from the source code license.
+
+The GNU AGPLv3 applies to the copyrightable source code covered by that license. It does not, by itself, grant permission to use the Rentalis name, logos, or other branding in a way that suggests official endorsement, sponsorship, or affiliation with the Rentalis project or TheProgrammare.
+
+Forks and derivative works are permitted under the GNU AGPLv3. However, projects derived from Rentalis should use a distinct name and visual identity and should not present themselves as the official Rentalis project.
+
+## Commercial Use
+
+The GNU AGPLv3 permits commercial use of the software, subject to the terms and conditions of the license.
+
+In particular, anyone distributing modified versions or providing modified versions of the software to users over a network must comply with the applicable source-code and license obligations of the GNU AGPLv3.
+
+The Rentalis name and branding are not granted for commercial use merely by virtue of using the source code.
+
+For commercial licensing arrangements or uses that require permissions beyond the GNU AGPLv3, contact the project maintainers.
+
+## Official Rentalis Project
+
+This repository contains the official Rentalis project maintained by Foz Florian (TheProgrammare).
+
+A fork, derivative work, hosted service, packaged distribution, or commercial offering using Rentalis source code is not necessarily affiliated with or endorsed by the official Rentalis project.
+
+## Third-Party Components
+
+Rentalis may include or depend on third-party software, libraries, frameworks, assets, or other components.
+
+Such components remain subject to their respective licenses, copyrights, and notices.
+
+Users and distributors are responsible for complying with the applicable licenses and terms of third-party components.
+
+## Qt and Other Dependencies
+
+Rentalis uses third-party technologies and libraries, including components from the Qt framework.
+
+Those components remain subject to their respective licenses and terms. Nothing in this NOTICE modifies, replaces, or overrides the licenses of third-party software.
+
+Where applicable, third-party copyright and license notices are provided with the corresponding component or dependency.
+
+## No Endorsement
+
+Unless explicitly stated otherwise, use of the Rentalis name, logos, icons, or other branding does not imply endorsement, sponsorship, or affiliation with the Rentalis project or TheProgrammare.
+
+## Disclaimer
+
+Rentalis is provided as open-source software under the GNU AGPLv3.
+
+The software may be under active development and may contain defects, incomplete features, or breaking changes.
+
+The software is provided **"AS IS"**, without warranties of any kind, to the extent permitted by applicable law.
