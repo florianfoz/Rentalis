@@ -29,12 +29,13 @@ const QString ABOUT = QObject::tr(
     "- Auto EMail writer<br>"
     "- Auto prompt generation for desired AI analytic<br>"
     "- Tax calculation and configurable charts<br><br>"
-    "© 2026 Foz Florian All rights reserved.<br><br>"
+    "© 2026 Foz Florian All rights reserved.<br>"
+    "Rentalis is licensed under the GNU Affero General Public License<br>"
+    "version 3 or any later version.<br><br>"
     "Some icons used in this software come from "
     "<a href='https://github.com/PapirusDevelopmentTeam/papirus-icon-theme'>Papirus Icons</a>.<br>"
     "This application uses the Qt 6 framework, which is licensed under the LGPL v3.<br>"
-    "See <a href='https://www.qt.io/licensing'>Qt6 Software</a> for more information.<br><br>"
-    "For personal or internal professional use only; redistribution or commercial use is prohibited.");
+    "See <a href='https://www.qt.io/licensing'>Qt6 Software</a> for more information.<br><br>");
 
 const QString COPYRIGHTS_LABEL = QObject::tr("Rentalis - © 2025 Foz Florian. All Rights Reserved.");
 
