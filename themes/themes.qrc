@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/themes">
+        <file>rentalis-dark.css</file>
+        <file>rentalis-light.css</file>
+    </qresource>
+</RCC>

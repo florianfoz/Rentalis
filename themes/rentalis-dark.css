@@ -1,0 +1,553 @@
+/* QChart.background: white */
+/* QChart.title: white */
+
+
+QWidget {
+  background-color: palette(Window);
+  color: palette(WindowText);
+}
+
+
+QTextEdit {
+  border-radius: 10px;
+}
+
+QGroupBox {
+  background-color: transparent;
+  border-radius: 10px;
+  border: 2px solid palette(Base);
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+QGroupBox::title {
+  color: palette(WindowText);
+  subcontrol-origin: margin;
+  subcontrol-position: top center;
+}
+
+
+
+QListWidget {
+  background-color: palette(base);
+  border-radius: 10px;
+  color: palette(windowText);
+}
+
+
+
+/* -------- label -------- */
+QLabel {
+  background-color: palette(BrightText);
+  color: palette(WindowText);
+  border: none;
+}
+
+QLabel#l_icon {
+  border-radius: 10px;
+  border: 2px solid palette(Base);
+}
+
+/* -------- table -------- */
+QTableWidget {
+  border: 2px solid blue;
+  border-radius: 10px;
+  background-color: transparent;
+  border-top: none;
+  gridline-color: palette(Mid);
+}
+
+QHeaderView::section:horizontal {
+  background-color: palette(Highlight);
+  color: palette(WindowText);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 5px;
+  border: 1px solid transparent;
+}
+
+QHeaderView::section:horizontal:first {
+  margin-left: -3px;
+}
+QHeaderView::section:horizontal:last {
+  margin-right: -3px;
+}
+
+QHeaderView::section:vertical {
+  background-color: blue;
+  color: white;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 5px;
+  border: 1px solid transparent;
+  margin-left: -3px;
+}
+
+/* -------- combobox -------- */
+QComboBox {
+  border-radius: 10px;
+  padding: 2px 5px;
+  background-color: blue;
+  color: white;
+  selection-background-color: blue;
+  selection-color: white;
+}
+
+
+QComboBox:hover {
+  background-color: darkblue;
+}
+
+QComboBox::drop-down { 
+  border: none;
+}
+
+QComboBox::down-arrow {
+  image: url(://assets/pan-down.svg);
+  padding-right: 10px;
+}
+
+
+QComboBox QAbstractItemView {
+  background-color: #CCCCCC;
+  color: black;
+  padding: 5px;
+  outline: 0;
+  border: 1px solid transparent;
+}
+
+/* Élément de la liste */
+QComboBox QAbstractItemView::item {
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+/* Élément survolé */
+QComboBox QAbstractItemView::item:hover {
+    background-color: #bdbdbd;
+}
+
+/* Élément sélectionné */
+QComboBox QAbstractItemView::item:selected {
+    background-color: #999999;
+    color: black;
+    border-radius: 6px;
+}
+
+
+QComboBox:on {
+  color: black;
+}
+
+QComboBox:off {
+  color: black;
+}
+
+/* -------- line edit -------- */
+QLineEdit {
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 25px;
+  background-color: #efefef;
+  border: 2px solid transparent;
+  color: black;
+}
+
+/* -------- push button -------- */
+QPushButton[flat=false] {
+  background-color: blue;
+  border-radius: 10px;
+  padding: 2px 7px;
+  color: white;
+}
+
+
+QPushButton[flat=false]:hover {
+  background-color: darkblue;
+}
+
+QPushButton[flat=false]:pressed {
+  padding: 5px 5px 2px 5px;
+}
+
+
+QPushButton[flat=true] {
+  color: black;
+}
+
+QPushButton[flat=true]:pressed {
+  padding-left: 5px;
+  color: black;
+}
+
+/* -------- dialog button box -------- */
+QDialogButtonBox QPushButton#Ok {
+  padding: 7px 7px;
+  background-color: green;
+}
+
+QDialogButtonBox QPushButton#Ok:hover {
+  background-color: darkgreen;
+}
+
+QDialogButtonBox QPushButton#Ok:pressed {
+  padding: 5px 5px 2px 5px;
+  background-color: green;
+}
+
+QDialogButtonBox QPushButton#Cancel {
+  background-color: red;
+}
+
+QDialogButtonBox QPushButton#Cancel:hover {
+  background-color: darkred;
+}
+
+
+QDialogButtonBox QPushButton#Apply {
+  background-color: blue;
+}
+
+QDialogButtonBox QPushButton#Apply:hover {
+  background-color: darkblue;
+}
+
+
+/* -------- scroll bar horizontal -------- */
+QScrollBar:horizontal {
+  background-color: #CCCCCC;
+  border-radius: 10px;
+  border: none;
+  height: 20px;
+}
+
+
+QScrollBar:horizontal:hover {
+  border: 2px solid darkblue;
+}
+
+QScrollBar::handle:horizontal {
+  border-radius: 10px;
+  border: none;
+  padding-left: 10px;
+  background-color: blue;
+  min-width: 20px;
+  margin: 0px 20px 0px 20px;
+}
+
+QScrollBar::add-line:horizontal {
+  border-radius: 10px;
+  border: none;
+  image: url(://assets/pan-end.svg);
+}
+
+QScrollBar::sub-line:horizontal {
+  border-radius: 10px;
+  border: none;
+  image: url(://assets/pan-start.svg);
+}
+
+/* -------- scroll bar vertical -------- */
+QScrollBar:vertical {
+  background-color: #CCCCCC;
+  border-radius: 10px;
+  border: none;
+  width: 20px;
+}
+
+QScrollBar::handle:vertical {
+  border-radius: 10px;
+  border: none;
+  padding-left: 10px;
+  background-color: blue;
+  min-width: 20px;
+  margin: 20px 0px 20px 0px;
+}
+
+
+QScrollBar::add-line:vertical {
+  border-radius: 10px;
+  border: none;
+  image: url(://assets/pan-down.svg);
+}
+
+QScrollBar::sub-line:vertical {
+  border-radius: 10px;
+  border: none;
+  image: url(://assets/pan-up.svg);
+}
+
+/* -------- stacked widget -------- */
+QStackedWidget {
+  background-color: transparent;
+}
+
+
+/* -------- scroll area -------- */
+QAbstractScrollArea {
+  background-color: transparent;
+}
+
+/* -------- text browser -------- */
+QTextBrowser {
+  background-color: #CCCCCC;
+  color: initial;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+
+/* -------- spin box type -------- */
+QSpinBox, QDoubleSpinBox, QDateTimeEdit, QDateEdit, QTimeEdit {
+  background-color: blue;
+  color: white;
+  padding: 2px 5px;
+  border: none;
+  border-radius: 10px;
+}
+
+QSpinBox:hover, QDoubleSpinBox:hover, QDateTimeEdit:hover, QDateEdit:hover, QTimeEdit:hover {
+  background-color: darkblue;
+}
+
+QDateTimeEdit::up-button, QDateEdit::up-button, QTimeEdit::up-button, QSpinBox::up-button, QDoubleSpinBox::up-button {
+  background-color: transparent;
+  border: none;
+  image: url(://assets/pan-up.svg);
+  width: 20px;
+  height: 20px;
+  padding-top: -2px;
+}
+
+QDateTimeEdit::up-button:pressed, QDateEdit::up-button:pressed, QTimeEdit::up-button:pressed, QDateTimeEdit::drop-down:pressed, QDateEdit::drop-down:pressed, QTimeEdit::drop-down:pressed, QSpinBox::up-button:pressed, QDoubleSpinBox::up-button:pressed {
+  padding-top: -4px;
+}
+
+QDateTimeEdit::down-button, QDateEdit::down-button, QTimeEdit::down-button, QDateTimeEdit::drop-down, QDateEdit::drop-down, QTimeEdit::drop-down, QSpinBox::down-button, QDoubleSpinBox::down-button {
+  background-color: transparent;
+  border: none;
+  image: url(://assets/pan-down.svg);
+  width: 20px;
+  height: 20px;
+  padding-bottom: -2px;
+}
+
+QDateTimeEdit::down-button:pressed, QDateEdit::down-button:pressed, QTimeEdit::down-button:pressed, QSpinBox::down-button:pressed, QDoubleSpinBox::down-button:pressed {
+  padding-bottom: -4px;
+}
+
+
+
+/* -------- check box -------- */
+QCheckBox {
+  background-color: blue;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 10px;
+  border: none;
+}
+
+QCheckBox::indicator {
+  height: 18px;
+  width: 18px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: #CCCCCC;
+}
+
+QCheckBox:hover {
+  background-color: darkblue;
+}
+
+QCheckBox::indicator:checked {
+  image: url(://assets/object-select.svg);
+}
+
+/* -------- list widget -------- */
+QListWidget::item {
+  color: black;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 2px;
+}
+
+QListWidget::item::indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 10px;
+  background-color: #CCCCCC;
+  border: none;
+}
+
+
+
+/* -------- calendar -------- */
+QCalendarWidget QToolButton {
+  color: white;
+  background-color: blue;
+}
+
+QCalendarWidget QMenu {
+  color: black;
+  background-color: #CCCCCC;
+  selection-background-color: blue;
+  selection-color: white;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+QCalendarWidget QSpinBox {
+  selection-background-color: blue;
+  selection-color: white;
+  border: none;
+}
+
+QCalendarWidget QSpinBox:hover {
+  background-color: darkblue;
+}
+
+QCalendarWidget QSpinBox::up-button { 
+  subcontrol-origin: border;
+  subcontrol-position: top right;  
+}
+QCalendarWidget QSpinBox::down-button {
+  subcontrol-origin: border; 
+  subcontrol-position: bottom right;  
+}
+
+
+/* header row */
+QCalendarWidget QWidget { 
+  alternate-background-color: cyan;
+}
+
+/* header row */
+QCalendarWidget QTableView::Item:selected { 
+  border-radius: 5px;
+}
+
+QCalendarWidget QTableView::Item:hover { 
+  background-color: darkblue;
+  color: white;
+}
+   
+  /* normal days */
+QCalendarWidget QAbstractItemView:enabled {
+  color: black;  
+  background-color: #CCCCCC;  
+  selection-background-color: blue; 
+  selection-color: white; 
+  border-radius: 5px;
+}
+   
+  /* days in other months */
+  /* navigation bar */
+QCalendarWidget QWidget#qt_calendar_navigationbar { 
+  background-color: blue; 
+}
+
+QCalendarWidget QAbstractItemView:disabled { 
+  color: gray;
+}
+
+QTableView QTableCornerButton::section {
+  background: transparent;
+  border: none;
+}
+
+
+/* table_rent */
+QTableView#table_rent {
+  border-left: none;
+}
+
+
+QTableView#table_rent 
+QHeaderView::section:vertical {
+  background-color: blue;
+  color: white;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 5px;
+  border: 1px solid transparent;
+  margin-left: 0px;
+}
+
+QTableView#table_rent QHeaderView::section:vertical:last {
+  margin-bottom: -3px;
+}
+
+QTableView#table_rent
+QHeaderView::section:horizontal:first {
+  margin-left: 0px;
+}
+
+/* radio button */
+QRadioButton {
+  background-color: transparent;
+  border: 2px solid blue;
+  border-radius: 10px;
+}
+
+QRadioButton::indicator:unchecked {
+  width: 12px;
+  height: 12px;
+  border-radius: 7px;
+  border: 2px solid blue;
+  margin-left: 2px;
+  background-color: transparent;
+}
+
+QRadioButton::indicator:checked {
+  width: 12px;
+  height: 12px;
+  border-radius: 7px;
+  border: 2px solid blue;
+  margin-left: 2px;
+  background-color: blue;
+}
+
+QRadioButton::indicator:hover {
+  border: 2px solid darkblue;
+}
+
+
+QToolTip {
+  background-color: lightblue;
+  color: black;
+  border: 2px solid blue;
+}
+
+
+QTabWidget::pane {
+  background: blue;
+}
+
+QTabWidget::tab-bar {
+  alignment: center;
+}
+
+
+QTabBar::tab {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 1px solid transparent;
+  background-color: blue;
+  padding: 0 5 0 5;
+  margin: 0 5 0 5;
+}
+
+QTabBar::tab:selected {
+  background-color: darkblue;
+  color: white;
+  padding: 0 5 0 5;
+}
+
+QTabBar::tab:!selected {
+  color: white;
+  padding: 0 5 0 5;
+}
+
+
+

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>W_Rent_Tool_Revision</class>
+ <widget class="QWidget" name="W_Rent_Tool_Revision">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>197</width>
+    <height>287</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Rent Tool Revision</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/icons.qrc">
+    <normaloff>:/assets/gnome-calculator.svg</normaloff>:/assets/gnome-calculator.svg</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Rent Revision</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="2" column="0" colspan="2">
+       <widget class="QLabel" name="label_12">
+        <property name="text">
+         <string>IRL quarter year N-1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="label_14">
+        <property name="text">
+         <string>IRL current quarter</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLabel" name="label_21">
+        <property name="minimumSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="../resources/icons.qrc">:/assets/budget.svg</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QLabel" name="label_16">
+        <property name="text">
+         <string>Current Rent</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0" colspan="2">
+       <widget class="QPushButton" name="b_revision_web">
+        <property name="styleSheet">
+         <string notr="true">background-color: darkblue</string>
+        </property>
+        <property name="text">
+         <string>Goverment Website</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources/icons.qrc">
+          <normaloff>:/assets/internet-web-browser.svg</normaloff>:/assets/internet-web-browser.svg</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QDoubleSpinBox" name="dsb_IRL_current">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+        <property name="maximum">
+         <double>999999999.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="2">
+       <widget class="QLabel" name="label_13">
+        <property name="text">
+         <string>Rent revision allowed</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="QDoubleSpinBox" name="dsb_rent_current">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="suffix">
+         <string/>
+        </property>
+        <property name="maximum">
+         <double>999999999.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QDoubleSpinBox" name="dsb_IRL_last">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+        <property name="maximum">
+         <double>999999999.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLineEdit" name="le_rent_possible">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: darkgreen</string>
+        </property>
+        <property name="text">
+         <string>00,00 €</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../resources/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>W_Save_Manager</class>
+ <widget class="QWidget" name="W_Save_Manager">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>930</width>
+    <height>537</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1">
+    <widget class="QPushButton" name="b_open_save_folder">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: green</string>
+     </property>
+     <property name="text">
+      <string>Open Saves File</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/icons.qrc">
+       <normaloff>:/assets/kbackup.svg</normaloff>:/assets/kbackup.svg</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QPushButton" name="b_new_save">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: blue</string>
+     </property>
+     <property name="text">
+      <string>New Save</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/icons.qrc">
+       <normaloff>:/assets/vcs-added.svg</normaloff>:/assets/vcs-added.svg</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="W_Tile_View" name="tile_view" native="true"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>W_Tile_View</class>
+   <extends>QWidget</extends>
+   <header>w_tile_view.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>b_new_save</tabstop>
+  <tabstop>b_open_save_folder</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../resources/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

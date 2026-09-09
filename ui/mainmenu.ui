@@ -1,0 +1,2026 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainMenu</class>
+ <widget class="QMainWindow" name="MainMenu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>928</width>
+    <height>832</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainMenu</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/icons.qrc">
+    <normaloff>:/assets/logo/rentalis.svg</normaloff>:/assets/logo/rentalis.svg</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <property name="animated">
+   <bool>true</bool>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::TabShape::Rounded</enum>
+  </property>
+  <widget class="QWidget" name="main_widget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_11">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item row="0" column="0" rowspan="2">
+     <widget class="QFrame" name="f_side_panel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: pattern(window);</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="14" column="1">
+        <widget class="QPushButton" name="b_source">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Sources file</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/system-file-manager.svg</normaloff>:/assets/system-file-manager.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QPushButton" name="b_tenants">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Tenants</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/financial-payees.svg</normaloff>:/assets/financial-payees.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="l_maintenances">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>5</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>3</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: green</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="b_properties">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Properties</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/gargoyle-house.svg</normaloff>:/assets/gargoyle-house.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QPushButton" name="b_maintenaces">
+         <property name="maximumSize">
+          <size>
+           <width>250</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Maintenances</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/administration.svg</normaloff>:/assets/administration.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <widget class="QLabel" name="l_saves">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>5</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>3</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: green</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="b_rents">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Rents</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/budget.svg</normaloff>:/assets/budget.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QPushButton" name="b_damages">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Damages</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/disk-burner.svg</normaloff>:/assets/disk-burner.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="l_landlords">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>5</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>3</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: green</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="1">
+        <widget class="QPushButton" name="b_saves_file">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Saves file</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/kbackup.svg</normaloff>:/assets/kbackup.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="18" column="1">
+        <widget class="QPushButton" name="b_shutdown">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Quit</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/system-shutdown.svg</normaloff>:/assets/system-shutdown.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="b_menu">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left;</string>
+         </property>
+         <property name="text">
+          <string>Dashboard</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/xcos.svg</normaloff>:/assets/xcos.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QPushButton" name="b_receipts">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Receipts</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/financial-list.svg</normaloff>:/assets/financial-list.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="16" column="1">
+        <widget class="QPushButton" name="b_settings">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Settings</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/application-default-icon.svg</normaloff>:/assets/application-default-icon.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QPushButton" name="b_saves">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Saves</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/kfloppy.svg</normaloff>:/assets/kfloppy.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="l_damages">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>5</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>3</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: green</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QPushButton" name="b_invoices">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Invoices</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/text-x-changelog.svg</normaloff>:/assets/text-x-changelog.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="17" column="1">
+        <widget class="QPushButton" name="b_reboot">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Refresh</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/system-reboot.svg</normaloff>:/assets/system-reboot.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="l_menu">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>5</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>3</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: green</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1">
+        <widget class="QPushButton" name="b_prints">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Prints file</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/printer.svg</normaloff>:/assets/printer.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QPushButton" name="b_landlords">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: Left</string>
+         </property>
+         <property name="text">
+          <string>Landlords</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/com.bixense.PasswordCalculator.svg</normaloff>:/assets/com.bixense.PasswordCalculator.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="l_rents">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>5</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>3</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: green</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="0" colspan="2">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="l_receipts">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>5</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>3</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: green</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="l_invoices">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>5</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>3</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: green</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="l_properties">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>5</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>3</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: green</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="l_tenants">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>5</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>3</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: green</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="b_sidebar">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">text-align: left;</string>
+         </property>
+         <property name="text">
+          <string>Rentalis</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/logo/rentalis.svg</normaloff>:/assets/logo/rentalis.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>44</width>
+           <height>44</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <property name="autoRepeat">
+          <bool>false</bool>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QFrame" name="f_top_panel">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="b_side_panel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Toggle left side bar</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/view-sidetree.svg</normaloff>:/assets/view-sidetree.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="W_Database_Current_Info" name="w_database_current_info" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>50</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="b_new_window">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Open in new window</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/icons.qrc">
+           <normaloff>:/assets/window-new.svg</normaloff>:/assets/window-new.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="currentIndex">
+       <number>4</number>
+      </property>
+      <widget class="QWidget" name="_0_menu">
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="W_Dashboard" name="w_menu" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="_1_rents">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="W_Rent_Manager" name="w_rents" native="true">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="_2_invoices">
+       <layout class="QGridLayout" name="gridLayout_3">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="W_Invoice_Manager" name="w_invoices" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="_3_receipts">
+       <layout class="QGridLayout" name="gridLayout_4">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="W_Receipt_Manager" name="w_receipts" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="_4_tenants">
+       <layout class="QGridLayout" name="gridLayout_6">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="W_Tenant_Manager" name="w_tenants" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="_5_properties">
+       <layout class="QGridLayout" name="gridLayout_7">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="W_Property_Manager" name="w_properties" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="_6_landlords">
+       <layout class="QGridLayout" name="gridLayout_13">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="W_Landlord_Manager" name="w_landlords" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="_7_saves">
+       <layout class="QGridLayout" name="gridLayout_5">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="W_Save_Manager" name="w_saves" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="_8_maintenances">
+       <layout class="QGridLayout" name="gridLayout_10">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="W_Maintenance_Manager" name="widget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="_9_damages">
+       <layout class="QGridLayout" name="gridLayout_9">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="W_Damage_Manager" name="w_damages" native="true"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+   <widget class="QWidget" name="widget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>290</y>
+      <width>120</width>
+      <height>80</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>928</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="defaultUp">
+    <bool>false</bool>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>true</bool>
+   </property>
+   <widget class="QMenu" name="m_file">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="a_save"/>
+    <addaction name="a_open_sources_file"/>
+    <addaction name="a_open_saves_file"/>
+    <addaction name="a_open_prints_file"/>
+    <addaction name="separator"/>
+    <addaction name="a_database_settings"/>
+    <addaction name="separator"/>
+    <addaction name="a_export_database"/>
+    <addaction name="a_import_database"/>
+    <addaction name="separator"/>
+    <addaction name="a_restart"/>
+    <addaction name="a_quit"/>
+   </widget>
+   <widget class="QMenu" name="m_creation">
+    <property name="title">
+     <string>New</string>
+    </property>
+    <addaction name="a_new_invoice"/>
+    <addaction name="a_new_receipt"/>
+    <addaction name="a_new_tenant"/>
+    <addaction name="a_new_property"/>
+    <addaction name="a_new_landlord"/>
+    <addaction name="a_new_save"/>
+    <addaction name="separator"/>
+    <addaction name="a_new_database"/>
+   </widget>
+   <widget class="QMenu" name="m_help">
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <property name="separatorsCollapsible">
+     <bool>false</bool>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>false</bool>
+    </property>
+    <addaction name="a_about"/>
+    <addaction name="a_welcome"/>
+   </widget>
+   <widget class="QMenu" name="m_tools">
+    <property name="title">
+     <string>Tool</string>
+    </property>
+    <addaction name="a_calc_taxes"/>
+    <addaction name="a_calc_rent_revision"/>
+    <addaction name="separator"/>
+    <addaction name="a_web_declaration"/>
+    <addaction name="a_web_taxes"/>
+    <addaction name="a_web_rent_revision"/>
+   </widget>
+   <addaction name="m_file"/>
+   <addaction name="m_creation"/>
+   <addaction name="m_tools"/>
+   <addaction name="m_help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="layoutDirection">
+    <enum>Qt::LayoutDirection::RightToLeft</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="sizeGripEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <action name="a_save">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/kfloppy.svg</normaloff>:/assets/kfloppy.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="toolTip">
+    <string>Save current data</string>
+   </property>
+  </action>
+  <action name="a_open_sources_file">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/system-file-manager.svg</normaloff>:/assets/system-file-manager.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Open source file</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the source file</string>
+   </property>
+  </action>
+  <action name="a_new_receipt">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/financial-list.svg</normaloff>:/assets/financial-list.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New Receipt</string>
+   </property>
+   <property name="toolTip">
+    <string>Add a new receipt</string>
+   </property>
+  </action>
+  <action name="a_new_invoice">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/text-x-changelog.svg</normaloff>:/assets/text-x-changelog.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New Invoice</string>
+   </property>
+   <property name="toolTip">
+    <string>Add a new invoice</string>
+   </property>
+  </action>
+  <action name="a_new_save">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/kfloppy.svg</normaloff>:/assets/kfloppy.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New Save</string>
+   </property>
+   <property name="toolTip">
+    <string>Add a new save from current data</string>
+   </property>
+  </action>
+  <action name="a_new_tenant">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/financial-payees.svg</normaloff>:/assets/financial-payees.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New Tenant</string>
+   </property>
+   <property name="toolTip">
+    <string>Add a new tenant</string>
+   </property>
+  </action>
+  <action name="a_new_property">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/gargoyle-house.svg</normaloff>:/assets/gargoyle-house.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New Property</string>
+   </property>
+   <property name="toolTip">
+    <string>Add a new property</string>
+   </property>
+  </action>
+  <action name="a_print_receipt">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/printer.svg</normaloff>:/assets/printer.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Print Receipt</string>
+   </property>
+   <property name="toolTip">
+    <string>Print receipt</string>
+   </property>
+  </action>
+  <action name="a_print_invoice">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/printer.svg</normaloff>:/assets/printer.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Print Invoice</string>
+   </property>
+   <property name="toolTip">
+    <string>Print invoice</string>
+   </property>
+  </action>
+  <action name="a_restart">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/system-reboot.svg</normaloff>:/assets/system-reboot.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Restart</string>
+   </property>
+   <property name="toolTip">
+    <string>Restart the software</string>
+   </property>
+  </action>
+  <action name="a_quit">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/system-shutdown.svg</normaloff>:/assets/system-shutdown.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="toolTip">
+    <string>Quit the software</string>
+   </property>
+  </action>
+  <action name="a_about">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/dialog-information.svg</normaloff>:/assets/dialog-information.svg</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+   <property name="toolTip">
+    <string>About the software Rentalis</string>
+   </property>
+   <property name="shortcut">
+    <string>A</string>
+   </property>
+  </action>
+  <action name="a_web_declaration">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/internet-web-browser.svg</normaloff>:/assets/internet-web-browser.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Website Taxes Declaration</string>
+   </property>
+   <property name="toolTip">
+    <string>Open goverment website for taxes delcaration</string>
+   </property>
+  </action>
+  <action name="a_web_taxes">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/internet-web-browser.svg</normaloff>:/assets/internet-web-browser.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Website Taxes Calculation</string>
+   </property>
+   <property name="toolTip">
+    <string>Open goverment website taxes calculation</string>
+   </property>
+  </action>
+  <action name="a_web_rent_revision">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/internet-web-browser.svg</normaloff>:/assets/internet-web-browser.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Website Rent Revision</string>
+   </property>
+   <property name="toolTip">
+    <string>Open goverment website rent revision</string>
+   </property>
+  </action>
+  <action name="a_calc_rent_revision">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/gnome-calculator.svg</normaloff>:/assets/gnome-calculator.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Calc. Revision</string>
+   </property>
+   <property name="toolTip">
+    <string>Calculate rent revision</string>
+   </property>
+  </action>
+  <action name="a_calc_taxes">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/gnome-calculator.svg</normaloff>:/assets/gnome-calculator.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Calc. Taxes</string>
+   </property>
+   <property name="toolTip">
+    <string>Calculate from taxes regime</string>
+   </property>
+  </action>
+  <action name="a_open_prints_file">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/printer.svg</normaloff>:/assets/printer.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Open Prints</string>
+   </property>
+   <property name="toolTip">
+    <string>Open prints file</string>
+   </property>
+  </action>
+  <action name="a_new_landlord">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/com.bixense.PasswordCalculator.svg</normaloff>:/assets/com.bixense.PasswordCalculator.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New Landlord</string>
+   </property>
+   <property name="toolTip">
+    <string>Add a new landlord</string>
+   </property>
+  </action>
+  <action name="a_open_saves_file">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/kbackup.svg</normaloff>:/assets/kbackup.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Open saves file</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the saves file</string>
+   </property>
+  </action>
+  <action name="a_new_database">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/sqlitebrowser.svg</normaloff>:/assets/sqlitebrowser.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New Database</string>
+   </property>
+  </action>
+  <action name="a_export_database">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/document-export.svg</normaloff>:/assets/document-export.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Export Database</string>
+   </property>
+  </action>
+  <action name="a_import_database">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/document-import.svg</normaloff>:/assets/document-import.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Import Database</string>
+   </property>
+  </action>
+  <action name="a_welcome">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/mx-alerts.svg</normaloff>:/assets/mx-alerts.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Welcome</string>
+   </property>
+   <property name="toolTip">
+    <string>Welcome</string>
+   </property>
+  </action>
+  <action name="a_database_settings">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/sqlitebrowser.svg</normaloff>:/assets/sqlitebrowser.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Database Settings</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>W_Rent_Manager</class>
+   <extends>QWidget</extends>
+   <header>w_rent_manager.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>W_Invoice_Manager</class>
+   <extends>QWidget</extends>
+   <header>w_invoice_manager.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>W_Receipt_Manager</class>
+   <extends>QWidget</extends>
+   <header>w_receipt_manager.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>W_Save_Manager</class>
+   <extends>QWidget</extends>
+   <header>w_save_manager.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>W_Tenant_Manager</class>
+   <extends>QWidget</extends>
+   <header>w_tenant_manager.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>W_Dashboard</class>
+   <extends>QWidget</extends>
+   <header>w_dashboard.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>W_Landlord_Manager</class>
+   <extends>QWidget</extends>
+   <header>w_landlord_manager.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>W_Property_Manager</class>
+   <extends>QWidget</extends>
+   <header>w_property_manager.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>W_Database_Current_Info</class>
+   <extends>QWidget</extends>
+   <header>w_database_current_info.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>W_Damage_Manager</class>
+   <extends>QWidget</extends>
+   <header>w_damage_manager.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>W_Maintenance_Manager</class>
+   <extends>QWidget</extends>
+   <header>w_maintenance_manager.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../resources/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

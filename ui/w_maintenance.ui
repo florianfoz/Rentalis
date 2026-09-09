@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>W_Maintenance</class>
+ <widget class="QWidget" name="W_Maintenance">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>660</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QPushButton" name="b_edit">
+     <property name="styleSheet">
+      <string notr="true">background-color: green;</string>
+     </property>
+     <property name="text">
+      <string>Edit</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/icons.qrc">
+       <normaloff>:/assets/accessories-text-editor.svg</normaloff>:/assets/accessories-text-editor.svg</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="b_delete">
+     <property name="styleSheet">
+      <string notr="true">background-color: darkred;</string>
+     </property>
+     <property name="text">
+      <string>Delete</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/icons.qrc">
+       <normaloff>:/assets/user-trash.svg</normaloff>:/assets/user-trash.svg</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="l_property_name">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Property Name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="l_period">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>from dd/MM/yyyy to dd/MM/yyyy </string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="title">
+         <string>Audit</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="le_damage"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Damage</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Cost</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Status</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="b_view_damage">
+           <property name="styleSheet">
+            <string notr="true">background-color: darkred;</string>
+           </property>
+           <property name="text">
+            <string>View Damage</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources/icons.qrc">
+             <normaloff>:/assets/disk-burner.svg</normaloff>:/assets/disk-burner.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="2">
+          <widget class="QLineEdit" name="le_cost"/>
+         </item>
+         <item row="2" column="1" colspan="2">
+          <widget class="QLineEdit" name="le_status"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QTextEdit" name="te_description">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Description</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" rowspan="2">
+       <layout class="QGridLayout" name="layout_images"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../resources/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

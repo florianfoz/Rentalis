@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>W_Tenant_Manager</class>
+ <widget class="QWidget" name="W_Tenant_Manager">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QPushButton" name="b_new">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: blue</string>
+     </property>
+     <property name="text">
+      <string>New Tenant</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/icons.qrc">
+       <normaloff>:/assets/vcs-added.svg</normaloff>:/assets/vcs-added.svg</iconset>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="W_Tile_View" name="tile_view" native="true"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>W_Tile_View</class>
+   <extends>QWidget</extends>
+   <header>w_tile_view.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../resources/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

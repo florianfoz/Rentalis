@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>W_Property_Room_Creator</class>
+ <widget class="QWidget" name="W_Property_Room_Creator">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>661</width>
+    <height>88</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="4">
+    <widget class="QSpinBox" name="sb_floor">
+     <property name="toolTip">
+      <string>0 is ground floor</string>
+     </property>
+     <property name="minimum">
+      <number>-10</number>
+     </property>
+     <property name="maximum">
+      <number>99999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Floor</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QComboBox" name="cb_type"/>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Surface</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="5" rowspan="2">
+    <widget class="QPlainTextEdit" name="pte_comment"/>
+   </item>
+   <item row="0" column="4">
+    <widget class="QCheckBox" name="cb_is_furnised">
+     <property name="layoutDirection">
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Type</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" rowspan="2">
+    <widget class="QLabel" name="label_4">
+     <property name="minimumSize">
+      <size>
+       <width>64</width>
+       <height>64</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>64</width>
+       <height>64</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../resources/icons.qrc">:/assets/gargoyle-house.svg</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Is furnished</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QDoubleSpinBox" name="dsb_surface">
+     <property name="suffix">
+      <string> m²</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="6" rowspan="2">
+    <widget class="QPushButton" name="b_delete">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: darkred;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/icons.qrc">
+       <normaloff>:/assets/user-trash.svg</normaloff>:/assets/user-trash.svg</iconset>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../resources/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

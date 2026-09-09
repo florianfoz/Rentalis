@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/translations">
+        <file>Rentalis_en.ts</file>
+        <file>Rentalis_fr_FR.qm</file>
+    </qresource>
+</RCC>
