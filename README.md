@@ -1,3 +1,4 @@
+![logo](/resources/assets/logo/rentalis-64.png)
 # Rentalis
 
 **Open-source property management software**
@@ -45,6 +46,7 @@ Rentalis is free and open-source software licensed under the:
 **GNU Affero General Public License version 3, or any later version (AGPL-3.0-or-later).**
 
 See the [`LICENSE`](LICENSE) file for the complete license text.
+See the [`NOTICE`](NOTICE) file for complementary license information
 
 The AGPL allows you to:
 
@@ -63,7 +65,7 @@ For the complete terms, please refer to the official GNU AGPL license.
 
 ## Commercial Licensing
 
-Rentalis is developed as an open-source project while also allowing a separate commercial licensing model.
+Rentalis is developed as an open-source project while also allowing a separate commercial licensing model. See [`NOTICE`](NOTICE) 
 
 Organizations that require rights or conditions that are not provided by the AGPL may contact the project maintainers regarding a **commercial license**.
 
