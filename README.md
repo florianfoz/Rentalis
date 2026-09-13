@@ -172,9 +172,7 @@ Forks and modified versions should clearly distinguish themselves from the offic
 
 ## Copyright
 
-Copyright © 2026 Florian Foz - Rentalis
-
-Rentalis is distributed under the GNU AGPLv3 license.
+Rentalis - © 2026 Florian Foz - AGPL-3.0
 
 Source: https://github.com/TheProgrammare/Rentalis
 
