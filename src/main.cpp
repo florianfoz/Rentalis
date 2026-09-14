@@ -1,6 +1,7 @@
 #include "base.h"
+#include "database/manager.h"
 #include "mainmenu.h"
-#include "settings.h"
+#include "rentalis_settings.h"
 
 #include <QApplication>
 #include <QLibraryInfo>
@@ -13,22 +14,16 @@
 
 int main(int argc, char* argv[])
 {
-  QApplication a(argc, argv);
-  a.setStyle(QStyleFactory::create("Fusion"));
-  a.setPalette(QApplication::style()->standardPalette());
+  QApplication app(argc, argv);
+  QApplication::setStyle(QStyleFactory::create("Fusion"));
+  QApplication::setPalette(QApplication::style()->standardPalette());
 
   QCoreApplication::setApplicationName("Rentalis");
 
-  APP = &a;
 
-  init_settings();
+  if (init_welcome() == QDialog::Rejected) return 0;
 
-  if (!init_database()) {
-    QMessageBox::critical(nullptr, QObject::tr("No Database"),
-                          QObject::tr("No database to load.\nThe software shutdown."));
-    return 1;
-  }
-
+  WAIT_DATABASE_TO_START = false;
 
   init_save_path();
 
@@ -38,17 +33,15 @@ int main(int argc, char* argv[])
 
   init_themes();
 
-  a.setStyleSheet(SETTINGS.get_theme_css());
+  app.setStyleSheet(RentalisSettings::theme_css());
 
-  QTranslator   translator;
-  const QLocale locale = SETTINGS.get_locale();
-  if (translator.load(locale.name())) {
-    a.installTranslator(&translator);
-    qDebug() << "Language " << locale << " loaded !";
+  QTranslator translator;
+  if (translator.load(RentalisSettings::locale().name())) {
+    QApplication::installTranslator(&translator);
+    qDebug() << "Language " << RentalisSettings::locale() << " loaded !";
   }
 
-  MainMenu w;
-  DB_MANAGER.set_mainmenu(&w);
-  w.showMaximized();
-  return a.exec();
+  Database_Manager::menu = new MainMenu();
+  Database_Manager::menu->showMaximized();
+  return QApplication::exec();
 }

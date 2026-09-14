@@ -34,5 +34,6 @@
 
 // Qt GUI / Widgets
 #include <QMessageBox>
+#include <QPixmap>
 
 #endif // PCH_H

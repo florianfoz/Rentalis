@@ -1,6 +1,8 @@
 #ifndef W_TENANT_CREATOR_H
 #define W_TENANT_CREATOR_H
 
+#include "entities/tenant.h"
+
 #include <QDialog>
 
 class W_Tenant_Manager;
@@ -20,7 +22,7 @@ public:
   ~W_Tenant_Creator();
 
   W_Tenant_Manager* manager = nullptr;
-  Tenant*           tenant  = nullptr;
+  Tenant            tenant;
 
   QString icon_type;
 

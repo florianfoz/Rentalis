@@ -1,7 +1,7 @@
 #ifndef W_COMMENT_DIALOG_H
 #define W_COMMENT_DIALOG_H
 
-#include "rent.h"
+#include "entities/rent.h"
 
 #include <QDialog>
 

@@ -1,6 +1,8 @@
 #ifndef W_LANDLORD_CREATOR_H
 #define W_LANDLORD_CREATOR_H
 
+#include "entities/landlord.h"
+
 #include <QDialog>
 
 class W_Landlord_Manager;
@@ -19,8 +21,8 @@ public:
   explicit W_Landlord_Creator(W_Landlord_Manager* manager = nullptr, int id = -1);
   ~W_Landlord_Creator();
 
-  W_Landlord_Manager* manager  = nullptr;
-  Landlord*           landlord = nullptr;
+  W_Landlord_Manager* manager = nullptr;
+  Landlord            landlord;
 
   QString icon_type;
   QString singing_type;

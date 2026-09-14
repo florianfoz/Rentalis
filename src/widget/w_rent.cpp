@@ -1,8 +1,11 @@
 #include "widget/w_rent.h"
 
 #include "base.h"
-#include "rent.h"
-#include "tenant.h"
+#include "database/database.h"
+#include "database/manager.h"
+#include "database/manifest.h"
+#include "entities/rent.h"
+#include "entities/tenant.h"
 #include "ui_w_rent.h"
 
 W_Rent::W_Rent(W_Rent_Manager* _mananger, int _id, EMonth month)
@@ -12,8 +15,10 @@ W_Rent::W_Rent(W_Rent_Manager* _mananger, int _id, EMonth month)
 {
   ui->setupUi(this);
 
-  connect(&DB_MANAGER, &Database_Manager::signal_db_updated, [this]() { refresh(); });
-  connect(&DB_MANAGER, &Database_Manager::signal_db_changed, [this]() { refresh(); });
+  auto& db = Database_Manager::instance();
+
+  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   ui->l_month->setText(EMonth_to_str(month));
 
@@ -35,21 +40,24 @@ void W_Rent::refresh()
 
   ui->cb_tenant->clear();
 
-  ui->dsb_rent->setPrefix(DB_MANAGER.get_db()->get_settings().get_currency().symbol);
-  ui->dsb_housing_aid->setPrefix(DB_MANAGER.get_db()->get_settings().get_currency().symbol);
-  ui->dsb_charges->setPrefix(DB_MANAGER.get_db()->get_settings().get_currency().symbol);
-  ui->dsb_house_wastes->setPrefix(DB_MANAGER.get_db()->get_settings().get_currency().symbol);
+  ui->dsb_rent->setPrefix(Database_Manager::current_database()->manifest().currency.symbol);
+  ui->dsb_housing_aid->setPrefix(Database_Manager::current_database()->manifest().currency.symbol);
+  ui->dsb_charges->setPrefix(Database_Manager::current_database()->manifest().currency.symbol);
+  ui->dsb_house_wastes->setPrefix(Database_Manager::current_database()->manifest().currency.symbol);
 
-  auto q_tenants = DB_MANAGER.get_db()->all_records(ETable::tenants);
-  while (q_tenants->next()) {
-    Tenant tenant(q_tenants->value("tenant_id").toInt());
-    ui->cb_tenant->addItem(tenant.get_full_name(), tenant.get_id());
+
+  if (auto q_tenants = Database_Manager::current_database()->all_records(ETable::Tenant)) {
+    while (q_tenants->next()) {
+      auto tenant = Tenant::read_record(q_tenants->value("tenant_id").toInt());
+      ui->cb_tenant->addItem(tenant.get_full_name(), tenant.id);
+    }
   }
+
 
   ui->b_new->setHidden(true);
 
-  Rent rent(id);
-  if (rent.is_loaded()) {
+  auto rent = Rent ::read_record(id);
+  if (rent) {
     populate_ui();
   }
 
@@ -62,24 +70,25 @@ void W_Rent::populate_ui()
 
   ui->cb_tenant->clear();
 
-  auto q_tenants = DB_MANAGER.get_db()->all_records(ETable::tenants);
-  while (q_tenants->next()) {
-    Tenant tenant(q_tenants->value("tenant_id").toInt());
-    ui->cb_tenant->addItem(tenant.get_full_name(), tenant.get_id());
+  if (auto q_tenants = Database_Manager::current_database()->all_records(ETable::Tenant)) {
+    while (q_tenants->next()) {
+      auto tenant = Tenant::read_record(q_tenants->value("tenant_id").toInt());
+      ui->cb_tenant->addItem(tenant.get_full_name(), tenant.id);
+    }
   }
 
-  Rent rent(id);
+  auto rent = Rent::read_record(id);
 
-  if (rent.is_loaded()) {
-    ui->dsb_rent->setValue(rent.get_rent());
-    ui->dsb_housing_aid->setValue(rent.get_housing_aid());
-    ui->dsb_charges->setValue(rent.get_charge());
-    ui->dsb_house_wastes->setValue(rent.get_household_waste());
+  if (rent) {
+    ui->dsb_rent->setValue(rent.rent);
+    ui->dsb_housing_aid->setValue(rent.housing_aid);
+    ui->dsb_charges->setValue(rent.charge);
+    ui->dsb_house_wastes->setValue(rent.household_waste);
 
-    int tenant_index = ui->cb_tenant->findData(rent.get_tenant_id());
+    int tenant_index = ui->cb_tenant->findData(rent.tenant_id);
     ui->cb_tenant->setCurrentIndex(tenant_index);
 
-    ui->te_comment->setText(rent.get_comment());
+    ui->te_comment->setText(rent.comment);
   } else {
     clear();
   }
@@ -91,10 +100,10 @@ void W_Rent::clear()
 {
   set_block_signals(true);
 
-  ui->dsb_rent->setValue(0.0f);
-  ui->dsb_housing_aid->setValue(0.0f);
-  ui->dsb_charges->setValue(0.0f);
-  ui->dsb_house_wastes->setValue(0.0f);
+  ui->dsb_rent->setValue(0.0F);
+  ui->dsb_housing_aid->setValue(0.0F);
+  ui->dsb_charges->setValue(0.0F);
+  ui->dsb_house_wastes->setValue(0.0F);
 
   ui->cb_tenant->currentText();
 
@@ -105,17 +114,17 @@ void W_Rent::clear()
 
 void W_Rent::inject_data()
 {
-  Rent rent(id);
+  auto rent = Rent::read_record(id);
 
-  if (!rent.is_loaded()) return;
+  if (!rent) return;
 
-  rent.set_rent(ui->dsb_rent->value());
-  rent.set_housing_aid(ui->dsb_housing_aid->value());
-  rent.set_charge(ui->dsb_charges->value());
-  rent.set_household_waste(ui->dsb_house_wastes->value());
-  rent.set_tenant_id(ui->cb_tenant->currentData().toInt());
-  rent.set_comment(ui->te_comment->document()->toMarkdown());
-  rent.update_record();
+  rent.rent            = ui->dsb_rent->value();
+  rent.housing_aid     = ui->dsb_housing_aid->value();
+  rent.charge          = ui->dsb_charges->value();
+  rent.household_waste = ui->dsb_house_wastes->value();
+  rent.tenant_id       = ui->cb_tenant->currentData().toInt();
+  rent.comment         = ui->te_comment->document()->toMarkdown();
+  rent.save_record();
 }
 
 void W_Rent::set_block_signals(bool block)
@@ -132,9 +141,9 @@ void W_Rent::set_block_signals(bool block)
 void W_Rent::enterEvent(QEnterEvent* event)
 {
   Q_UNUSED(event);
-  bool is_loaded = Rent(id).is_loaded();
-  ui->b_new->setHidden(!is_loaded);
-  ui->b_delete->setHidden(is_loaded);
+  auto rent = Rent::read_record(id);
+  ui->b_new->setHidden(!rent.is_valid());
+  ui->b_delete->setHidden(rent.is_valid());
 }
 
 void W_Rent::leaveEvent(QEvent* event)
@@ -146,10 +155,10 @@ void W_Rent::leaveEvent(QEvent* event)
 
 void W_Rent::on_b_new_clicked()
 {
-  Rent rent(id);
+  auto rent = Rent::read_record(id);
 
-  if (!rent.is_loaded()) {
-    rent.insert_record();
+  if (!rent) {
+    Rent::create_record();
   }
 }
 
@@ -192,8 +201,8 @@ void W_Rent::on_te_comment_textChanged()
 
 void W_Rent::on_b_delete_clicked()
 {
-  Rent rent(id);
-  if (rent.is_loaded()) rent.delete_record();
+  auto rent = Rent::read_record(id);
+  if (rent) rent.delete_record();
 }
 
 

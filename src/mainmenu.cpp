@@ -1,14 +1,16 @@
 #include "mainmenu.h"
 
 #include "base.h"
+#include "database/manager.h"
 #include "ui_mainmenu.h"
+#include "w_database_manager.h"
 #include "widget/w_database_creator.h"
+#include "widget/w_first_welcome.h"
 #include "widget/w_invoice_creator.h"
 #include "widget/w_property_creator.h"
 #include "widget/w_receipt_creator.h"
 #include "widget/w_rent_tool_declaration.h"
 #include "widget/w_rent_tool_revision.h"
-#include "widget/w_save_creator.h"
 #include "widget/w_settings.h"
 #include "widget/w_tenant_creator.h"
 #include "widget/w_welcome.h"
@@ -37,7 +39,7 @@ MainMenu::MainMenu(QWidget* parent)
 
   buttons = {
       ui->b_menu,       ui->b_rents,     ui->b_invoices,    ui->b_receipts, ui->b_tenants,  ui->b_properties,
-      ui->b_saves,      ui->b_landlords, ui->b_maintenaces, ui->b_damages,  ui->b_prints,   ui->b_source,
+      ui->b_databases,  ui->b_landlords, ui->b_maintenaces, ui->b_damages,  ui->b_prints,   ui->b_source,
       ui->b_saves_file, ui->b_source,    ui->b_settings,    ui->b_reboot,   ui->b_shutdown,
   };
 
@@ -46,8 +48,8 @@ MainMenu::MainMenu(QWidget* parent)
   }
   ui->stackedWidget->setCurrentIndex(0);
 
-  auto credit_l = new QLabel(TXT::COPYRIGHTS_LABEL);
-  auto f        = credit_l->font();
+  auto* credit_l = new QLabel(TXT::COPYRIGHTS_LABEL);
+  auto  f        = credit_l->font();
   f.setPointSize(8);
   credit_l->setFont(f);
   ui->statusBar->addWidget(credit_l);
@@ -61,8 +63,10 @@ MainMenu::MainMenu(QWidget* parent)
   ui->f_side_panel->setPalette(pal);
   ui->f_top_panel->setPalette(pal);
 
-  connect(&DB_MANAGER, &Database_Manager::signal_db_updated, [this]() { refresh(); });
-  connect(&DB_MANAGER, &Database_Manager::signal_db_changed, [this]() { refresh(); });
+  auto& db = Database_Manager::instance();
+
+  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   refresh();
 
@@ -88,9 +92,9 @@ void MainMenu::refresh()
       */
 }
 
-void MainMenu::open_save_menu()
+void MainMenu::open_database_menu()
 {
-  ui->b_saves->click();
+  ui->b_databases->click();
 }
 
 
@@ -107,7 +111,7 @@ void MainMenu::on_a_about_triggered()
 
 void MainMenu::on_a_save_triggered()
 {
-  auto cre = W_Save_Creator(this);
+  auto cre = W_Database_Creator({}, {});
   cre.setModal(true);
   cre.exec();
 }
@@ -143,9 +147,9 @@ void MainMenu::on_a_quit_triggered()
 }
 
 
-void MainMenu::on_a_new_save_triggered()
+void MainMenu::on_a_new_database_triggered()
 {
-  auto cre = W_Save_Creator(this);
+  auto cre = W_Database_Creator(nullptr, {});
   cre.setModal(true);
   cre.exec();
 }
@@ -205,7 +209,7 @@ void MainMenu::on_a_web_rent_revision_triggered()
 
 void MainMenu::on_a_calc_rent_revision_triggered()
 {
-  auto tool = new W_Rent_Tool_Revision();
+  auto* tool = new W_Rent_Tool_Revision();
   tool->setWindowTitle(tr("Rent Revision"));
   tool->setWindowFlags(Qt::Tool);
   tool->show();
@@ -215,7 +219,7 @@ void MainMenu::on_a_calc_rent_revision_triggered()
 
 void MainMenu::on_a_calc_taxes_triggered()
 {
-  auto tool = new W_Rent_Tool_Declaration();
+  auto* tool = new W_Rent_Tool_Declaration();
   tool->setWindowTitle(tr("Tax Regime"));
   tool->setWindowFlags(Qt::Tool);
   tool->show();
@@ -370,7 +374,7 @@ void MainMenu::on_b_prints_clicked()
 
 void MainMenu::on_b_newsave_clicked()
 {
-  auto cre = W_Save_Creator(this);
+  auto cre = W_Database_Creator({}, {});
   cre.setModal(true);
   cre.exec();
 }
@@ -414,18 +418,9 @@ void MainMenu::resizeEvent(QResizeEvent* event)
 }
 
 
-void MainMenu::on_a_new_database_triggered()
-{
-  auto w_db_creator = new W_Database_Creator(nullptr, "");
-  w_db_creator->setWindowTitle(tr("Database Creator"));
-  w_db_creator->setModal(true);
-  w_db_creator->exec();
-}
-
-
 void MainMenu::on_a_database_settings_triggered()
 {
-  auto w_db_creator = new W_Database_Creator(nullptr, DATABASE_PATH());
+  auto* w_db_creator = new W_Database_Creator(nullptr, DATABASE_PATH());
   w_db_creator->setWindowTitle(tr("Database Settings"));
   w_db_creator->setModal(false);
   w_db_creator->exec();
@@ -434,8 +429,14 @@ void MainMenu::on_a_database_settings_triggered()
 
 void MainMenu::on_a_welcome_triggered()
 {
-  auto w_welcome = new W_Welcome();
-  w_welcome->exec();
+  auto* w = new W_Welcome();
+  w->exec();
+}
+
+void MainMenu::on_a_first_welcome_triggered()
+{
+  auto* w = new W_First_Welcome();
+  w->exec();
 }
 
 
@@ -489,7 +490,7 @@ void MainMenu::on_b_new_window_clicked()
   case 2:  w = new W_Invoice_Manager(nullptr); break;
   case 3:  w = new W_Receipt_Manager(nullptr); break;
   case 4:  w = new W_Tenant_Manager(nullptr); break;
-  case 7:  w = new W_Save_Manager(nullptr); break;
+  case 7:  w = new W_Database_Manager(nullptr); break;
   default: break;
   }
 
@@ -498,4 +499,9 @@ void MainMenu::on_b_new_window_clicked()
   w->setWindowTitle(this->windowTitle());
   w->setAttribute(Qt::WA_DeleteOnClose);
   w->show();
+}
+
+
+void MainMenu::on_a_preferences_triggered()
+{
 }

@@ -1,7 +1,7 @@
 #include "widget/w_ask_ai.h"
 
 #include "base.h"
-#include "settings.h"
+#include "rentalis_settings.h"
 #include "ui_w_ask_ai.h"
 
 #include <QDesktopServices>
@@ -22,8 +22,8 @@ W_Ask_AI::~W_Ask_AI()
 
 void W_Ask_AI::send_to_ai()
 {
-  QString url_base = SETTINGS.get_ask_ai_url();
-  QString prompt   = QUrl::toPercentEncoding("speak-in: " + SETTINGS.get_locale().toString(QLocale::ISO639)
+  QString url_base = RentalisSettings::ask_ai_url;
+  QString prompt   = QUrl::toPercentEncoding("speak-in: " + RentalisSettings::locale().toString(QLocale::ISO639)
                                              + "; context-data: " + ui->te_data->document()->toMarkdown()
                                              + "; user-question: " + ui->te_user->document()->toMarkdown());
   url_base         = url_base.arg(prompt);

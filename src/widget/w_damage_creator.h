@@ -1,6 +1,8 @@
 #ifndef W_DAMAGE_CREATOR_H
 #define W_DAMAGE_CREATOR_H
 
+#include "entities/damage.h"
+
 #include <QDialog>
 
 class W_Damage_Manager;
@@ -20,7 +22,7 @@ public:
   ~W_Damage_Creator();
 
   W_Damage_Manager* manager = nullptr;
-  Damage*           damage  = nullptr;
+  Damage            damage;
 
   void clear();
   void populate_ui();

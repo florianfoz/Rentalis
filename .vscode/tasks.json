@@ -2,7 +2,13 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "clear-console",
+            "type": "shell",
+            "command": "clear"
+        },
+        {
             "label": "CMake: Configure Debug",
+            "dependsOn": "clear-console",
             "type": "shell",
             "command": "cmake",
             "args": [
@@ -26,7 +32,8 @@
             "args": [
                 "--build",
                 "${workspaceFolder}/build/debug",
-                "--parallel"
+                "--parallel",
+                "4"
             ],
             "dependsOn": "CMake: Configure Debug",
             "group": {
@@ -39,6 +46,7 @@
         },
         {
             "label": "CMake: Configure Release",
+            "dependsOn": "clear-console",
             "type": "shell",
             "command": "cmake",
             "args": [
@@ -62,7 +70,8 @@
             "args": [
                 "--build",
                 "${workspaceFolder}/build/release",
-                "--parallel"
+                "--parallel",
+                "4"
             ],
             "dependsOn": "CMake: Configure Release",
             "group": "build",
@@ -72,6 +81,7 @@
         },
         {
             "label": "CMake: Clean Debug",
+            "dependsOn": "clear-console",
             "type": "shell",
             "command": "cmake",
             "args": [
@@ -84,6 +94,7 @@
         },
         {
             "label": "CMake: Clean Release",
+            "dependsOn": "clear-console",
             "type": "shell",
             "command": "cmake",
             "args": [

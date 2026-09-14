@@ -2,7 +2,7 @@
 
 #include "base.h"
 #include "csshighlighter.h"
-#include "settings.h"
+#include "rentalis_settings.h"
 #include "ui_w_settings.h"
 #include "widget/w_database_creator.h"
 
@@ -26,7 +26,7 @@ W_Settings::W_Settings(QWidget* parent)
 
   high = new CssHighlighter(ui->te_custom_theme_CSS->document());
 
-  SETTINGS.load();
+  RentalisSettings::load();
 
   ui->cb_language->clear();
   ui->cb_theme->clear();
@@ -47,7 +47,7 @@ W_Settings::W_Settings(QWidget* parent)
     ui->cb_language->addItem(iso.nativeLanguageName() + ", " + iso.nativeTerritoryName(), iso.name());
   }
 
-  int lang_index = ui->cb_language->findData(SETTINGS.get_locale().name());
+  int lang_index = ui->cb_language->findData(RentalisSettings::locale().name());
   ui->cb_language->setCurrentIndex(lang_index);
 
   ui->cb_theme->addItem("Rentalis - Standard", "rentalis-standard");
@@ -56,14 +56,14 @@ W_Settings::W_Settings(QWidget* parent)
   ui->cb_theme->addItem("Custom", "custom");
 
   QStringList user_th = QDir(THEME_PATH() + "/user").entryList(QStringList() << "*.css", QDir::Files);
-  for (const QString& t : user_th) {
+  for (const auto& t : user_th) {
     ui->cb_theme->addItem("user/" + t, t);
   }
 
-  int theme_index = ui->cb_theme->findData(SETTINGS.get_theme());
+  int theme_index = ui->cb_theme->findData(RentalisSettings::theme);
   ui->cb_theme->setCurrentIndex(theme_index);
 
-  ui->te_custom_theme_CSS->setText(SETTINGS.get_custom_theme());
+  ui->te_custom_theme_CSS->setText(RentalisSettings::custom_theme);
 }
 
 W_Settings::~W_Settings()
@@ -73,16 +73,16 @@ W_Settings::~W_Settings()
 
 void W_Settings::update_settings()
 {
-  SETTINGS.set_ask_ai_url(ui->le_ask_ai_url->text());
-  QString lang = ui->cb_language->currentData().toString();
-  SETTINGS.set_language(lang);
-  QString th = ui->cb_theme->currentData().toString();
-  SETTINGS.set_theme(th);
-  SETTINGS.set_custom_theme(ui->te_custom_theme_CSS->toPlainText());
+  RentalisSettings::ask_ai_url   = ui->le_ask_ai_url->text();
+  QString lang                   = ui->cb_language->currentData().toString();
+  RentalisSettings::language     = lang;
+  QString th                     = ui->cb_theme->currentData().toString();
+  RentalisSettings::theme        = th;
+  RentalisSettings::custom_theme = ui->te_custom_theme_CSS->toPlainText();
 
-  APP->setStyleSheet(SETTINGS.get_theme_css());
+  qApp->setStyleSheet(RentalisSettings::theme_css());
 
-  SETTINGS.save();
+  RentalisSettings::save();
 }
 
 
@@ -123,7 +123,7 @@ void W_Settings::on_b_ask_to_ai_url_help_clicked()
 void W_Settings::on_b_reset_theme_clicked()
 {
   ui->te_custom_theme_CSS->setText(THEME_LIGHT_CSS);
-  APP->setStyleSheet(THEME_LIGHT_CSS);
+  qApp->setStyleSheet(THEME_LIGHT_CSS);
 }
 
 
@@ -155,7 +155,7 @@ void W_Settings::on_b_theme_folder_clicked()
 
 void W_Settings::on_b_db_settings_clicked()
 {
-  auto w_db_settings = new W_Database_Creator(nullptr, DATABASE_PATH());
+  auto* w_db_settings = new W_Database_Creator(nullptr, DATABASE_PATH());
   w_db_settings->setWindowTitle("Database Settings");
   w_db_settings->setModal(false);
   w_db_settings->exec();

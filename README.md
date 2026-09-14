@@ -172,12 +172,17 @@ Forks and modified versions should clearly distinguish themselves from the offic
 
 ## Copyright
 
+<<<<<<< Updated upstream
 Rentalis - © 2026 Florian Foz - AGPL-3.0
 
 Source: https://github.com/TheProgrammare/Rentalis
 
 The **Rentalis name, logo, wordmark and associated branding are separate from the source-code license and are reserved**.
+=======
+Copyright © 2026 Florian Foz
+>>>>>>> Stashed changes
 
+Rentalis is maintained as an open-source project.
 
 ## Links
 

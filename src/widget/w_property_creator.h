@@ -1,12 +1,14 @@
 #ifndef W_PROPERTY_CREATOR_H
 #define W_PROPERTY_CREATOR_H
 
+#include "entities/property.h"
+
 #include <QDialog>
 
 class W_Property_Manager;
 class Property;
 
-enum class EMode;
+enum class EMode : uint8_t;
 
 namespace Ui
 {
@@ -21,8 +23,8 @@ public:
   explicit W_Property_Creator(W_Property_Manager* manager = nullptr, int id = -1);
   ~W_Property_Creator();
 
-  W_Property_Manager* manager  = nullptr;
-  Property*           property = nullptr;
+  W_Property_Manager* manager = nullptr;
+  Property            property;
 
   QString icon_type;
 

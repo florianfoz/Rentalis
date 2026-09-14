@@ -1,9 +1,8 @@
 /*
- * Rentalis
- * Copyright (C) 2026 Foz Florian
+ * Copyright (C) 2025 Foz Florian
  *
- * Rentalis is licensed under the GNU Affero General Public License
- * version 3 or any later version.
+ * Licensed under the GNU Affero General Public License v3.0
+ * or later (AGPL-3.0-or-later).
  *
  * This project uses third-party software, including Qt.
  * Third-party components remain subject to their respective licenses.

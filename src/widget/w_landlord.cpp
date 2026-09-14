@@ -1,8 +1,7 @@
 #include "widget/w_landlord.h"
 
 #include "base.h"
-#include "image_buffer.h"
-#include "landlord.h"
+#include "entities/landlord.h"
 #include "ui_w_landlord.h"
 #include "widget/w_landlord_creator.h"
 #include "widget/w_landlord_manager.h"
@@ -29,20 +28,20 @@ void W_Landlord::refresh()
   ui->b_edit->setHidden(true);
   ui->b_delete->setHidden(true);
 
-  Landlord landlord(id);
-  ui->l_name->setText(landlord.get_full_name());
-  ui->le_email->setText(landlord.get_email());
-  ui->le_address->setText(landlord.get_address());
-  ui->le_phone->setText(landlord.get_phone());
-  ui->l_singing->setPixmap(landlord.get_singing().get_image());
-  ui->le_birthday->setText(landlord.get_birthday().toString("dd/MM/yyyy"));
+  auto landlord = Landlord::read_record(id);
+  ui->l_name->setText(landlord.full_name());
+  ui->le_email->setText(landlord.email);
+  ui->le_address->setText(landlord.address);
+  ui->le_phone->setText(landlord.phone);
+  // ui->l_singing->setPixmap(landlord.singing.image);
+  ui->le_birthday->setText(landlord.birthday.toString("dd/MM/yyyy"));
 
-  if (auto pix = landlord.get_icon().get_image(); !pix.isNull())
-    ui->l_icon->setPixmap(pix);
-  else
-    ui->l_icon->setPixmap(QPixmap("://assets/system-users.svg"));
+  // if (auto pix = landlord.icon.image; !pix.isNull())
+  //   ui->l_icon->setPixmap(pix);
+  // else
+  //   ui->l_icon->setPixmap(QPixmap("://assets/system-users.svg"));
 
-  if (!is_EEntityType_is_human(landlord.get_entity_type())) {
+  if (!EEntityType_is_human(landlord.entity_type)) {
     ui->le_birthday->setHidden(true);
   }
 }
@@ -61,8 +60,8 @@ void W_Landlord::on_b_edit_clicked()
 
 void W_Landlord::on_b_delete_clicked()
 {
-  Landlord landlord(id);
-  QString  msg = QObject::tr("Do you really want to delete the landlord [%1] ?\n").arg(landlord.get_full_name());
+  auto    landlord = Landlord::read_record(id);
+  QString msg      = QObject::tr("Do you really want to delete the landlord [%1] ?\n").arg(landlord.full_name());
 
   auto result = QMessageBox::warning(this, tr("Landlord Deletion"), msg + TXT::WARNING_OPERATION,
                                      QMessageBox::Yes | QMessageBox::Cancel);

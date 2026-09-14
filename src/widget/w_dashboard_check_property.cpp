@@ -1,6 +1,9 @@
 #include "widget/w_dashboard_check_property.h"
 
 #include "base.h"
+#include "database/database.h"
+#include "database/manager.h"
+#include "database/manifest.h"
 #include "ui_w_dashboard_check_property.h"
 
 #include <QMessageBox>
@@ -18,7 +21,7 @@ W_Dashboard_check_property::W_Dashboard_check_property(QWidget* parent)
 
   ui->cb_property->clear();
 
-  if (auto q_property = DB_MANAGER.get_db()->all_records(ETable::properties)) {
+  if (auto q_property = Database_Manager::current_database()->all_records(ETable::Property)) {
     while (q_property->next()) {
       ui->cb_property->addItem(q_property->value("name").toString(), q_property->value("property_id").toInt());
     }
@@ -28,8 +31,10 @@ W_Dashboard_check_property::W_Dashboard_check_property(QWidget* parent)
   ui->de_date_end->setDate(QDate::currentDate());
   ui->de_date_start->setDate(QDate::currentDate().addYears(-5));
 
-  connect(&DB_MANAGER, &Database_Manager::signal_db_updated, [this]() { refresh(); });
-  connect(&DB_MANAGER, &Database_Manager::signal_db_changed, [this]() { refresh(); });
+  auto& db = Database_Manager::instance();
+
+  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   refresh();
 }
@@ -62,7 +67,7 @@ void W_Dashboard_check_property::refresh()
   QString start_date_str = ui->de_date_start->date().toString(Qt::ISODate);
   QString end_date_str   = ui->de_date_end->date().toString(Qt::ISODate);
 
-  auto q_size = QSqlQuery(DB_MANAGER.get_db()->get_sql_db());
+  auto q_size = QSqlQuery(Database_Manager::current_database()->sql());
   q_size.prepare(R"(
         SELECT COUNT(*) as size
         FROM rents
@@ -78,7 +83,7 @@ void W_Dashboard_check_property::refresh()
 
   int size = q_size.value("size").toInt();
 
-  auto query = QSqlQuery(DB_MANAGER.get_db()->get_sql_db());
+  auto query = QSqlQuery(Database_Manager::current_database()->sql());
   query.prepare(R"(
         SELECT *
         FROM rents
@@ -114,19 +119,19 @@ void W_Dashboard_check_property::refresh()
     x_date_info.push_back(label);
   }
 
-  auto rents        = new QBarSet(tr("Rents"));
-  auto housing_aids = new QBarSet(tr("Home Allowances"));
+  auto* rents        = new QBarSet(tr("Rents"));
+  auto* housing_aids = new QBarSet(tr("Home Allowances"));
 
   for (int i = 0; i < rents_data.size(); ++i) {
     *rents << rents_data[i];
     *housing_aids << housing_aids_data[i];
   }
 
-  auto series = new QStackedBarSeries();
+  auto* series = new QStackedBarSeries();
   series->append(rents);
   series->append(housing_aids);
 
-  auto chart = new QChart();
+  auto* chart = new QChart();
   chart->addSeries(series);
   chart->setAnimationOptions(QChart::SeriesAnimations);
   chart->setTheme(QChart::ChartThemeDark);
@@ -143,19 +148,19 @@ void W_Dashboard_check_property::refresh()
 
   // Y axis
   // max y value
-  float       max_y_val = incomes.empty() ? 0.0f : *std::max_element(incomes.begin(), incomes.end());
+  float       max_y_val = incomes.empty() ? 0.0F : *std::max_element(incomes.begin(), incomes.end());
   QValueAxis* axisY     = new QValueAxis();
   axisY->setRange(0, max_y_val);
   chart->addAxis(axisY, Qt::AlignLeft);
   series->attachAxis(axisY);
 
-  if (auto last_chart = ui->l_chart->takeAt(0)) {
+  if (auto* last_chart = ui->l_chart->takeAt(0)) {
     delete last_chart->widget();
     delete last_chart;
   }
 
   // Show
-  auto view = new QChartView(chart);
+  auto* view = new QChartView(chart);
   view->setRenderHint(QPainter::Antialiasing);
   ui->l_chart->addWidget(view);
 

@@ -1,31 +1,34 @@
 #include "widget/w_rent_histogram.h"
 
 #include "base.h"
-#include "rent.h"
+#include "database/database.h"
+#include "database/manager.h"
+#include "entities/rent.h"
 #include "ui_w_rent_histogram.h"
 
 #include <QtCharts>
 #include <QtCore>
 #include <QtGui>
+#include <algorithm>
 
 W_Rent_Histogram::W_Rent_Histogram(int year, int property_id)
   : ui(new Ui::W_Rent_Histogram)
 {
   ui->setupUi(this);
 
-  auto rents        = new QBarSet(tr("rent"));
-  auto housing_aids = new QBarSet(tr("h. aid"));
+  auto* rents        = new QBarSet(tr("rent"));
+  auto* housing_aids = new QBarSet(tr("h. aid"));
 
-  auto           result = DB_MANAGER.get_db()->find_rents_on_year(year, property_id);
+  auto           result = Database_Manager::current_database()->find_rents_on_year(year, property_id);
   QVector<float> rents_data(12);
   QVector<float> housing_aids_data(12);
   QVector<float> incomes(12);
   for (auto [month, rent_id] : result) {
     auto index               = month - 1;
-    auto rent                = Rent(rent_id);
-    rents_data[index]        = rent.get_rent();
-    housing_aids_data[index] = rent.get_housing_aid();
-    incomes[index]           = rent.get_rent() + rent.get_housing_aid();
+    auto rent                = Rent::read_record(rent_id);
+    rents_data[index]        = rent.rent;
+    housing_aids_data[index] = rent.housing_aid;
+    incomes[index]           = rent.rent + rent.housing_aid;
   }
 
   for (int i = 0; i < 12; ++i) {
@@ -33,11 +36,11 @@ W_Rent_Histogram::W_Rent_Histogram(int year, int property_id)
     *housing_aids << housing_aids_data[i];
   }
 
-  auto series = new QStackedBarSeries();
+  auto* series = new QStackedBarSeries();
   series->append(rents);
   series->append(housing_aids);
 
-  auto chart = new QChart();
+  auto* chart = new QChart();
   chart->addSeries(series);
   chart->setAnimationOptions(QChart::SeriesAnimations);
   chart->legend()->setAlignment(Qt::AlignLeft);
@@ -45,25 +48,25 @@ W_Rent_Histogram::W_Rent_Histogram(int year, int property_id)
 
   // X axis
   QStringList months;
-  for (auto& month : all_months) {
-    months << EMonth_to_str(month);
+  for (const auto& month : EMonth_names) {
+    months << month;
   }
 
-  QBarCategoryAxis* axisX = new QBarCategoryAxis();
+  auto* axisX = new QBarCategoryAxis();
   axisX->append(months);
   chart->addAxis(axisX, Qt::AlignBottom);
   series->attachAxis(axisX);
 
   // Y axis
   // max y value
-  float       max_y_val = *std::max_element(incomes.begin(), incomes.end());
-  QValueAxis* axisY     = new QValueAxis();
+  float max_y_val = *std::ranges::max_element(incomes);
+  auto* axisY     = new QValueAxis();
   axisY->setRange(0, max_y_val);
   chart->addAxis(axisY, Qt::AlignLeft);
   series->attachAxis(axisY);
 
   // Show
-  auto view = new QChartView(chart);
+  auto* view = new QChartView(chart);
   view->setRenderHint(QPainter::Antialiasing);
   ui->gridLayout->addWidget(view);
 

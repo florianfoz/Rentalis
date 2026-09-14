@@ -1,8 +1,7 @@
 #include "widget/w_landlord_creator.h"
 
 #include "base.h"
-#include "image_buffer.h"
-#include "landlord.h"
+#include "entities/landlord.h"
 #include "ui_w_landlord_creator.h"
 #include "widget/w_landlord_manager.h"
 
@@ -12,16 +11,16 @@
 W_Landlord_Creator::W_Landlord_Creator(W_Landlord_Manager* manager, int id)
   : QDialog(manager)
   , manager(manager)
-  , landlord(new Landlord(id))
+  , landlord(Landlord::read_record(id))
   , ui(new Ui::W_Landlord_Creator)
 {
   ui->setupUi(this);
 
-  if (auto btn = ui->buttonBox->button(QDialogButtonBox::Ok))
+  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Ok))
     ui->buttonBox->button(QDialogButtonBox::Ok)->setObjectName("Ok");
-  if (auto btn = ui->buttonBox->button(QDialogButtonBox::Cancel))
+  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Cancel))
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setObjectName("Cancel");
-  if (auto btn = ui->buttonBox->button(QDialogButtonBox::Apply))
+  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Apply))
     ui->buttonBox->button(QDialogButtonBox::Apply)->setObjectName("Apply");
 
   if (id == -1)
@@ -41,26 +40,24 @@ void W_Landlord_Creator::populate_ui()
 {
   clear();
 
-  for (auto title : all_titles) {
-    ui->cb_title->addItem(ETitle_to_str(title), static_cast<int>(title));
-  }
+  auto count = 0;
+  for (const auto& title : ETitle_names) ui->cb_title->addItem(title, count++);
+  count = 0;
+  for (const auto& type : EEntityType_names) ui->cb_type->addItem(type, count++);
 
-  for (auto type : all_entity_types) {
-    ui->cb_type->addItem(EEntityType_to_str(type), static_cast<int>(type));
-  }
 
-  if (landlord->is_loaded()) {
-    int type_index = ui->cb_type->findData(static_cast<int>(landlord->get_entity_type()));
+  if (landlord) {
+    int type_index = ui->cb_type->findData(static_cast<int>(landlord.entity_type));
     if (type_index >= 0) ui->cb_type->setCurrentIndex(type_index);
 
-    int title_index = ui->cb_type->findData(static_cast<int>(landlord->get_title()));
+    int title_index = ui->cb_type->findData(static_cast<int>(landlord.title));
     if (title_index >= 0) ui->cb_type->setCurrentIndex(title_index);
 
-    ui->le_address->setText(landlord->get_address());
-    ui->le_email->setText(landlord->get_email());
-    ui->le_frist_name->setText(landlord->get_first_name());
-    ui->le_last_name->setText(landlord->get_last_name());
-    ui->le_phone->setText(landlord->get_phone());
+    ui->le_address->setText(landlord.address);
+    ui->le_email->setText(landlord.email);
+    ui->le_frist_name->setText(landlord.first_name);
+    ui->le_last_name->setText(landlord.last_name);
+    ui->le_phone->setText(landlord.phone);
   }
 }
 
@@ -80,25 +77,18 @@ void W_Landlord_Creator::clear()
 
 void W_Landlord_Creator::inject_data()
 {
-  landlord->set_entity_type(int_to_EEntityType(ui->cb_type->currentData().toInt()));
-  landlord->set_title(int_to_ETitle(ui->cb_title->currentData().toInt()));
-  landlord->set_birthday(ui->de_birthdate->date());
-  landlord->set_email(ui->le_email->text());
-  landlord->set_phone(ui->le_phone->text());
-  landlord->set_first_name(ui->le_frist_name->text());
-  landlord->set_last_name(ui->le_last_name->text());
-
-  landlord->set_icon(Image_Buffer(ui->l_icon->pixmap(), icon_type));
-  landlord->set_singing(Image_Buffer(ui->l_singing->pixmap(), singing_type));
+  landlord.entity_type = static_cast<EEntityType>(ui->cb_type->currentData().toInt());
+  landlord.title       = static_cast<ETitle>(ui->cb_title->currentData().toInt());
+  landlord.birthday    = ui->de_birthdate->date();
+  landlord.email       = ui->le_email->text();
+  landlord.phone       = ui->le_phone->text();
+  landlord.first_name  = ui->le_frist_name->text();
+  landlord.last_name   = ui->le_last_name->text();
 }
 
 void W_Landlord_Creator::on_buttonBox_accepted()
 {
-  if (landlord->is_loaded() && landlord->is_dirty()) {
-    landlord->update_record();
-  } else if (landlord->is_dirty()) {
-    landlord->insert_record();
-  }
+  landlord.save_record();
 
   if (manager) manager->refresh();
   close();

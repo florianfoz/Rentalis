@@ -1,7 +1,7 @@
 #ifndef W_SETTINGS_H
 #define W_SETTINGS_H
 
-#include "settings.h"
+#include "rentalis_settings.h"
 
 #include <QStringList>
 #include <QWidget>

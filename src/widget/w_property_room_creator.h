@@ -1,6 +1,8 @@
 #ifndef W_PROPERTY_ROOM_CREATOR_H
 #define W_PROPERTY_ROOM_CREATOR_H
 
+#include "entities/property_room.h"
+
 #include <QWidget>
 
 namespace Ui
@@ -18,6 +20,7 @@ public:
 
 private:
   Ui::W_Property_Room_Creator* ui;
+  Property_Room                property_room;
 };
 
 #endif // W_PROPERTY_ROOM_CREATOR_H

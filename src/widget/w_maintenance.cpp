@@ -1,8 +1,8 @@
 #include "widget/w_maintenance.h"
 
 #include "base.h"
-#include "maintenance.h"
-#include "property.h"
+#include "entities/maintenance.h"
+#include "entities/property.h"
 #include "ui_w_maintenance.h"
 #include "widget/w_maintenance_creator.h"
 #include "widget/w_maintenance_manager.h"
@@ -17,23 +17,23 @@ W_Maintenance::W_Maintenance(W_Maintenance_Manager* manager, int id)
 
 void W_Maintenance::refresh()
 {
-  Maintenance maintenance(id);
+  auto maintenance = Maintenance::read_record(id);
 
-  if (maintenance.is_loaded()) {
-    ui->le_damage->setText(QString::number(maintenance.get_damage_id()));
-    ui->le_cost->setText(ftom(maintenance.get_cost()));
-    ui->le_status->setText(EStatus_to_str(maintenance.get_status()));
-    ui->te_description->setText(maintenance.get_description());
+  if (maintenance) {
+    ui->le_damage->setText(QString::number(maintenance.damage_id));
+    ui->le_cost->setText(ftom(maintenance.cost));
+    ui->le_status->setText(EStatus_to_str(maintenance.status));
+    ui->te_description->setText(maintenance.description);
 
 
-    Property property(maintenance.get_property_id());
-    if (property.is_loaded()) {
-      ui->l_property_name->setText(property.get_name());
+    auto property = Property::read_record(id);
+    if (property) {
+      ui->l_property_name->setText(property.name);
     }
 
-    ui->l_period->setText(tr("From %1 to %2")
-                              .arg(maintenance.get_start_date().toString("dd/MM/yyyy"),
-                                   maintenance.get_end_date().toString("dd/MM/yyyy")));
+    ui->l_period->setText(
+        tr("From %1 to %2")
+            .arg(maintenance.start_date.toString("dd/MM/yyyy"), maintenance.end_date.toString("dd/MM/yyyy")));
   }
 }
 
@@ -45,7 +45,7 @@ W_Maintenance::~W_Maintenance()
 
 void W_Maintenance::on_b_edit_clicked()
 {
-  auto w_creator = new W_Maintenance_Creator(nullptr, id);
+  auto* w_creator = new W_Maintenance_Creator(nullptr, id);
   w_creator->setModal(true);
   w_creator->exec();
 }
@@ -53,6 +53,6 @@ void W_Maintenance::on_b_edit_clicked()
 
 void W_Maintenance::on_b_delete_clicked()
 {
-  Maintenance maintenance(id);
+  auto maintenance = Maintenance::read_record(id);
   maintenance.delete_record();
 }

@@ -103,7 +103,7 @@ void W_FlowLayout::setGeometry(const QRect& rect)
 
 QSize W_FlowLayout::sizeHint() const
 {
-  return minimumSize();
+  return {};
 }
 
 QSize W_FlowLayout::minimumSize() const

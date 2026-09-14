@@ -1,8 +1,7 @@
 #include "widget/w_tenant_creator.h"
 
 #include "base.h"
-#include "image_buffer.h"
-#include "tenant.h"
+#include "entities/tenant.h"
 #include "ui_w_tenant_creator.h"
 #include "widget/w_tenant_manager.h"
 
@@ -12,16 +11,16 @@
 W_Tenant_Creator::W_Tenant_Creator(W_Tenant_Manager* manager, int id)
   : QDialog(manager)
   , manager(manager)
-  , tenant(new Tenant(id))
+  , tenant(Tenant::read_record(id))
   , ui(new Ui::W_Tenant_Creator)
 {
   ui->setupUi(this);
 
-  if (auto btn = ui->buttonBox->button(QDialogButtonBox::Ok))
+  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Ok))
     ui->buttonBox->button(QDialogButtonBox::Ok)->setObjectName("Ok");
-  if (auto btn = ui->buttonBox->button(QDialogButtonBox::Cancel))
+  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Cancel))
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setObjectName("Cancel");
-  if (auto btn = ui->buttonBox->button(QDialogButtonBox::Apply))
+  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Apply))
     ui->buttonBox->button(QDialogButtonBox::Apply)->setObjectName("Apply");
 
   if (id == -1)
@@ -41,25 +40,27 @@ void W_Tenant_Creator::populate_ui()
 {
   clear();
 
-  for (auto title : all_titles) {
-    ui->cb_title->addItem(ETitle_to_str(title), static_cast<int>(title));
+  static auto count = 0;
+  for (const auto& title : ETitle_names) {
+    ui->cb_title->addItem(title, count++);
   }
 
-  for (auto type : all_entity_types) {
-    ui->cb_type->addItem(EEntityType_to_str(type), static_cast<int>(type));
+  count = 0;
+  for (const auto& type : EEntityType_names) {
+    ui->cb_type->addItem(type, count++);
   }
 
-  if (tenant->is_loaded()) {
-    int type_index = ui->cb_type->findData(static_cast<int>(tenant->get_entity_type()));
+  if (tenant) {
+    int type_index = ui->cb_type->findData(static_cast<int>(tenant.entity_type));
     if (type_index >= 0) ui->cb_type->setCurrentIndex(type_index);
 
-    int title_index = ui->cb_type->findData(static_cast<int>(tenant->get_title()));
+    int title_index = ui->cb_type->findData(static_cast<int>(tenant.title));
     if (title_index >= 0) ui->cb_type->setCurrentIndex(title_index);
 
-    ui->le_email->setText(tenant->get_email());
-    ui->le_frist_name->setText(tenant->get_first_name());
-    ui->le_last_name->setText(tenant->get_last_name());
-    ui->le_phone->setText(tenant->get_phone());
+    ui->le_email->setText(tenant.email);
+    ui->le_frist_name->setText(tenant.first_name);
+    ui->le_last_name->setText(tenant.last_name);
+    ui->le_phone->setText(tenant.phone);
   }
 }
 
@@ -77,26 +78,20 @@ void W_Tenant_Creator::clear()
 
 void W_Tenant_Creator::inject_data()
 {
-  tenant->set_entity_type(int_to_EEntityType(ui->cb_type->currentData().toInt()));
-  tenant->set_title(int_to_ETitle(ui->cb_title->currentData().toInt()));
-  tenant->set_birthday(ui->de_birthdate->date());
-  tenant->set_email(ui->le_email->text());
-  tenant->set_phone(ui->le_phone->text());
-  tenant->set_first_name(ui->le_frist_name->text());
-  tenant->set_last_name(ui->le_last_name->text());
-
-  tenant->set_icon(Image_Buffer(ui->l_icon->pixmap(), icon_type));
+  tenant.entity_type = static_cast<EEntityType>(ui->cb_type->currentData().toInt());
+  tenant.title       = static_cast<ETitle>(ui->cb_title->currentData().toInt());
+  tenant.birthday    = ui->de_birthdate->date();
+  tenant.email       = ui->le_email->text();
+  tenant.phone       = ui->le_phone->text();
+  tenant.first_name  = ui->le_frist_name->text();
+  tenant.last_name   = ui->le_last_name->text();
 }
 
 void W_Tenant_Creator::on_buttonBox_accepted()
 {
   inject_data();
 
-  if (tenant->is_loaded() && tenant->is_dirty()) {
-    tenant->update_record();
-  } else if (tenant->is_dirty()) {
-    tenant->insert_record();
-  }
+  tenant.save_record();
 
   if (manager) manager->refresh();
   close();
@@ -128,7 +123,7 @@ void W_Tenant_Creator::on_b_icon_clicked()
 
 void W_Tenant_Creator::on_cb_type_currentIndexChanged(int index)
 {
-  bool is_human = is_EEntityType_is_human(static_cast<EEntityType>(ui->cb_type->currentData().toInt()));
+  bool is_human = EEntityType_is_human(static_cast<EEntityType>(ui->cb_type->currentData().toInt()));
 
   ui->l_title->setHidden(!is_human);
   ui->l_birthdate->setHidden(!is_human);

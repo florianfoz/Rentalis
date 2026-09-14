@@ -1,9 +1,11 @@
 #ifndef W_INVOICE_CREATOR_H
 #define W_INVOICE_CREATOR_H
 
+#include "entities/invoice.h"
+
 #include <QDialog>
 
-enum class EMode;
+enum class EMode : uint8_t;
 
 class W_Invoice_Manager;
 class Invoice;
@@ -22,7 +24,7 @@ public:
   ~W_Invoice_Creator();
 
   W_Invoice_Manager* manager = nullptr;
-  Invoice*           invoice = nullptr;
+  Invoice            invoice;
 
   void clear();
   void populate_ui();
