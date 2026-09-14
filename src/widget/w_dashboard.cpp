@@ -1,10 +1,10 @@
 #include "widget/w_dashboard.h"
 
 #include "base.h"
-#include "invoice.h"
-#include "property.h"
-#include "receipt.h"
-#include "tenant.h"
+#include "database/database.h"
+#include "database/manager.h"
+#include "entities/property.h"
+#include "entities/tenant.h"
 #include "ui_w_dashboard.h"
 
 #include <QSqlQuery>
@@ -17,8 +17,10 @@ W_Dashboard::W_Dashboard(QWidget* parent)
 
   no_refresh = false;
 
-  connect(&DB_MANAGER, &Database_Manager::signal_db_updated, [this]() { refresh(); });
-  connect(&DB_MANAGER, &Database_Manager::signal_db_changed, [this]() { refresh(); });
+  auto& db = Database_Manager::instance();
+
+  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   refresh();
 }
@@ -41,7 +43,7 @@ void W_Dashboard::refresh_todo()
 
   // ------------ rents ------------
   {
-    QSqlQuery query(DB_MANAGER.get_db()->get_sql_db());
+    QSqlQuery query(Database_Manager::current_database()->sql());
     query.prepare(R"(
             SELECT b.property_id,
                    r.tenant_id,
@@ -77,8 +79,8 @@ void W_Dashboard::refresh_todo()
       bool hasRent     = query.value("has_rent_last_month").toBool();
 
       if (tenant_id > 0 && !hasRent) {
-        auto build = Property(property_id);
-        out_str += "<li>" + build.get_address() + "</li>";
+        auto build = Property::read_record(property_id);
+        out_str += "<li>" + build.address + "</li>";
       }
     }
 
@@ -87,7 +89,7 @@ void W_Dashboard::refresh_todo()
 
   // ------------ invoices -------------
   {
-    QSqlQuery query(DB_MANAGER.get_db()->get_sql_db());
+    QSqlQuery query(Database_Manager::current_database()->sql());
     query.prepare(R"(
             SELECT b.property_id,
                    r.tenant_id,
@@ -122,10 +124,9 @@ void W_Dashboard::refresh_todo()
       bool hasInvoice  = query.value("has_invoice_last_month").toBool();
 
       if (tenant_id > 0 && !hasInvoice) {
-        auto build  = Property(property_id);
-        auto tenant = Tenant(tenant_id);
-        out_str +=
-            "<li>" + tr("tenant: ") + tenant.get_full_name() + tr(" - property: ") + build.get_address() + "</li>";
+        auto build  = Property::read_record(property_id);
+        auto tenant = Tenant::read_record(tenant_id);
+        out_str += "<li>" + tr("tenant: ") + tenant.get_full_name() + tr(" - property: ") + build.address + "</li>";
       }
     }
 
@@ -134,7 +135,7 @@ void W_Dashboard::refresh_todo()
 
   // ------------ receipts ------------
   {
-    QSqlQuery query(DB_MANAGER.get_db()->get_sql_db());
+    QSqlQuery query(Database_Manager::current_database()->sql());
     query.prepare(R"(
             SELECT b.property_id,
                    r.tenant_id,
@@ -169,10 +170,9 @@ void W_Dashboard::refresh_todo()
       bool hasReceipt  = query.value("has_receipt_last_month").toBool();
 
       if (tenant_id > 0 && !hasReceipt) {
-        auto build  = Property(property_id);
-        auto tenant = Tenant(tenant_id);
-        out_str +=
-            "<li>" + tr("tenant: ") + tenant.get_full_name() + tr(" - property: ") + build.get_address() + "</li>";
+        auto build  = Property::read_record(property_id);
+        auto tenant = Tenant::read_record(tenant_id);
+        out_str += "<li>" + tr("tenant: ") + tenant.get_full_name() + tr(" - property: ") + build.address + "</li>";
       }
     }
 
@@ -187,7 +187,7 @@ void W_Dashboard::refresh_tw_year_incomes()
 {
   ui->tw_year_incomes->setRowCount(0);
 
-  auto query = QSqlQuery(DB_MANAGER.get_db()->get_sql_db());
+  auto query = QSqlQuery(Database_Manager::current_database()->sql());
   query.prepare(R"(
         SELECT
             strftime("%Y", rents.date) AS year,
@@ -198,7 +198,7 @@ void W_Dashboard::refresh_tw_year_incomes()
     )");
   query.exec();
 
-  float income_tot = 0.0f;
+  float income_tot = 0.0F;
 
   int row = 0;
   while (query.next()) {
@@ -227,7 +227,7 @@ void W_Dashboard::refresh_tw_tenants()
 {
   ui->tw_tenants->setRowCount(0);
 
-  auto query = QSqlQuery(DB_MANAGER.get_db()->get_sql_db());
+  auto query = QSqlQuery(Database_Manager::current_database()->sql());
   query.prepare(R"(
         SELECT property_id, tenant_id
         FROM (
@@ -246,15 +246,15 @@ void W_Dashboard::refresh_tw_tenants()
 
     if (tenant_id < 1 || property_id < 1) return;
 
-    Property property(property_id);
-    Tenant   tenant(tenant_id);
+    auto property = Property::read_record(property_id);
+    auto tenant   = Tenant::read_record(tenant_id);
 
-    if (!property.is_loaded() || !tenant.is_loaded()) return;
+    if (!property || !tenant) return;
 
-    QTableWidgetItem* l_address_item = new QTableWidgetItem(property.get_address());
+    QTableWidgetItem* l_address_item = new QTableWidgetItem(property.address);
     QTableWidgetItem* l_name_item    = new QTableWidgetItem(tenant.get_full_name());
-    QTableWidgetItem* l_phone_item   = new QTableWidgetItem(tenant.get_phone());
-    QTableWidgetItem* l_email_item   = new QTableWidgetItem(tenant.get_email());
+    QTableWidgetItem* l_phone_item   = new QTableWidgetItem(tenant.phone);
+    QTableWidgetItem* l_email_item   = new QTableWidgetItem(tenant.email);
 
     ui->tw_tenants->insertRow(row);
 

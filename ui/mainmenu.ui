@@ -685,7 +685,7 @@
         </widget>
        </item>
        <item row="10" column="1">
-        <widget class="QPushButton" name="b_saves">
+        <widget class="QPushButton" name="b_databases">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
@@ -707,11 +707,11 @@
           <string notr="true">text-align: Left</string>
          </property>
          <property name="text">
-          <string>Saves</string>
+          <string>Saved Data</string>
          </property>
          <property name="icon">
           <iconset resource="../resources/icons.qrc">
-           <normaloff>:/assets/kfloppy.svg</normaloff>:/assets/kfloppy.svg</iconset>
+           <normaloff>:/assets/sqlitebrowser.svg</normaloff>:/assets/sqlitebrowser.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -1311,7 +1311,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="_0_menu">
        <layout class="QGridLayout" name="gridLayout">
@@ -1488,7 +1488,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="_7_saves">
+      <widget class="QWidget" name="_7_databases">
        <layout class="QGridLayout" name="gridLayout_5">
         <property name="leftMargin">
          <number>0</number>
@@ -1506,7 +1506,7 @@
          <number>0</number>
         </property>
         <item row="0" column="0">
-         <widget class="W_Save_Manager" name="w_saves" native="true"/>
+         <widget class="W_Database_Manager" name="w_databases" native="true"/>
         </item>
        </layout>
       </widget>
@@ -1600,9 +1600,9 @@
     <addaction name="a_restart"/>
     <addaction name="a_quit"/>
    </widget>
-   <widget class="QMenu" name="m_creation">
+   <widget class="QMenu" name="m_edit">
     <property name="title">
-     <string>New</string>
+     <string>Edit</string>
     </property>
     <addaction name="a_new_invoice"/>
     <addaction name="a_new_receipt"/>
@@ -1628,6 +1628,7 @@
     </property>
     <addaction name="a_about"/>
     <addaction name="a_welcome"/>
+    <addaction name="a_first_welcome"/>
    </widget>
    <widget class="QMenu" name="m_tools">
     <property name="title">
@@ -1640,9 +1641,16 @@
     <addaction name="a_web_taxes"/>
     <addaction name="a_web_rent_revision"/>
    </widget>
+   <widget class="QMenu" name="m_configuration">
+    <property name="title">
+     <string>Configuration</string>
+    </property>
+    <addaction name="a_preferences"/>
+   </widget>
    <addaction name="m_file"/>
-   <addaction name="m_creation"/>
+   <addaction name="m_edit"/>
    <addaction name="m_tools"/>
+   <addaction name="m_configuration"/>
    <addaction name="m_help"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
@@ -1950,6 +1958,27 @@
     <string>Database Settings</string>
    </property>
   </action>
+  <action name="a_preferences">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/application-default-icon.svg</normaloff>:/assets/application-default-icon.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Preferences</string>
+   </property>
+   <property name="toolTip">
+    <string>Rentalis Preferences</string>
+   </property>
+  </action>
+  <action name="a_first_welcome">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/mx-alerts.svg</normaloff>:/assets/mx-alerts.svg</iconset>
+   </property>
+   <property name="text">
+    <string>First Welcome</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1971,9 +2000,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>W_Save_Manager</class>
+   <class>W_Database_Manager</class>
    <extends>QWidget</extends>
-   <header>w_save_manager.h</header>
+   <header>w_database_manager.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

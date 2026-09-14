@@ -18,7 +18,7 @@ W_Database_Choice::~W_Database_Choice()
 
 void W_Database_Choice::on_b_new_clicked()
 {
-  auto w_creator = new W_Database_Creator(nullptr, "");
+  auto* w_creator = new W_Database_Creator(nullptr, "");
   w_creator->setModal(true);
 
   connect(w_creator, &W_Database_Creator::accepted, [this]() { close(); });
@@ -35,7 +35,7 @@ void W_Database_Choice::on_pushButton_clicked()
 
 void W_Database_Choice::on_b_import_clicked()
 {
-  auto w_import = new W_Database_Importation();
+  auto* w_import = new W_Database_Importation();
   w_import->setModal(true);
 
   connect(w_import, &W_Database_Importation::accepted, [this]() { close(); });

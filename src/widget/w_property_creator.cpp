@@ -1,7 +1,7 @@
 #include "widget/w_property_creator.h"
 
 #include "base.h"
-#include "property.h"
+#include "entities/property.h"
 #include "ui_w_property_creator.h"
 #include "widget/w_property_manager.h"
 
@@ -11,16 +11,16 @@
 W_Property_Creator::W_Property_Creator(W_Property_Manager* manager, int id)
   : QDialog(manager)
   , manager(manager)
-  , property(new Property(id))
+  , property(Property::read_record(id))
   , ui(new Ui::W_Property_Creator)
 {
   ui->setupUi(this);
 
-  if (auto btn = ui->buttonBox->button(QDialogButtonBox::Ok))
+  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Ok))
     ui->buttonBox->button(QDialogButtonBox::Ok)->setObjectName("Ok");
-  if (auto btn = ui->buttonBox->button(QDialogButtonBox::Cancel))
+  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Cancel))
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setObjectName("Cancel");
-  if (auto btn = ui->buttonBox->button(QDialogButtonBox::Apply))
+  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Apply))
     ui->buttonBox->button(QDialogButtonBox::Apply)->setObjectName("Apply");
 
   if (id == -1)
@@ -39,44 +39,40 @@ W_Property_Creator::~W_Property_Creator()
 void W_Property_Creator::populate_ui()
 {
   clear();
+  auto count = 0;
+  for (const auto& type : EPropertyType_names) ui->cb_type->addItem(type, count++);
 
-  for (auto type : all_property_types) {
-    ui->cb_type->addItem(EPropertyType_to_str(type), static_cast<int>(type));
-  }
+  count = 0;
+  for (const auto& cond : ECondition_names) ui->cb_condition->addItem(cond, count++);
 
-  for (auto cond : all_conditions) {
-    ui->cb_condition->addItem(ECondition_to_str(cond), static_cast<int>(cond));
-  }
-
-  for (auto energy : all_energy) {
-    ui->cb_type->addItem(EEnergy_to_str(energy), static_cast<int>(energy));
-  }
+  count = 0;
+  for (const auto& energy : EEnergy_names) ui->cb_energy->addItem(energy, count++);
 
   const auto locales = QLocale::matchingLocales(QLocale::AnyLanguage, QLocale::AnyScript, QLocale::AnyCountry);
 
-  for (auto local : locales) {
+  for (const auto& local : locales) {
     ui->cb_country->addItem(local.nativeTerritoryName(), local.name());
   }
 
-  if (property->is_loaded()) {
-    int type_index = ui->cb_type->findData(static_cast<int>(property->get_property_type()));
+  if (property) {
+    int type_index = ui->cb_type->findData(static_cast<int>(property.property_type));
     if (type_index >= 0) ui->cb_type->setCurrentIndex(type_index);
 
-    int cond_index = ui->cb_condition->findData(static_cast<int>(property->get_condition()));
+    int cond_index = ui->cb_condition->findData(static_cast<int>(property.condition));
     if (cond_index >= 0) ui->cb_condition->setCurrentIndex(cond_index);
 
-    int energy_index = ui->cb_energy->findData(static_cast<int>(property->get_energy()));
+    int energy_index = ui->cb_energy->findData(static_cast<int>(property.energy));
     if (energy_index >= 0) ui->cb_energy->setCurrentIndex(energy_index);
 
-    int country_index = ui->cb_country->findData(property->get_country());
+    int country_index = ui->cb_country->findData(property.country);
     if (country_index >= 0) ui->cb_country->setCurrentIndex(country_index);
 
-    ui->le_name->setText(property->get_name());
-    ui->le_address->setText(property->get_address());
-    ui->le_city->setText(property->get_city());
-    ui->le_postal_code->setText(property->get_postal_code());
-    ui->le_location_number->setText(property->get_location_number());
-    ui->dsb_surface_size->setValue(property->get_surface());
+    ui->le_name->setText(property.name);
+    ui->le_address->setText(property.address);
+    ui->le_city->setText(property.city);
+    ui->le_postal_code->setText(property.postal_code);
+    ui->le_location_number->setText(property.location_number);
+    ui->dsb_surface_size->setValue(property.surface);
   }
 }
 
@@ -97,26 +93,22 @@ void W_Property_Creator::clear()
 
 void W_Property_Creator::inject_data()
 {
-  property->set_property_type(int_to_EPropertyType(ui->cb_type->currentData().toInt()));
-  property->set_condition(int_to_ECondition(ui->cb_condition->currentData().toInt()));
-  property->set_energy(int_to_EEnergy(ui->cb_energy->currentData().toInt()));
-  property->set_country(ui->cb_country->currentData().toString());
+  property.property_type = static_cast<EPropertyType>(ui->cb_type->currentData().toInt());
+  property.condition     = static_cast<ECondition>(ui->cb_condition->currentData().toInt());
+  property.energy        = static_cast<EEnergy>(ui->cb_energy->currentData().toInt());
+  property.country       = ui->cb_country->currentData().toString();
 
-  property->set_name(ui->le_name->text());
-  // property->set_icon(std::make_unique<Image_Buffer>(ui->l_icon->pixmap(), icon_type));
-  property->set_address(ui->le_address->text());
-  property->set_postal_code(ui->le_postal_code->text());
-  property->set_location_number(ui->le_location_number->text());
-  property->set_surface(ui->dsb_surface_size->value());
+  property.name            = ui->le_name->text();
+  // property.icon = std::make_unique<Image_Buffer>(ui->l_icon->pixmap(), icon_type);
+  property.address         = ui->le_address->text();
+  property.postal_code     = ui->le_postal_code->text();
+  property.location_number = ui->le_location_number->text();
+  property.surface         = ui->dsb_surface_size->value();
 }
 
 void W_Property_Creator::on_buttonBox_accepted()
 {
-  if (property->is_loaded() && property->is_dirty()) {
-    property->update_record();
-  } else if (property->is_dirty()) {
-    property->insert_record();
-  }
+  property.save_record();
 
   if (manager) manager->refresh();
   close();

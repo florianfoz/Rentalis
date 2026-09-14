@@ -1,6 +1,7 @@
 #include "widget/w_tenant_manager.h"
 
 #include "base.h"
+#include "database/manager.h"
 #include "ui_w_tenant_manager.h"
 #include "widget/w_tenant.h"
 #include "widget/w_tenant_creator.h"
@@ -15,8 +16,10 @@ W_Tenant_Manager::W_Tenant_Manager(QWidget* parent)
 {
   ui->setupUi(this);
 
-  connect(&DB_MANAGER, &Database_Manager::signal_db_updated, [this]() { refresh(); });
-  connect(&DB_MANAGER, &Database_Manager::signal_db_changed, [this]() { refresh(); });
+  auto& db = Database_Manager::instance();
+
+  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   refresh();
 }
@@ -30,15 +33,9 @@ void W_Tenant_Manager::refresh()
 {
   ui->tile_view->clear();
 
-  QSqlQuery query(DB_MANAGER.get_sql_db());
-  if (query.exec("SELECT * FROM tenants")) {
-    while (query.next()) {
-      int  id     = query.value("tenant_id").toInt();
-      auto tenant = new W_Tenant(this, id);
-      ui->tile_view->add_widget(tenant);
-    }
-  } else {
-    QMessageBox::critical(this, tr("Search Failed"), tr("The tenants search failed !"));
+  for (auto id : Tenant::all_records_id()) {
+    auto* w = new W_Tenant(this, id);
+    ui->tile_view->add_widget(w);
   }
 }
 

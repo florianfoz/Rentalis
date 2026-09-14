@@ -9,7 +9,7 @@ CssHighlighter::CssHighlighter(QTextDocument* parent)
   defaultFormat.setForeground(QColor("#ffffff"));
 
   // --- Selectors (QWidget, QPushButton, .class, #id)
-  selectorFormat.setForeground(QColor("#0091ff"));
+  selectorFormat.setForeground(QColor("#0091Ff"));
   rule.pattern = QRegularExpression(R"(^\s*[\w\.\#-]+(?=\s*\{))");
   rule.format  = selectorFormat;
   rules.append(rule);

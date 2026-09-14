@@ -1,6 +1,9 @@
 #include "widget/w_rent_tool_declaration.h"
 
 #include "base.h"
+#include "database/database.h"
+#include "database/manager.h"
+#include "database/manifest.h"
 #include "ui_w_rent_tool_declaration.h"
 
 #include <QDate>
@@ -31,15 +34,16 @@ void W_Rent_Tool_Declaration::refresh()
   if (no_refresh) return;
   no_refresh = true;
 
-  ui->dsb_roof_incomes->setPrefix(DB_MANAGER.get_db()->get_settings().get_currency().symbol);
+  ui->dsb_roof_incomes->setPrefix(Database_Manager::current_database()->manifest().currency.symbol);
 
   int   year        = ui->sb_fisc_year->value();
   float year_income = 0;
 
-  if (auto properties = DB_MANAGER.get_db()->all_records(ETable::properties)) {
+  if (auto properties = Database_Manager::current_database()->all_records(ETable::Property)) {
     while (properties->next()) {
-      auto property_id                = properties->value("property_id").toInt();
-      auto [rent, aid, charge, waste] = DB_MANAGER.get_db()->total_year_rent_sum(year - 1, property_id);
+      auto property_id = properties->value("property_id").toInt();
+      auto [rent, aid, charge, waste] =
+          Database_Manager::current_database()->total_year_rent_sum(year - 1, property_id);
       year_income += rent + aid;
     }
   }

@@ -1,6 +1,8 @@
 #ifndef W_RECEIPT_CREATOR_H
 #define W_RECEIPT_CREATOR_H
 
+#include "entities/receipt.h"
+
 #include <QDialog>
 
 class W_Receipt_Manager;
@@ -20,7 +22,7 @@ public:
   ~W_Receipt_Creator();
 
   W_Receipt_Manager* manager = nullptr;
-  Receipt*           receipt;
+  Receipt            receipt;
 
   void populate_ui();
   void clear();

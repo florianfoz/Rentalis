@@ -20,7 +20,7 @@ public:
   ~W_Rent_Manager();
 
   int   fiscal_year     = QDate::currentDate().year();
-  float abattement_rate = 0.3f;
+  float abattement_rate = 0.3F;
 
   void refresh();
 

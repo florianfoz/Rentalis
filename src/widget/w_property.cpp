@@ -1,7 +1,9 @@
 #include "widget/w_property.h"
 
 #include "base.h"
-#include "property.h"
+#include "database/database.h"
+#include "database/manager.h"
+#include "entities/property.h"
 #include "ui_w_property.h"
 #include "widget/w_property_creator.h"
 #include "widget/w_property_manager.h"
@@ -24,11 +26,11 @@ W_Property::W_Property(W_Property_Manager* manager, int id)
 
 void W_Property::refresh()
 {
-  Property property(id);
-  ui->l_name->setText(property.get_name());
-  ui->l_surface_size->setText(ftod(property.get_surface()) + " m³");
-  ui->le_address->setText(property.get_address());
-  ui->le_location_number->setText(property.get_location_number());
+  auto property = Property::read_record(id);
+  ui->l_name->setText(property.name);
+  ui->l_surface_size->setText(ftod(property.surface) + " m³");
+  ui->le_address->setText(property.address);
+  ui->le_location_number->setText(property.location_number);
 }
 
 W_Property::~W_Property()
@@ -46,30 +48,31 @@ void W_Property::on_b_edit_clicked()
 
 void W_Property::on_b_delete_clicked()
 {
-  if (DB_MANAGER.get_db()->property_used(id)) {
+  auto property = Property::read_record(id);
+
+  if (Database_Manager::current_database()->property_used(id)) {
     QString msg = QObject::tr(R"(
             "Deleting the property [%1] is prohibied.\n"
             "Because he is referenced in the database (rents) !\n"
             "You should remove all his references, or else change his name to correspond to an desired property."
         )")
-                      .arg(Property(id).get_name());
+                      .arg(property.name);
 
     QMessageBox::warning(nullptr, tr("Prohibied Property Deletion"), msg);
     return;
-  } else {
-    QString msg = QObject::tr(R"(
+  }
+
+  QString msg = QObject::tr(R"(
             "Do you really want to delete the property [%1] ?\n"
         )")
-                      .arg(Property(id).get_name())
-                  + TXT::WARNING_OPERATION;
+                    .arg(property.name)
+                + TXT::WARNING_OPERATION;
 
-    auto result = QMessageBox::warning(this, tr("Property Deletion"), msg, QMessageBox::Yes | QMessageBox::Cancel);
+  auto result = QMessageBox::warning(this, tr("Property Deletion"), msg, QMessageBox::Yes | QMessageBox::Cancel);
 
-    if (result == QMessageBox::Cancel) return;
+  if (result == QMessageBox::Cancel) return;
 
-    Property property(id);
-    property.delete_record();
+  property.delete_record();
 
-    manager->refresh();
-  }
+  manager->refresh();
 }

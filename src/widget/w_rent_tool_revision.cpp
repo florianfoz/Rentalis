@@ -1,6 +1,9 @@
 #include "widget/w_rent_tool_revision.h"
 
 #include "base.h"
+#include "database/database.h"
+#include "database/manager.h"
+#include "database/manifest.h"
 #include "ui_w_rent_tool_revision.h"
 
 #include <QDesktopServices>
@@ -25,13 +28,13 @@ void W_Rent_Tool_Revision::refresh()
   if (no_refresh) return;
   no_refresh = true;
 
-  ui->dsb_rent_current->setPrefix(DB_MANAGER.get_db()->get_settings().get_currency().symbol);
+  ui->dsb_rent_current->setPrefix(Database_Manager::current_database()->manifest().currency.symbol);
 
   float IRL_last     = ui->dsb_IRL_last->value();
   float IRL_current  = ui->dsb_IRL_current->value();
   float rent_current = ui->dsb_rent_current->value();
 
-  float new_rent = IRL_last != 0.0f ? rent_current * (IRL_current / IRL_last) : 0.0f;
+  float new_rent = IRL_last != 0.0F ? rent_current * (IRL_current / IRL_last) : 0.0F;
 
   ui->le_rent_possible->setText(ftom(new_rent));
 

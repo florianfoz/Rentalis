@@ -1,9 +1,8 @@
 /*
- * Rentalis
- * Copyright (C) 2026 Foz Florian
+ * Copyright (C) 2025 Foz Florian
  *
- * Rentalis is licensed under the GNU Affero General Public License
- * version 3 or any later version.
+ * Licensed under the GNU Affero General Public License v3.0
+ * or later (AGPL-3.0-or-later).
  *
  * This project uses third-party software, including Qt.
  * Third-party components remain subject to their respective licenses.
@@ -34,7 +33,7 @@ public:
 
   void refresh();
 
-  void open_save_menu();
+  void open_database_menu();
 
   QVector<QWidget*>     indicators;
   QVector<QPushButton*> buttons;
@@ -54,7 +53,7 @@ private slots:
 
   void on_a_quit_triggered();
 
-  void on_a_new_save_triggered();
+  void on_a_new_database_triggered();
 
   void on_a_new_invoice_triggered();
 
@@ -110,17 +109,19 @@ private slots:
 
   void on_b_damages_clicked();
 
-  void on_a_new_database_triggered();
-
   void on_a_database_settings_triggered();
 
   void on_a_welcome_triggered();
+
+  void on_a_first_welcome_triggered();
 
   void on_b_sidebar_clicked();
 
   void on_b_side_panel_clicked();
 
   void on_b_new_window_clicked();
+
+  void on_a_preferences_triggered();
 
 private:
   Ui::MainMenu* ui;

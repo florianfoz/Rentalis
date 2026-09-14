@@ -1,9 +1,11 @@
 #ifndef W_DATABASE_CREATOR_H
 #define W_DATABASE_CREATOR_H
 
+#include "database/database.h"
+
 #include <QDialog>
 
-class Save_Manager;
+class W_Database_Manager;
 class Database;
 class QTimer;
 
@@ -17,11 +19,11 @@ class W_Database_Creator : public QDialog
   Q_OBJECT
 
 public:
-  explicit W_Database_Creator(Save_Manager* manager, const QString& database_path);
+  explicit W_Database_Creator(W_Database_Manager* manager, const QString& database_path);
   ~W_Database_Creator();
 
-  Save_Manager* manager  = nullptr;
-  Database*     database = nullptr;
+  W_Database_Manager* manager  = nullptr;
+  Database*           database = nullptr;
 
   bool is_creation_successful = false;
 

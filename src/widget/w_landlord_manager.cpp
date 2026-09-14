@@ -1,6 +1,7 @@
 #include "widget/w_landlord_manager.h"
 
-#include "base.h"
+#include "database/database.h"
+#include "database/manager.h"
 #include "ui_w_landlord_manager.h"
 #include "widget/w_landlord.h"
 #include "widget/w_landlord_creator.h"
@@ -14,8 +15,10 @@ W_Landlord_Manager::W_Landlord_Manager(QWidget* parent)
 {
   ui->setupUi(this);
 
-  connect(&DB_MANAGER, &Database_Manager::signal_db_changed, [this]() { refresh(); });
-  connect(&DB_MANAGER, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  Database_Manager& db = Database_Manager::instance();
+
+  connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
 
   refresh();
 }
@@ -29,15 +32,9 @@ void W_Landlord_Manager::refresh()
 {
   ui->tile_view->clear();
 
-  QSqlQuery query(DB_MANAGER.get_db()->get_sql_db());
-  if (query.exec("SELECT * FROM landlords")) {
-    while (query.next()) {
-      int  id       = query.value("landlord_id").toInt();
-      auto landlord = new W_Landlord(this, id);
-      ui->tile_view->add_widget(landlord);
-    }
-  } else {
-    QMessageBox::critical(this, tr("Search Failed"), tr("The landlords search failed !"));
+  for (auto& id : Landlord::all_records_id()) {
+    auto* w = new W_Landlord(this, id);
+    ui->tile_view->add_widget(w);
   }
 }
 

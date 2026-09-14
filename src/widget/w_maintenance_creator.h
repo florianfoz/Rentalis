@@ -1,5 +1,6 @@
 #ifndef W_MAINTENANCE_CREATOR_H
 #define W_MAINTENANCE_CREATOR_H
+#include "entities/maintenance.h"
 
 #include <QDialog>
 
@@ -19,8 +20,8 @@ public:
   explicit W_Maintenance_Creator(W_Maintenance_Manager* manager, int id = -1);
   ~W_Maintenance_Creator();
 
-  Maintenance*           maintenance = nullptr;
-  W_Maintenance_Manager* manager     = nullptr;
+  Maintenance            maintenance;
+  W_Maintenance_Manager* manager = nullptr;
 
   void populate_ui();
   void clear();

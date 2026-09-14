@@ -1,6 +1,6 @@
 #pragma once
 #include "base.h"
-#include "property.h"
+#include "entities/property.h"
 #include "widget/w_comment_dialog.h"
 #include "widget/w_rent.h"
 
@@ -68,7 +68,7 @@ public:
     f.setPointSize(10);
     editor->setFont(f);
 
-    QSqlQuery query(DB_MANAGER.get_sql_db());
+    QSqlQuery query(Database_Manager::current_sql());
     query.prepare("SELECT * FROM tenants;");
     if (query.exec()) {
       while (query.next()) {
@@ -120,8 +120,8 @@ public:
     Q_UNUSED(parent);
 
     QString currentText = index.data(Qt::EditRole).toString();
-    auto rent_inst = Rent(-1).load_from_property(rent->property->get_id(), QDate(rent->year, rent->col_month + 1, 1));
-    W_Comment_Dialog dialog(rent_inst.get_id());
+    auto    rent_inst   = Rent(-1).load_from_property(rent->property->id, QDate(rent->year, rent->col_month + 1, 1));
+    W_Comment_Dialog dialog(rent_inst.id);
     dialog.setModal(true);
     dialog.exec(); // ouvre la boîte de dialogue
 

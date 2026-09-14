@@ -1,7 +1,9 @@
 #include "widget/w_tenant.h"
 
 #include "base.h"
-#include "tenant.h"
+#include "database/database.h"
+#include "database/manager.h"
+#include "entities/tenant.h"
 #include "ui_w_tenant.h"
 #include "widget/w_tenant_creator.h"
 #include "widget/w_tenant_manager.h"
@@ -26,20 +28,20 @@ void W_Tenant::refresh()
   ui->b_delete->setHidden(true);
   ui->b_edit->setHidden(true);
 
-  Tenant tenant(id);
+  auto tenant = Tenant::read_record(id);
 
   ui->l_name->setText(tenant.get_full_name());
-  ui->le_email->setText(tenant.get_email());
-  ui->le_birthday->setText(tenant.get_birthday().toString("dd/MM/yyyy"));
-  ui->le_phone->setText(tenant.get_phone());
-  if (auto pix = tenant.get_icon().get_image(); !pix.isNull())
-    ui->l_icon->setPixmap(pix);
-  else
-    ui->l_icon->setPixmap(QPixmap("://assets/system-users.svg"));
+  ui->le_email->setText(tenant.email);
+  ui->le_birthday->setText(tenant.birthday.toString("dd/MM/yyyy"));
+  ui->le_phone->setText(tenant.phone);
+  // if (auto pix = tenant.icon.image; !pix.isNull())
+  //   ui->l_icon->setPixmap(pix);
+  // else
+  ui->l_icon->setPixmap(QPixmap("://assets/system-users.svg"));
 
-  ui->le_type->setText(EEntityType_to_str(tenant.get_entity_type()));
+  ui->le_type->setText(EEntityType_to_str(tenant.entity_type));
 
-  if (!is_EEntityType_is_human(tenant.get_entity_type())) ui->le_birthday->setHidden(true);
+  if (!EEntityType_is_human(tenant.entity_type)) ui->le_birthday->setHidden(true);
 }
 
 W_Tenant::~W_Tenant()
@@ -50,8 +52,8 @@ W_Tenant::~W_Tenant()
 
 void W_Tenant::on_b_delete_clicked()
 {
-  Tenant tenant(id);
-  DB_MANAGER.get_db()->delete_record(ETable::tenants, id, true, QObject::tr("Tenant: %1").arg(tenant.get_full_name()));
+  auto tenant = Tenant::read_record(id);
+  tenant.delete_record(true, QObject::tr("Tenant: %1").arg(tenant.get_full_name()));
 }
 
 void W_Tenant::enterEvent(QEnterEvent* event)

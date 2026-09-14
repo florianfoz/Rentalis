@@ -1,9 +1,8 @@
 /*
- * Rentalis
- * Copyright (C) 2026 Foz Florian
+ * Copyright (C) 2025 Foz Florian
  *
- * Rentalis is licensed under the GNU Affero General Public License
- * version 3 or any later version.
+ * Licensed under the GNU Affero General Public License v3.0
+ * or later (AGPL-3.0-or-later).
  *
  * This project uses third-party software, including Qt.
  * Third-party components remain subject to their respective licenses.
@@ -12,19 +11,18 @@
 #ifndef BASE_H
 #define BASE_H
 
-#include "database_manager.h"
+#include "enum_lite.h"
+#include "forward.h"
 
 #include <QSize>
 #include <QStandardPaths>
 #include <QString>
 
-class QApplication;
 class QPixmap;
 
 inline QString DATABASE_PATH()
 {
-  static const QString path =
-      QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/data/rentalis_database.sqlite";
+  static const QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/data";
   return path;
 }
 inline QString SAVE_PATH()
@@ -50,11 +48,8 @@ inline QString THEME_PATH()
   // subgeneration ../software ../user
   return path;
 }
-inline QString          THEME_LIGHT_CSS;
-inline QString          THEME_DARK_CSS;
-inline Database_Manager DB_MANAGER;
-inline Settings         SETTINGS;
-inline QApplication*    APP;
+inline QString THEME_LIGHT_CSS;
+inline QString THEME_DARK_CSS;
 
 namespace TXT
 {
@@ -71,198 +66,148 @@ extern const QString RECEIPT_MAIL_BODY;
 } // namespace TXT
 
 
-enum class EMode { Edit, Creation, View };
+DEFINE_ENUM(EMode, uint8_t, //
+            Edit, 1,        //
+            Creation, 2,    //
+            View, 3,        //
+)
 
-enum class EDue { None, Due, WillDue };
+DEFINE_ENUM(EDue, uint8_t, //
+            Due, 2,        //
+            WillDue, 3,    //
+)
 
-enum class EMonth {
-  None,
-  January,
-  February,
-  March,
-  April,
-  May,
-  June,
-  July,
-  August,
-  September,
-  October,
-  November,
-  December,
-};
+DEFINE_ENUM(EMonth, uint8_t, //
+            January, 1,      //
+            February, 2,     //
+            March, 3,        //
+            April, 4,        //
+            May, 5,          //
+            June, 6,         //
+            July, 7,         //
+            August, 8,       //
+            September, 9,    //
+            October, 10,     //
+            November, 11,    //
+            December, 12,    //
+)
 
-constexpr EMonth all_months[] = {
-    EMonth::January, EMonth::February, EMonth::March,     EMonth::April,   EMonth::May,      EMonth::June,
-    EMonth::July,    EMonth::August,   EMonth::September, EMonth::October, EMonth::November, EMonth::December,
-};
+DEFINE_ENUM(ETitle, uint8_t, //
+            Mrs_Mr, 2,       //
+            Mr, 3,           //
+            Mrs, 4,          //
+            Damsel, 5,       //
+            Squire, 6,       //
+)
 
-enum class ETitle {
-  None,
-  Mrs_Mr,
-  Mr,
-  Mrs,
-  Damsel,
-  Squire,
-};
+DEFINE_ENUM(EEntityType, uint8_t,  //
+            Individual, 2,         //
+            Family, 3,             //
+            CoTenant, 4,           //
+            Company, 5,            //
+            Organization, 6,       //
+            TemporaryOccupant, 7,  //
+            PrivateInstitution, 8, //
+            PublicInstitution, 9,  //
+            PrivateCollective, 10, //
+            PublicCollective, 11,  //
+            PublicServices, 12,    //
+)
 
-constexpr ETitle all_titles[] = {
-    ETitle::Mrs_Mr, ETitle::Mr, ETitle::Mrs, ETitle::Damsel, ETitle::Squire,
-};
+DEFINE_ENUM(EPropertyType, uint8_t, //
+            Unknown, 2,             //
+            Studio, 3,              //
+            StudioPlus, 4,          //
+            _1B, 5,                 //
+            _2B, 6,                 //
+            _3B, 7,                 //
+            _4B, 8,                 //
+            _5BPlus, 9,             //
+)
 
-enum class EEntityType {
-  None,
-  Individual,
-  Family,
-  CoTenant,
-  Company,
-  Organization,
-  TemporaryOccupant,
-  PrivateInstitution,
-  PublicInstitution,
-  PrivateCollective,
-  PublicCollective,
-  PublicServices,
-};
+DEFINE_ENUM(ERoomType, uint8_t,  //
+            Other, 2,            //
+            LivingRoom, 3,       //
+            Bedroom, 4,          //
+            Kitchen, 5,          //
+            Bathroom, 6,         //
+            DiningRoom, 7,       //
+            OfficeStudy, 8,      //
+            BalconyTerrace, 9,   //
+            GarageParking, 10,   //
+            LaundryRoom, 11,     //
+            StorageCellar, 12,   //
+            HallwayEntrance, 13, //
+            GuestRoom, 14,       //
+            Closet, 15,          //
+            Sauna, 16,           //
+)
 
-constexpr EEntityType all_entity_types[] = {
-    EEntityType::Individual,         EEntityType::Family,
-    EEntityType::CoTenant,           EEntityType::Company,
-    EEntityType::Organization,       EEntityType::TemporaryOccupant,
-    EEntityType::PrivateInstitution, EEntityType::PublicInstitution,
-    EEntityType::PrivateCollective,  EEntityType::PublicCollective,
-    EEntityType::PublicServices,
-};
+DEFINE_ENUM(ECondition, uint8_t, //
+            Unknown, 2,          //
+            Uninhabitable, 3,    //
+            Poor, 4,             //
+            Deteriorated, 5,     //
+            Fair, 6,             //
+            Good, 7,             //
+            Excellent, 8,        //
+            New, 9,              //
+)
 
-enum class EPropertyType {
-  None,
-  Unknown,
-  Studio,
-  StudioPlus,
-  _1B,
-  _2B,
-  _3B,
-  _4B,
-  _5BPlus,
-};
-
-constexpr EPropertyType all_property_types[] = {
-    EPropertyType::Unknown, EPropertyType::Studio, EPropertyType::StudioPlus, EPropertyType::_1B,
-    EPropertyType::_2B,     EPropertyType::_3B,    EPropertyType::_4B,        EPropertyType::_5BPlus,
-};
-
-enum class ERoomType {
-  None,
-  Other,
-  LivingRoom,
-  Bedroom,
-  Kitchen,
-  Bathroom,
-  DiningRoom,
-  OfficeStudy,
-  BalconyTerrace,
-  GarageParking,
-  LaundryRoom,
-  StorageCellar,
-  HallwayEntrance,
-  GuestRoom,
-  Closet,
-  Sauna,
-};
-
-constexpr ERoomType all_room_types[] = {
-    ERoomType::Other,         ERoomType::LivingRoom,  ERoomType::Bedroom,       ERoomType::Kitchen,
-    ERoomType::Bathroom,      ERoomType::DiningRoom,  ERoomType::OfficeStudy,   ERoomType::BalconyTerrace,
-    ERoomType::GarageParking, ERoomType::LaundryRoom, ERoomType::StorageCellar, ERoomType::HallwayEntrance,
-    ERoomType::GuestRoom,     ERoomType::Closet,      ERoomType::Sauna,
-};
-
-enum class ECondition {
-  None,
-  Unknown,
-  Uninhabitable,
-  Poor,
-  Deteriorated,
-  Fair,
-  Good,
-  Excellent,
-  New,
-};
-
-constexpr ECondition all_conditions[] = {
-    ECondition::Unknown, ECondition::Uninhabitable, ECondition::Poor,      ECondition::Deteriorated,
-    ECondition::Fair,    ECondition::Good,          ECondition::Excellent, ECondition::New,
-};
-
-enum class EEnergy {
-  None,
-  Unknown,
-  G,
-  F,
-  E,
-  D,
-  C,
-  B,
-  A,
-};
-
-constexpr EEnergy all_energy[] = {
-    EEnergy::Unknown, EEnergy::G, EEnergy::F, EEnergy::E, EEnergy::D, EEnergy::C, EEnergy::B, EEnergy::A,
-};
-
-enum class EFeatureType {
-  None,
-  Garden,
-  Terrace,
-  Balcony,
-  Garage,
-  Elevator,
-  Cellar,
-  Parking,
-  Basement,
-  Pool,
-  Shed,
-};
-
-constexpr EFeatureType all_feature_types[] = {
-    EFeatureType::Garden, EFeatureType::Terrace, EFeatureType::Balcony,  EFeatureType::Garage, EFeatureType::Elevator,
-    EFeatureType::Cellar, EFeatureType::Parking, EFeatureType::Basement, EFeatureType::Pool,   EFeatureType::Shed,
-};
+DEFINE_ENUM(EEnergy, uint8_t, //
+            Unknown, 2,       //
+            G, 3,             //
+            F, 4,             //
+            E, 5,             //
+            D, 6,             //
+            C, 7,             //
+            B, 8,             //
+            A, 9,             //
+)
 
 
-enum class EStatus {
-  None,
-  Reported,
-  Assessment,
-  InProgress,
-  Inspection,
-  Completed,
-};
-
-constexpr EStatus all_status[] = {
-    EStatus::Reported, EStatus::Assessment, EStatus::InProgress, EStatus::Inspection, EStatus::Completed,
-};
-
-
-enum class ESeverity { None, Unknown, Minor, Moderate, Significant, Severe, Critical };
-
-constexpr ESeverity all_severity[] = {ESeverity::Unknown,     ESeverity::Minor,  ESeverity::Moderate,
-                                      ESeverity::Significant, ESeverity::Severe, ESeverity::Critical};
+DEFINE_ENUM(EFeatureType, uint8_t, //
+            Garden, 2,             //
+            Terrace, 3,            //
+            Balcony, 4,            //
+            Garage, 5,             //
+            Elevator, 6,           //
+            Cellar, 7,             //
+            Parking, 8,            //
+            Basement, 9,           //
+            Pool, 10,              //
+            Shed, 11,              //
+)
 
 
-enum class ELeaseType {
-  None,
-  FixedTerm,
-  Periodic,
-  Sublease,
-  CommercialLease,
-  GroundLease,
-  RentToOwn,
-};
+DEFINE_ENUM(EStatus, uint8_t, //
+            Reported, 2,      //
+            Assessment, 3,    //
+            InProgress, 4,    //
+            Inspection, 5,    //
+            Completed, 6,     //
+)
 
-constexpr ELeaseType all_lease_types[] = {
-    ELeaseType::FixedTerm,       ELeaseType::Periodic,    ELeaseType::Sublease,
-    ELeaseType::CommercialLease, ELeaseType::GroundLease, ELeaseType::RentToOwn,
-};
+
+DEFINE_ENUM(ESeverity, uint8_t, //
+            Unknown, 2,         //
+            Minor, 3,           //
+            Moderate, 4,        //
+            Significant, 5,     //
+            Severe, 6,          //
+            Critical, 7,        //
+)
+
+
+DEFINE_ENUM(ELeaseType, uint8_t, //
+            FixedTerm, 2,        //
+            Periodic, 3,         //
+            Sublease, 4,         //
+            CommercialLease, 5,  //
+            GroundLease, 6,      //
+            RentToOwn, 7,        //
+)
+
 
 QString getLocaleFromFile(const QString& fileName);
 
@@ -273,55 +218,71 @@ QString itod(int val);
 QString ftom(float val);
 QString itom(int val);
 
-QString EDue_to_str(EDue due);
-EDue    int_to_EDue(int due);
-
-QString EMonth_to_str(EMonth month);
-EMonth  int_to_EMonth(int month);
-
-QString ETitle_to_str(ETitle title);
-ETitle  int_to_ETitle(int title_id);
-
-QString     EEntityType_to_str(EEntityType entity_type);
-EEntityType int_to_EEntityType(int entity_type);
-bool        is_EEntityType_is_human(EEntityType entity_type);
-
-QString       EPropertyType_to_str(EPropertyType property_type);
-EPropertyType int_to_EPropertyType(int property_type);
-
-QString   ERoomType_to_str(ERoomType room_type);
-ERoomType int_to_ERoomType(int room_type);
-
-QString    ECondition_to_str(ECondition condition);
-ECondition int_to_ECondition(int condition);
-
-QString EEnergy_to_str(EEnergy energy);
-EEnergy int_to_EEnergy(int energy);
-
-QString      EFeatureType_to_str(EFeatureType property_feature);
-EFeatureType int_to_EFeatureType(int property_feature);
-
-QString EStatus_to_str(EStatus status);
-EStatus int_to_EStatus(int status);
-
-QString   ESeverity_to_str(ESeverity severity);
-ESeverity int_to_EServerity(int serverity);
-
-QString    ELeaseType_to_str(ELeaseType lease_type);
-ELeaseType int_to_ELeaseType(int lease_type);
+bool EEntityType_is_human(EEntityType entity_type);
 
 
+int  init_welcome();
 void init_save_path();
 void destroy_current_database();
 bool init_database();
 void init_print_path();
 void init_traductions();
 void init_themes();
-void init_settings();
 
 
 std::unique_ptr<QPixmap> makeRoundedAvatar(const QByteArray& data, QSize size);
 
 QString sanitize_fileName(const QString& input);
+
+static const QHash<QString, QString> CURRENCIES = {
+    {"USD", "$"  },
+    {"EUR", "€"  },
+    {"GBP", "£"  },
+    {"JPY", "¥"  },
+    {"CNY", "¥"  },
+    {"CHF", "CHF"},
+    {"CAD", "$"  },
+    {"AUD", "$"  },
+    {"NZD", "$"  },
+    {"HKD", "$"  },
+    {"SGD", "$"  },
+    {"KRW", "₩"  },
+    {"INR", "₹"  },
+    {"MXN", "$"  },
+    {"BRL", "R$" },
+    {"SEK", "kr" },
+    {"NOK", "kr" },
+    {"DKK", "kr" },
+    {"PLN", "zł" },
+    {"ZAR", "R"  }
+};
+
+const QStringList LANGUAGES = {
+    "en", // English
+    "fr", // French
+    "de", // German
+    "es", // Spanish
+    "it", // Italian
+    "pt", // Portuguese
+    "nl", // Dutch
+    "pl", // Polish
+    "ru", // Russian
+    "uk", // Ukrainian
+    "tr", // Turkish
+    "ar", // Arabic
+    "he", // Hebrew
+    "fa", // Persian
+    "hi", // Hindi
+    "bn", // Bengali
+    "zh", // Chinese
+    "ja", // Japanese
+    "ko", // Korean
+    "th", // Thai
+    "vi", // Vietnamese
+    "id", // Indonesian
+};
+
+
+inline bool WAIT_DATABASE_TO_START = true;
 
 #endif // BASE_H

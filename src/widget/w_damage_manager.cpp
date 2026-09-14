@@ -1,6 +1,7 @@
 #include "widget/w_damage_manager.h"
 
-#include "base.h"
+#include "database/database.h"
+#include "database/manager.h"
 #include "ui_w_damage_manager.h"
 #include "widget/w_damage.h"
 #include "widget/w_damage_creator.h"
@@ -22,10 +23,10 @@ void W_Damage_Manager::refresh()
 {
   ui->tile_view->clear();
 
-  if (auto query = DB_MANAGER.get_db()->all_records(ETable::damages)) {
+  if (auto query = Database_Manager::current_database()->all_records(ETable::Damage)) {
     while (query->next()) {
-      int  id     = query->value("damage_id").toInt();
-      auto damage = new W_Damage(this, id);
+      int   id     = query->value("damage_id").toInt();
+      auto* damage = new W_Damage(this, id);
       ui->tile_view->add_widget(damage);
     }
   }
@@ -39,7 +40,7 @@ W_Damage_Manager::~W_Damage_Manager()
 
 void W_Damage_Manager::on_b_new_damage_clicked()
 {
-  auto damage_creator = new W_Damage_Creator(this, -1);
+  auto* damage_creator = new W_Damage_Creator(this, -1);
   damage_creator->setModal(true);
   damage_creator->exec();
 }

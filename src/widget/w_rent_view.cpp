@@ -1,9 +1,12 @@
 #include "widget/w_rent_view.h"
 
 #include "base.h"
-#include "property.h"
-#include "rent.h"
-#include "tenant.h"
+#include "database/database.h"
+#include "database/manager.h"
+#include "database/manifest.h"
+#include "entities/property.h"
+#include "entities/rent.h"
+#include "entities/tenant.h"
 #include "ui_w_rent_view.h"
 #include "widget/w_rent.h"
 #include "widget/w_rent_histogram.h"
@@ -31,11 +34,11 @@ W_Rent_View::W_Rent_View(W_Rent_Manager* _manager, int _property_id, int _year)
 
   ui->cb_property->clear();
 
-  if (auto properties = DB_MANAGER.get_db()->all_records(ETable::properties)) {
+  if (auto properties = Database_Manager::current_database()->all_records(ETable::Property)) {
     while (properties->next()) {
-      Property property(properties->value("property_id").toInt());
-      QString  display_name = property.get_name() + " (" + EPropertyType_to_str(property.get_property_type()) + ")";
-      ui->cb_property->addItem(display_name, property.get_id());
+      auto    property     = Property::read_record(properties->value("property_id").toInt());
+      QString display_name = property.name + " (" + EPropertyType_to_str(property.property_type) + ")";
+      ui->cb_property->addItem(display_name, property.id);
     }
   }
 
@@ -43,9 +46,10 @@ W_Rent_View::W_Rent_View(W_Rent_Manager* _manager, int _property_id, int _year)
   ui->cb_property->setCurrentIndex(property_index);
   ui->sb_year->setDate(QDate(year, 1, 1));
 
+  auto& db = Database_Manager::instance();
 
-  connect(&DB_MANAGER, &Database_Manager::signal_db_updated, [this]() { refresh(); });
-  connect(&DB_MANAGER, &Database_Manager::signal_db_changed, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   refresh();
 
@@ -67,12 +71,12 @@ void W_Rent_View::refresh()
 {
   set_signal_block(true);
 
-  while (auto item = ui->l_rents->takeAt(0)) {
+  while (auto* item = ui->l_rents->takeAt(0)) {
     if (item->widget()) delete item->widget();
     delete item;
   }
 
-  while (auto item = ui->l_chart->takeAt(0)) {
+  while (auto* item = ui->l_chart->takeAt(0)) {
     if (item->widget()) delete item->widget();
     delete item;
   }
@@ -81,20 +85,21 @@ void W_Rent_View::refresh()
   property_id = ui->cb_property->currentData().toInt();
 
 
-  for (auto month : all_months) {
+  for (auto month : EMonth_all) {
+    if (month == EMonth::NONE) continue;
     QDate month_date = QDate(year, static_cast<int>(month), 1);
     Rent  rent_inst  = Rent::load_from_property(property_id, month_date);
 
-    if (rent_inst.is_loaded()) {
-      W_Rent* w_rent = new W_Rent(manager, rent_inst.get_id(), month);
+    if (rent_inst) {
+      auto* w_rent = new W_Rent(manager, rent_inst.id, month);
       ui->l_rents->addWidget(w_rent);
     } else {
-      W_Rent* w_rent = new W_Rent(manager, -1, month);
+      auto* w_rent = new W_Rent(manager, -1, month);
       ui->l_rents->addWidget(w_rent);
     }
   }
 
-  auto [trent, taid, tcharge, th_waste] = DB_MANAGER.get_db()->total_year_rent_sum(year, property_id);
+  auto [trent, taid, tcharge, th_waste] = Database_Manager::current_database()->total_year_rent_sum(year, property_id);
 
   ui->le_abattement->setText(ftom((trent + taid) * manager->abattement_rate));
   ui->le_declaration->setText(ftom((trent + taid) * (1 - manager->abattement_rate)));
@@ -105,12 +110,12 @@ void W_Rent_View::refresh()
   ui->le_tot_wastes->setText(ftom(th_waste));
 
 
-  if (auto last_chart = ui->l_chart->takeAt(0)) {
+  if (auto* last_chart = ui->l_chart->takeAt(0)) {
     delete last_chart->widget();
     delete last_chart;
   }
 
-  auto rent_chart = new W_Rent_Histogram(year, property_id);
+  auto* rent_chart = new W_Rent_Histogram(year, property_id);
   ui->l_chart->addWidget(rent_chart);
 
   set_signal_block(false);

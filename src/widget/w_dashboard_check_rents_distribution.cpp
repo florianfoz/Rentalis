@@ -1,7 +1,9 @@
 #include "widget/w_dashboard_check_rents_distribution.h"
 
 #include "base.h"
-#include "property.h"
+#include "database/database.h"
+#include "database/manager.h"
+#include "entities/property.h"
 #include "ui_w_dashboard_check_rents_distribution.h"
 
 #include <QMessageBox>
@@ -19,7 +21,7 @@ W_Dashboard_check_rents_distribution::W_Dashboard_check_rents_distribution(QWidg
 
   ui->lw_properties->clear();
 
-  if (auto properties = DB_MANAGER.get_db()->all_records(ETable::properties)) {
+  if (auto properties = Database_Manager::current_database()->all_records(ETable::Property)) {
     while (properties->next()) {
       auto             name = properties->value("name").toString();
       auto             id   = properties->value("property_id").toInt();
@@ -35,8 +37,10 @@ W_Dashboard_check_rents_distribution::W_Dashboard_check_rents_distribution(QWidg
   ui->de_date_end->setDate(QDate::currentDate());
   ui->de_date_start->setDate(QDate::currentDate().addYears(-5));
 
-  connect(&DB_MANAGER, &Database_Manager::signal_db_updated, [this]() { refresh(); });
-  connect(&DB_MANAGER, &Database_Manager::signal_db_changed, [this]() { refresh(); });
+  auto& db = Database_Manager::instance();
+
+  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   no_refresh = false;
   refresh();
@@ -77,7 +81,7 @@ void W_Dashboard_check_rents_distribution::refresh()
   QList<int> selected_ids;
 
   for (int i = 0; i < ui->lw_properties->count(); ++i) {
-    auto item = ui->lw_properties->item(i);
+    auto* item = ui->lw_properties->item(i);
     if (item->checkState() == Qt::Checked) {
       selected_ids << item->data(Qt::UserRole).toInt();
     }
@@ -88,13 +92,13 @@ void W_Dashboard_check_rents_distribution::refresh()
     return;
   }
 
-  QPieSeries* income_series = new QPieSeries();
+  auto* income_series = new QPieSeries();
 
   for (auto build_id : selected_ids) {
     QString start_date_str = ui->de_date_start->date().toString(Qt::ISODate);
     QString end_date_str   = ui->de_date_end->date().toString(Qt::ISODate);
 
-    auto query = QSqlQuery(DB_MANAGER.get_db()->get_sql_db());
+    auto query = QSqlQuery(Database_Manager::current_database()->sql());
     query.prepare(R"(
             SELECT SUM(rents.rent) as sum_rent, SUM(rents.housing_aid) as sum_housing_aid
             FROM rents
@@ -115,7 +119,7 @@ void W_Dashboard_check_rents_distribution::refresh()
     float sum_housing_aid = query.value("sum_housing_aid").toFloat();
     float sum_income      = sum_rent + sum_housing_aid;
 
-    auto name = Property(build_id).get_name();
+    auto name = Property::read_record(build_id).name;
 
     qDebug() << name << ": rent: " << sum_rent << ", housing_aid:" << sum_housing_aid;
 
@@ -130,7 +134,7 @@ void W_Dashboard_check_rents_distribution::refresh()
   chart->setMargins(QMargins(0, 0, 0, 0));
   chart->layout()->setContentsMargins(0, 0, 0, 0);
 
-  if (auto last_chart = ui->l_chart->takeAt(0)) {
+  if (auto* last_chart = ui->l_chart->takeAt(0)) {
     delete last_chart->widget();
     delete last_chart;
   }
@@ -144,7 +148,7 @@ void W_Dashboard_check_rents_distribution::refresh()
 
 
   // tooltip
-  for (auto slice : income_series->slices()) {
+  for (auto& slice : income_series->slices()) {
     connect(slice, &QPieSlice::hovered, this, [slice](bool state) {
       if (state) {
         QString name  = slice->label();

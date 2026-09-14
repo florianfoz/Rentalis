@@ -4,7 +4,7 @@
 #include <QWidget>
 
 class W_Rent_Manager;
-enum class EMonth;
+enum class EMonth : uint8_t;
 
 namespace Ui
 {
