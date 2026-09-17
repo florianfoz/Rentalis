@@ -3,8 +3,8 @@
 #include "database/database.h"
 #include "database/manager.h"
 #include "database/manifest.h"
-#include "rentalis_settings.h"
-#include "widget/w_database_creator.h"
+#include "preferences.h"
+#include "widget/database/w_database_creator.h"
 #include "widget/w_first_welcome.h"
 #include "widget/w_welcome.h"
 
@@ -86,29 +86,23 @@ QString getLocaleFromFile(const QString& fileName)
 QString ftod(float val)
 {
 
-  return RentalisSettings::locale().toString(val);
+  return Preferences::locale().toString(val);
 }
 
 QString itod(int val)
 {
 
-  return RentalisSettings::locale().toString(val);
+  return Preferences::locale().toString(val);
 }
 
 QString ftom(float val)
 {
-
-  if (!Database_Manager::is_valid()) return RentalisSettings::locale().toCurrencyString(val, "¤", 2);
-  return RentalisSettings::locale().toCurrencyString(
-      val, Database_Manager::current_database()->manifest().currency.symbol, 2);
+  return Preferences::locale().toCurrencyString(val, Database_Manager::current_manifest()->currency.symbol, 2);
 }
 
 QString itom(int val)
 {
-
-  if (!Database_Manager::is_valid()) return RentalisSettings::locale().toCurrencyString(val, "¤");
-  return RentalisSettings::locale().toCurrencyString(val,
-                                                     Database_Manager::current_database()->manifest().currency.symbol);
+  return Preferences::locale().toCurrencyString(val, Database_Manager::current_manifest()->currency.symbol);
 }
 
 
@@ -145,17 +139,6 @@ int init_welcome()
   return w->exec();
 }
 
-
-void init_save_path()
-{
-  QDir().mkpath(SAVE_PATH());
-}
-
-
-void init_print_path()
-{
-  QDir().mkpath(PRINT_PATH());
-}
 
 void init_traductions()
 {
@@ -267,4 +250,41 @@ QString sanitize_fileName(const QString& input)
   if (name.isEmpty()) name = "file";
 
   return name;
+}
+
+bool copy_dir(const QString& src, const QString& dest)
+{
+  QDir source(src);
+
+  if (!source.exists()) {
+    return false;
+  }
+
+  QDir destination(dest);
+
+  if (!destination.exists() && !destination.mkpath(".")) {
+    return false;
+  }
+
+  const QFileInfoList entries = source.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries);
+
+  for (const QFileInfo& entry : entries) {
+    const QString sourcePath      = entry.absoluteFilePath();
+    const QString destinationPath = destination.filePath(entry.fileName());
+
+    if (entry.isDir()) {
+      if (!copy_dir(sourcePath, destinationPath)) {
+        return false;
+      }
+    } else {
+      QFile file(sourcePath);
+
+      if (!file.copy(destinationPath)) {
+        qDebug() << "Copy error:" << file.errorString();
+        return false;
+      }
+    }
+  }
+
+  return true;
 }

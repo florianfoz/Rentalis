@@ -17,11 +17,10 @@ DEFINE_ENUM(EResponsibility, uint8_t, //
 struct CurrencyInfo {
   QString isoCode;
   QString symbol;
-  QString name;
 
   [[nodiscard]] QString to_str() const
   {
-    return name + " (" + symbol + " - " + isoCode + ")";
+    return isoCode + " (" + symbol + ")";
   }
 
   static CurrencyInfo from_iso(const QString& iso);
@@ -36,10 +35,11 @@ public:
   Database_Manifest() = default;
 
   // save operation
-  [[nodiscard]] static Database_Manifest* create(const QString& config_path, const QString& _name,
-                                                 const QString& _desc);
-  [[nodiscard]] static Database_Manifest* load(const QString& config_path);
-  void                                    save(const QString& _save_method);
+  [[nodiscard]] static Database_Manifest create(const QString& config_path, const QString& _name, const QString& _desc);
+  [[nodiscard]] static Database_Manifest load(const QString& config_path);
+  void                                   save(const QString& _save_method);
+
+  [[nodiscard]] QString print_info() const;
 
   [[nodiscard]] bool is_valid() const;
 
@@ -57,6 +57,7 @@ public:
   QString      save_method;
   CurrencyInfo currency;
   QLocale      language;
+  QString      backup_path;
 
   EResp household_waste_payer    = EResp::Landlord;
   EResp housing_aid_payer        = EResp::Thrid_Party;

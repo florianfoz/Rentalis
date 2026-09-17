@@ -1,5 +1,12 @@
 #include "record/field/field.h"
 
+#include "database/manager.h"
+
+void emit_on_record_saved(ETable table)
+{
+  emit Database_Manager::instance().signal_db_updated(table);
+}
+
 template <>
 struct SqlConverter<QString> {
   static QString from_sql(const QVariant& value)
@@ -21,6 +28,19 @@ struct SqlConverter<int> {
   }
 
   static QVariant to_sql(int value)
+  {
+    return value;
+  }
+};
+
+template <>
+struct SqlConverter<qsizetype> {
+  static qsizetype from_sql(const QVariant& value)
+  {
+    return value.toInt();
+  }
+
+  static QVariant to_sql(qsizetype value)
   {
     return value;
   }

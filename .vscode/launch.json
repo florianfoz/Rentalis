@@ -2,24 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Qt — Debug",
+            "name": "Rentalis",
             "type": "lldb",
             "request": "launch",
-            "program": "${workspaceFolder}/build/debug/Rentalis",
+            "program": "${command:cmake.launchTargetPath}",
+            "cwd": "${command:cmake.launchTargetDirectory}",
             "args": [],
-            "cwd": "${workspaceFolder}",
-            "stopOnEntry": false,
-            "preLaunchTask": "CMake: Build Debug"
-        },
-        {
-            "name": "Debug Qt — Release",
-            "type": "lldb",
-            "request": "launch",
-            "program": "${workspaceFolder}/build/release/Rentalis",
-            "args": [],
-            "cwd": "${workspaceFolder}",
-            "stopOnEntry": false,
-            "preLaunchTask": "CMake: Build Release"
+            "preLaunchTask": "CMake: Build"
         }
     ]
 }

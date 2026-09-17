@@ -3,8 +3,8 @@
 #include "base.h"
 #include "database/database.h"
 #include "database/manager.h"
-#include "entities/property.h"
-#include "entities/tenant.h"
+#include "entity/property.h"
+#include "entity/tenant.h"
 #include "ui_w_dashboard.h"
 
 #include <QSqlQuery>
@@ -19,7 +19,7 @@ W_Dashboard::W_Dashboard(QWidget* parent)
 
   auto& db = Database_Manager::instance();
 
-  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_updated, [this](ETable) { refresh(); });
   connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   refresh();
@@ -43,30 +43,30 @@ void W_Dashboard::refresh_todo()
 
   // ------------ rents ------------
   {
-    QSqlQuery query(Database_Manager::current_database()->sql());
+    QSqlQuery query(Database_Manager::current_sql());
     query.prepare(R"(
-            SELECT b.property_id,
+            SELECT b.id as b_id,
                    r.tenant_id,
                    CASE
                        WHEN EXISTS (
                            SELECT 1
-                           FROM rents r2
-                           WHERE r2.property_id = b.property_id
+                           FROM rent r2
+                           WHERE r2.property_id = b.id
                              AND r2.tenant_id = r.tenant_id
                              AND strftime('%Y-%m', r2.date) = strftime('%Y-%m', 'now', '-1 month')
                        )
                        THEN 1
                        ELSE 0
                    END AS has_rent_last_month
-            FROM properties b
-            LEFT JOIN rents r ON r.rent_id = (
-                SELECT r3.rent_id
-                FROM rents r3
-                WHERE r3.property_id = b.property_id
+            FROM property b
+            LEFT JOIN rent r ON r.id = (
+                SELECT r3.id
+                FROM rent r3
+                WHERE r3.property_id = b.id
                 ORDER BY r3.date DESC
                 LIMIT 1
             )
-            ORDER BY b.property_id;
+            ORDER BY b.id;
         )");
     query.exec();
 
@@ -74,7 +74,7 @@ void W_Dashboard::refresh_todo()
     out_str += "<ul>";
 
     while (query.next()) {
-      int  property_id = query.value("property_id").toInt();
+      int  property_id = query.value("b_id").toInt();
       int  tenant_id   = query.value("tenant_id").toInt();
       bool hasRent     = query.value("has_rent_last_month").toBool();
 
@@ -89,29 +89,29 @@ void W_Dashboard::refresh_todo()
 
   // ------------ invoices -------------
   {
-    QSqlQuery query(Database_Manager::current_database()->sql());
+    QSqlQuery query(Database_Manager::current_sql());
     query.prepare(R"(
-            SELECT b.property_id,
+            SELECT b.id as b_id,
                    r.tenant_id,
                    CASE
                        WHEN EXISTS (
                            SELECT 1
-                           FROM invoices i
+                           FROM invoice i
                            WHERE i.tenant_id = r.tenant_id
                              AND date('now', '-1 month') BETWEEN i.start_date AND i.end_date
                        )
                        THEN 1
                        ELSE 0
                    END AS has_invoice_last_month
-            FROM properties b
-            LEFT JOIN rents r ON r.rent_id = (
-                SELECT r3.rent_id
-                FROM rents r3
-                WHERE r3.property_id = b.property_id
+            FROM property b
+            LEFT JOIN rent r ON r.id = (
+                SELECT r3.id
+                FROM rent r3
+                WHERE r3.property_id = b.id
                 ORDER BY r3.date DESC
                 LIMIT 1
             )
-            ORDER BY b.property_id;
+            ORDER BY b.id;
         )");
     query.exec();
 
@@ -119,7 +119,7 @@ void W_Dashboard::refresh_todo()
     out_str += "<ul>";
 
     while (query.next()) {
-      int  property_id = query.value("property_id").toInt();
+      int  property_id = query.value("b_id").toInt();
       int  tenant_id   = query.value("tenant_id").toInt();
       bool hasInvoice  = query.value("has_invoice_last_month").toBool();
 
@@ -135,29 +135,29 @@ void W_Dashboard::refresh_todo()
 
   // ------------ receipts ------------
   {
-    QSqlQuery query(Database_Manager::current_database()->sql());
+    QSqlQuery query(Database_Manager::current_sql());
     query.prepare(R"(
-            SELECT b.property_id,
+            SELECT b.id as b_id,
                    r.tenant_id,
                    CASE
                        WHEN EXISTS (
                            SELECT 1
-                           FROM receipts rc
+                           FROM receipt rc
                            WHERE rc.tenant_id = r.tenant_id
                              AND date('now', '-1 month') BETWEEN rc.start_date AND rc.end_date
                        )
                        THEN 1
                        ELSE 0
                    END AS has_receipt_last_month
-            FROM properties b
-            LEFT JOIN rents r ON r.rent_id = (
-                SELECT r3.rent_id
-                FROM rents r3
-                WHERE r3.property_id = b.property_id
+            FROM property b
+            LEFT JOIN rent r ON r.id = (
+                SELECT r3.id
+                FROM rent r3
+                WHERE r3.property_id = b.id
                 ORDER BY r3.date DESC
                 LIMIT 1
             )
-            ORDER BY b.property_id;
+            ORDER BY b.id;
         )");
     query.exec();
 
@@ -165,7 +165,7 @@ void W_Dashboard::refresh_todo()
     out_str += "<ul>";
 
     while (query.next()) {
-      int  property_id = query.value("property_id").toInt();
+      int  property_id = query.value("b_id").toInt();
       int  tenant_id   = query.value("tenant_id").toInt();
       bool hasReceipt  = query.value("has_receipt_last_month").toBool();
 
@@ -187,12 +187,12 @@ void W_Dashboard::refresh_tw_year_incomes()
 {
   ui->tw_year_incomes->setRowCount(0);
 
-  auto query = QSqlQuery(Database_Manager::current_database()->sql());
+  auto query = QSqlQuery(Database_Manager::current_sql());
   query.prepare(R"(
         SELECT
-            strftime("%Y", rents.date) AS year,
-            SUM(rents.rent + rents.housing_aid) AS incomes
-        FROM rents
+            strftime("%Y", rent.date) AS year,
+            SUM(rent.rent + rent.housing_aid) AS incomes
+        FROM rent
         GROUP BY year
         ORDER BY year DESC;
     )");
@@ -227,13 +227,13 @@ void W_Dashboard::refresh_tw_tenants()
 {
   ui->tw_tenants->setRowCount(0);
 
-  auto query = QSqlQuery(Database_Manager::current_database()->sql());
+  auto query = QSqlQuery(Database_Manager::current_sql());
   query.prepare(R"(
         SELECT property_id, tenant_id
         FROM (
             SELECT r.property_id, r.tenant_id,
                    ROW_NUMBER() OVER (PARTITION BY r.property_id ORDER BY r.date DESC) as rn
-            FROM rents r
+            FROM rent r
         ) sub
         WHERE rn = 1;
     )");

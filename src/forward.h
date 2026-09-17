@@ -5,6 +5,7 @@
 
 #include <cstdint>
 
+constexpr qsizetype INVALID_ID = -1;
 
 class QApplication;
 class QPixmap;
@@ -20,7 +21,7 @@ class MoneyDelegate;
 class TenantDelegate;
 class CommentDelegate;
 
-class RentalisSettings;
+class Preferences;
 
 class Lease_Agreement;
 class Maintenance;

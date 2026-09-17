@@ -73,7 +73,7 @@ private slots:
 
   void on_a_web_rent_revision_triggered();
 
-  void on_b_saves_clicked();
+  void on_b_databases_clicked();
 
   void on_b_properties_clicked();
 
@@ -94,8 +94,6 @@ private slots:
   void on_b_menu_clicked();
 
   void on_b_prints_clicked();
-
-  void on_b_newsave_clicked();
 
   void on_b_landlords_clicked();
 

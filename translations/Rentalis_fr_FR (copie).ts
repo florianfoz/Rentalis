@@ -2864,7 +2864,7 @@ micro rental income</source>
     </message>
 </context>
 <context>
-    <name>W_Settings</name>
+    <name>W_Preferences</name>
     <message>
         <location filename="ui/w_settings.ui" line="14"/>
         <location filename="build/Desktop_Qt_6_8_3-Debug/Rentalis_autogen/include/ui_w_settings.h" line="141"/>

@@ -1,10 +1,14 @@
 #ifndef DATABASE_MANAGER_H
 #define DATABASE_MANAGER_H
 
+#include "forward.h"
+
 #include <QObject>
 
-class MainMenu;
 class Database;
+class Database_Manifest;
+class Database_Recorder;
+
 
 class Database_Manager : public QObject
 {
@@ -18,26 +22,19 @@ public:
     return db;
   }
 
-  static bool load_database(const QString& db_path);
-
   static Database* current_database()
   {
     return database;
   }
-  static QSqlDatabase current_sql();
-  static MainMenu*    mainmenu()
-  {
-    return menu;
-  }
+  static QSqlDatabase       current_sql();
+  static Database_Manifest* current_manifest();
+  static Database_Recorder* current_recorder();
 
-  static bool is_valid(bool is_silent = false);
-
-  inline static Database* database;
-  inline static MainMenu* menu;
+  inline static Database* database = nullptr;
 
 signals:
   void signal_db_changed();
-  void signal_db_updated();
+  void signal_db_updated(ETable table);
 };
 
 #endif // DATABASE_MANAGER_H
