@@ -2,17 +2,17 @@
 
 #include "base.h"
 #include "database/manager.h"
+#include "database/w_database_manager.h"
 #include "ui_mainmenu.h"
-#include "w_database_manager.h"
-#include "widget/w_database_creator.h"
+#include "widget/database/w_database_creator.h"
+#include "widget/entity/w_invoice_creator.h"
+#include "widget/entity/w_property_creator.h"
+#include "widget/entity/w_receipt_creator.h"
+#include "widget/entity/w_rent_tool_declaration.h"
+#include "widget/entity/w_rent_tool_revision.h"
+#include "widget/entity/w_tenant_creator.h"
 #include "widget/w_first_welcome.h"
-#include "widget/w_invoice_creator.h"
-#include "widget/w_property_creator.h"
-#include "widget/w_receipt_creator.h"
-#include "widget/w_rent_tool_declaration.h"
-#include "widget/w_rent_tool_revision.h"
-#include "widget/w_settings.h"
-#include "widget/w_tenant_creator.h"
+#include "widget/w_preferences.h"
 #include "widget/w_welcome.h"
 
 #include <QCoreApplication>
@@ -33,8 +33,8 @@ MainMenu::MainMenu(QWidget* parent)
   ui->setupUi(this);
 
   indicators = {
-      ui->l_menu,       ui->l_rents, ui->l_invoices,  ui->l_receipts,     ui->l_tenants,
-      ui->l_properties, ui->l_saves, ui->l_landlords, ui->l_maintenances, ui->l_damages,
+      ui->l_menu,       ui->l_rents,     ui->l_invoices,  ui->l_receipts,     ui->l_tenants,
+      ui->l_properties, ui->l_databases, ui->l_landlords, ui->l_maintenances, ui->l_damages,
   };
 
   buttons = {
@@ -60,12 +60,14 @@ MainMenu::MainMenu(QWidget* parent)
   pal.setColor(QPalette::Window, darker);
   ui->f_side_panel->setAutoFillBackground(true);
   ui->f_top_panel->setAutoFillBackground(true);
+  ui->statusBar->setAutoFillBackground(true);
   ui->f_side_panel->setPalette(pal);
   ui->f_top_panel->setPalette(pal);
+  ui->statusBar->setPalette(pal);
 
   auto& db = Database_Manager::instance();
 
-  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_updated, [this](ETable table) { refresh(); });
   connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   refresh();
@@ -100,18 +102,18 @@ void MainMenu::open_database_menu()
 
 void MainMenu::on_a_about_triggered()
 {
-  QMessageBox msg;
-  msg.setWindowTitle(tr("About Rentalis Software"));
-  msg.setText(TXT::ABOUT);
+  auto* msg = new QMessageBox();
+  msg->setWindowTitle(tr("About Rentalis Software"));
+  msg->setText(TXT::ABOUT);
   QPixmap pix("://assets/logo/rentalis.svg");
   pix = pix.scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  msg.setIconPixmap(pix);
-  msg.exec();
+  msg->setIconPixmap(pix);
+  msg->exec();
 }
 
 void MainMenu::on_a_save_triggered()
 {
-  auto cre = W_Database_Creator({}, {});
+  auto cre = W_Database_Creator();
   cre.setModal(true);
   cre.exec();
 }
@@ -149,7 +151,7 @@ void MainMenu::on_a_quit_triggered()
 
 void MainMenu::on_a_new_database_triggered()
 {
-  auto cre = W_Database_Creator(nullptr, {});
+  auto cre = W_Database_Creator();
   cre.setModal(true);
   cre.exec();
 }
@@ -157,7 +159,7 @@ void MainMenu::on_a_new_database_triggered()
 
 void MainMenu::on_a_new_invoice_triggered()
 {
-  auto cre = W_Invoice_Creator(nullptr, -1);
+  auto cre = W_Invoice_Creator();
   cre.setModal(true);
   cre.exec();
 }
@@ -165,7 +167,7 @@ void MainMenu::on_a_new_invoice_triggered()
 
 void MainMenu::on_a_new_receipt_triggered()
 {
-  auto cre = W_Receipt_Creator(nullptr, -1);
+  auto cre = W_Receipt_Creator();
   cre.setModal(true);
   cre.exec();
 }
@@ -173,7 +175,7 @@ void MainMenu::on_a_new_receipt_triggered()
 
 void MainMenu::on_a_new_tenant_triggered()
 {
-  auto cre = W_Tenant_Creator(nullptr, -1);
+  auto cre = W_Tenant_Creator();
   cre.setModal(true);
   cre.exec();
 }
@@ -181,7 +183,7 @@ void MainMenu::on_a_new_tenant_triggered()
 
 void MainMenu::on_a_new_property_triggered()
 {
-  auto cre = W_Property_Creator(nullptr, -1);
+  auto cre = W_Property_Creator();
   cre.setModal(true);
   cre.exec();
 }
@@ -209,32 +211,32 @@ void MainMenu::on_a_web_rent_revision_triggered()
 
 void MainMenu::on_a_calc_rent_revision_triggered()
 {
-  auto* tool = new W_Rent_Tool_Revision();
-  tool->setWindowTitle(tr("Rent Revision"));
-  tool->setWindowFlags(Qt::Tool);
-  tool->show();
+  auto* w = new W_Rent_Tool_Revision();
+  w->setWindowTitle(tr("Rent Revision"));
+  w->setWindowFlags(Qt::Tool);
+  w->show();
   refresh();
 }
 
 
 void MainMenu::on_a_calc_taxes_triggered()
 {
-  auto* tool = new W_Rent_Tool_Declaration();
-  tool->setWindowTitle(tr("Tax Regime"));
-  tool->setWindowFlags(Qt::Tool);
-  tool->show();
+  auto* w = new W_Rent_Tool_Declaration();
+  w->setWindowTitle(tr("Tax Regime"));
+  w->setWindowFlags(Qt::Tool);
+  w->show();
   refresh();
 }
 
 
-void MainMenu::on_b_saves_clicked()
+void MainMenu::on_b_databases_clicked()
 {
   ui->stackedWidget->setCurrentIndex(7);
   for (auto& elem : indicators) {
     elem->hide();
   }
-  ui->l_saves->show();
-  setWindowTitle(tr("Saves - Rentalis"));
+  ui->l_databases->show();
+  setWindowTitle(tr("Databases - Rentalis"));
   refresh();
 }
 
@@ -372,13 +374,6 @@ void MainMenu::on_b_prints_clicked()
   QDesktopServices::openUrl(QUrl::fromLocalFile(f.absolutePath()));
 }
 
-void MainMenu::on_b_newsave_clicked()
-{
-  auto cre = W_Database_Creator({}, {});
-  cre.setModal(true);
-  cre.exec();
-}
-
 void MainMenu::on_b_saves_file_clicked()
 {
   auto f = QFileInfo(SAVE_PATH());
@@ -388,13 +383,13 @@ void MainMenu::on_b_saves_file_clicked()
 
 void MainMenu::on_b_settings_clicked()
 {
-  static W_Settings* settings = nullptr;
-  if (settings) settings->close();
+  static W_Preferences* w = nullptr;
+  if (w) w->close();
 
-  settings = new W_Settings();
-  settings->show();
+  w = new W_Preferences();
+  w->show();
 
-  connect(settings, &QObject::destroyed, [&] { settings = nullptr; });
+  connect(w, &QObject::destroyed, [&] { w = nullptr; });
 }
 
 
@@ -420,10 +415,10 @@ void MainMenu::resizeEvent(QResizeEvent* event)
 
 void MainMenu::on_a_database_settings_triggered()
 {
-  auto* w_db_creator = new W_Database_Creator(nullptr, DATABASE_PATH());
-  w_db_creator->setWindowTitle(tr("Database Settings"));
-  w_db_creator->setModal(false);
-  w_db_creator->exec();
+  auto* w = new W_Database_Creator(nullptr, DATABASE_PATH());
+  w->setWindowTitle(tr("Database Settings"));
+  w->setModal(false);
+  w->exec();
 }
 
 
@@ -442,13 +437,13 @@ void MainMenu::on_a_first_welcome_triggered()
 
 void MainMenu::on_b_sidebar_clicked()
 {
-  QMessageBox msg;
-  msg.setWindowTitle(tr("About Rentalis Software"));
-  msg.setText(TXT::ABOUT);
+  auto* msg = new QMessageBox();
+  msg->setWindowTitle(tr("About Rentalis Software"));
+  msg->setText(TXT::ABOUT);
   QPixmap pix("://assets/logo/rentalis.svg");
   pix = pix.scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  msg.setIconPixmap(pix);
-  msg.exec();
+  msg->setIconPixmap(pix);
+  msg->exec();
 }
 
 
@@ -457,7 +452,7 @@ void MainMenu::on_b_side_panel_clicked()
 
 
   // Animation
-  QPropertyAnimation* anim = new QPropertyAnimation(ui->f_side_panel, "maximumWidth");
+  auto* anim = new QPropertyAnimation(ui->f_side_panel, "maximumWidth");
   anim->setDuration(250);
   anim->setEasingCurve(QEasingCurve::OutCubic);
   int start = ui->f_side_panel->maximumWidth();
@@ -504,4 +499,6 @@ void MainMenu::on_b_new_window_clicked()
 
 void MainMenu::on_a_preferences_triggered()
 {
+  auto* w = new W_Preferences(this);
+  w->show();
 }

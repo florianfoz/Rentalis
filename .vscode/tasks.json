@@ -2,108 +2,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "clear-console",
-            "type": "shell",
-            "command": "clear"
-        },
-        {
-            "label": "CMake: Configure Debug",
-            "dependsOn": "clear-console",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "-S",
-                "${workspaceFolder}",
-                "-B",
-                "${workspaceFolder}/build/debug",
-                "-DCMAKE_BUILD_TYPE=Debug",
-                "-DCMAKE_PREFIX_PATH=${env:HOME}/Qt/6.11.2/gcc_64",
-                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
-            ],
-            "group": "build",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "CMake: Build Debug",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "--build",
-                "${workspaceFolder}/build/debug",
-                "--parallel",
-                "4"
-            ],
-            "dependsOn": "CMake: Configure Debug",
+            "type": "cmake",
+            "label": "CMake: Build",
+            "command": "build",
+            "preset": "${command:cmake.activeBuildPresetName}",
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "CMake: Configure Release",
-            "dependsOn": "clear-console",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "-S",
-                "${workspaceFolder}",
-                "-B",
-                "${workspaceFolder}/build/release",
-                "-DCMAKE_BUILD_TYPE=Release",
-                "-DCMAKE_PREFIX_PATH=${env:HOME}/Qt/6.11.2/gcc_64",
-                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
-            ],
-            "group": "build",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "CMake: Build Release",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "--build",
-                "${workspaceFolder}/build/release",
-                "--parallel",
-                "4"
-            ],
-            "dependsOn": "CMake: Configure Release",
-            "group": "build",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "CMake: Clean Debug",
-            "dependsOn": "clear-console",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "--build",
-                "${workspaceFolder}/build/debug",
-                "--target",
-                "clean"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "CMake: Clean Release",
-            "dependsOn": "clear-console",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "--build",
-                "${workspaceFolder}/build/release",
-                "--target",
-                "clean"
-            ],
-            "problemMatcher": []
+            }
         }
     ]
 }

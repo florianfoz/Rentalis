@@ -1,6 +1,8 @@
 #ifndef FIELD_H
 #define FIELD_H
 
+#include "forward.h"
+
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
@@ -8,6 +10,8 @@
 #include <type_traits>
 #include <utility>
 
+
+void emit_on_record_saved(ETable table);
 
 template <typename T>
 struct SqlConverter;
@@ -82,7 +86,9 @@ bool save_record(QSqlQuery& query, const Record& record)
 
   query.bindValue(":id", record.id);
 
-  return query.exec();
+  if (!query.exec()) return false;
+  ::emit_on_record_saved(Record::static_table);
+  return true;
 }
 
 template <typename Record>

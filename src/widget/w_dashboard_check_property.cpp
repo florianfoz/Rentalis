@@ -4,6 +4,7 @@
 #include "database/database.h"
 #include "database/manager.h"
 #include "database/manifest.h"
+#include "entity/property.h"
 #include "ui_w_dashboard_check_property.h"
 
 #include <QMessageBox>
@@ -21,10 +22,8 @@ W_Dashboard_check_property::W_Dashboard_check_property(QWidget* parent)
 
   ui->cb_property->clear();
 
-  if (auto q_property = Database_Manager::current_database()->all_records(ETable::Property)) {
-    while (q_property->next()) {
-      ui->cb_property->addItem(q_property->value("name").toString(), q_property->value("property_id").toInt());
-    }
+  for (const auto& rec : Property::all_records()) {
+    ui->cb_property->addItem(rec.name, rec.id);
   }
   ui->cb_property->setCurrentIndex(0);
 
@@ -33,7 +32,7 @@ W_Dashboard_check_property::W_Dashboard_check_property(QWidget* parent)
 
   auto& db = Database_Manager::instance();
 
-  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_updated, [this](ETable) { refresh(); });
   connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   refresh();
@@ -67,13 +66,13 @@ void W_Dashboard_check_property::refresh()
   QString start_date_str = ui->de_date_start->date().toString(Qt::ISODate);
   QString end_date_str   = ui->de_date_end->date().toString(Qt::ISODate);
 
-  auto q_size = QSqlQuery(Database_Manager::current_database()->sql());
+  auto q_size = QSqlQuery(Database_Manager::current_sql());
   q_size.prepare(R"(
         SELECT COUNT(*) as size
-        FROM rents
-        WHERE rents.property_id = :property_id
-        AND rents.date >= :start_date
-        AND rents.date < :end_date
+        FROM rent
+        WHERE rent.property_id = :property_id
+        AND rent.date >= :start_date
+        AND rent.date < :end_date
     )");
   q_size.bindValue(":property_id", property_id);
   q_size.bindValue(":start_date", start_date_str);
@@ -83,19 +82,19 @@ void W_Dashboard_check_property::refresh()
 
   int size = q_size.value("size").toInt();
 
-  auto query = QSqlQuery(Database_Manager::current_database()->sql());
+  auto query = QSqlQuery(Database_Manager::current_sql());
   query.prepare(R"(
         SELECT *
-        FROM rents
-        WHERE rents.property_id = :property_id
-        AND rents.date >= :start_date
-        AND rents.date < :end_date
+        FROM rent
+        WHERE rent.property_id = :property_id
+        AND rent.date >= :start_date
+        AND rent.date < :end_date
     )");
   query.bindValue(":property_id", property_id);
   query.bindValue(":start_date", start_date_str);
   query.bindValue(":end_date", end_date_str);
 
-  if (!Database::query_check(&query, "dashboard rents SELECT")) return;
+  if (!Database_Manager::current_recorder()->query_check(&query, "dashboard rent SELECT")) return;
 
   QVector<float> rents_data;
   rents_data.reserve(size);
@@ -155,7 +154,7 @@ void W_Dashboard_check_property::refresh()
   series->attachAxis(axisY);
 
   if (auto* last_chart = ui->l_chart->takeAt(0)) {
-    delete last_chart->widget();
+    if (auto* widget = last_chart->widget()) widget->deleteLater();
     delete last_chart;
   }
 
@@ -168,16 +167,16 @@ void W_Dashboard_check_property::refresh()
   // tooltip
   connect(rents, &QBarSet::hovered, this, [=](bool status, int index) {
     if (status) {
-      QString date  = x_date_info[index];
-      float   value = rents_data[index];
+      const QString& date  = x_date_info[index];
+      float          value = rents_data[index];
       QToolTip::showText(QCursor::pos(), tr("Rent : %1\nDate : %2").arg(ftom(value)).arg(date));
     }
   });
 
   connect(housing_aids, &QBarSet::hovered, this, [=](bool status, int index) {
     if (status) {
-      QString date  = x_date_info[index];
-      float   value = housing_aids_data[index];
+      const QString& date  = x_date_info[index];
+      float          value = housing_aids_data[index];
       QToolTip::showText(QCursor::pos(), tr("H. Allow. : %1\nDate : %2").arg(ftom(value)).arg(date));
     }
   });

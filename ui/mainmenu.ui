@@ -294,7 +294,7 @@
         </widget>
        </item>
        <item row="10" column="0">
-        <widget class="QLabel" name="l_saves">
+        <widget class="QLabel" name="l_databases">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -1311,7 +1311,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="_0_menu">
        <layout class="QGridLayout" name="gridLayout">
@@ -1661,7 +1661,7 @@
     <bool>false</bool>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color: pattern(window);</string>
    </property>
    <property name="sizeGripEnabled">
     <bool>false</bool>
@@ -1984,31 +1984,31 @@
   <customwidget>
    <class>W_Rent_Manager</class>
    <extends>QWidget</extends>
-   <header>w_rent_manager.h</header>
+   <header>entity/w_rent_manager.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>W_Invoice_Manager</class>
    <extends>QWidget</extends>
-   <header>w_invoice_manager.h</header>
+   <header>entity/w_invoice_manager.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>W_Receipt_Manager</class>
    <extends>QWidget</extends>
-   <header>w_receipt_manager.h</header>
+   <header>entity/w_receipt_manager.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>W_Database_Manager</class>
    <extends>QWidget</extends>
-   <header>w_database_manager.h</header>
+   <header>database/w_database_manager.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>W_Tenant_Manager</class>
    <extends>QWidget</extends>
-   <header>w_tenant_manager.h</header>
+   <header>entity/w_tenant_manager.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
@@ -2020,31 +2020,31 @@
   <customwidget>
    <class>W_Landlord_Manager</class>
    <extends>QWidget</extends>
-   <header>w_landlord_manager.h</header>
+   <header>entity/w_landlord_manager.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>W_Property_Manager</class>
    <extends>QWidget</extends>
-   <header>w_property_manager.h</header>
+   <header>entity/w_property_manager.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>W_Database_Current_Info</class>
    <extends>QWidget</extends>
-   <header>w_database_current_info.h</header>
+   <header>database/w_database_current_info.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>W_Damage_Manager</class>
    <extends>QWidget</extends>
-   <header>w_damage_manager.h</header>
+   <header>entity/w_damage_manager.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>W_Maintenance_Manager</class>
    <extends>QWidget</extends>
-   <header>w_maintenance_manager.h</header>
+   <header>entity/w_maintenance_manager.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

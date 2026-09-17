@@ -1,24 +1,24 @@
 #include "record/record.h"
 
-#include "database/database.h"
 #include "database/manager.h"
-#include "entities/attachment.h"
-#include "entities/damage.h"
-#include "entities/invoice.h"
-#include "entities/landlord.h"
-#include "entities/lease_agreement.h"
-#include "entities/maintenance.h"
-#include "entities/property.h"
-#include "entities/property_feature.h"
-#include "entities/property_room.h"
-#include "entities/receipt.h"
-#include "entities/rent.h"
-#include "entities/tenant.h"
+#include "database/recorder.h"
+#include "entity/attachment.h"
+#include "entity/damage.h"
+#include "entity/invoice.h"
+#include "entity/landlord.h"
+#include "entity/lease_agreement.h"
+#include "entity/maintenance.h"
+#include "entity/property.h"
+#include "entity/property_feature.h"
+#include "entity/property_room.h"
+#include "entity/receipt.h"
+#include "entity/rent.h"
+#include "entity/tenant.h"
 
 
 qsizetype create_record(ETable table)
 {
-  return Database_Manager::current_database()->insert_record(table, false);
+  return Database_Manager::current_recorder()->insert_record(table, false);
 }
 
 
@@ -26,7 +26,7 @@ bool contains_record(ETable table, qsizetype id)
 {
   if (table == ETable::NONE || id == INVALID_ID) return false;
 
-  return Database_Manager::current_database()->contains_record(table, id);
+  return Database_Manager::current_recorder()->contains_record(table, id);
 }
 
 
@@ -34,17 +34,18 @@ bool delete_record(ETable table, qsizetype id, bool wmsg, const QString& msg)
 {
   if (table == ETable::NONE || id == INVALID_ID) return false;
 
-  return Database_Manager::current_database()->delete_record(table, id, wmsg, msg);
+  return Database_Manager::current_recorder()->delete_record(table, id, wmsg, msg);
 }
 
 
 template <RecordType T>
-T from_sql(const QSqlQuery& query)
+T from_sql(QSqlQuery& query)
 {
   T out;
 
-  std::apply([&](const auto&... fields) { (fields.read(out, query), ...); }, T::sql_fields());
+  if (!query.isValid() && !query.next()) return {};
 
+  std::apply([&](const auto&... fields) { (fields.read(out, query), ...); }, T::sql_fields());
   out.id = query.value("id").toLongLong();
 
   return out;
@@ -54,7 +55,9 @@ T from_sql(const QSqlQuery& query)
 template <RecordType T>
 T read_record(qsizetype id)
 {
-  auto valid_sql = Database_Manager::current_database()->find_record(T::static_table, id);
+  if (id == INVALID_ID) return {};
+
+  auto valid_sql = Database_Manager::current_recorder()->find_record(T::static_table, id);
 
   if (!valid_sql) return {};
 
@@ -67,7 +70,7 @@ bool save_record(T* rec)
 {
   if (!rec) return false;
 
-  auto valid_sql = Database_Manager::current_database()->find_record(T::static_table, rec->id);
+  auto valid_sql = Database_Manager::current_recorder()->find_record(T::static_table, rec->id);
 
   if (!valid_sql) return false;
 
@@ -77,7 +80,7 @@ bool save_record(T* rec)
 template <RecordType T>
 QList<T> all_records()
 {
-  auto valid_sql = Database_Manager::current_database()->all_records(T::static_table);
+  auto valid_sql = Database_Manager::current_recorder()->all_records(T::static_table);
   if (!valid_sql) return {};
 
   auto& sql = valid_sql.value();
@@ -94,7 +97,7 @@ QList<T> all_records()
 
 QList<qsizetype> all_records_id(ETable table)
 {
-  auto valid_sql = Database_Manager::current_database()->all_records_id(table);
+  auto valid_sql = Database_Manager::current_recorder()->all_records_id(table);
   if (!valid_sql) return {};
 
   auto& sql = valid_sql.value();
@@ -114,7 +117,7 @@ QList<qsizetype> all_records_id(ETable table)
 
 #define INSTANTIATE_RECORD(T)                                                                                          \
   template T        read_record<T>(qsizetype id);                                                                      \
-  template T        from_sql<T>(const QSqlQuery& query);                                                               \
+  template T        from_sql<T>(QSqlQuery & query);                                                                    \
   template bool     save_record<T>(T * rec);                                                                           \
   template QList<T> all_records<T>();
 

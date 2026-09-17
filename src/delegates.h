@@ -1,8 +1,8 @@
 #pragma once
 #include "base.h"
-#include "entities/property.h"
+#include "entity/property.h"
+#include "widget/entity/w_rent.h"
 #include "widget/w_comment_dialog.h"
-#include "widget/w_rent.h"
 
 #include <QApplication>
 #include <QComboBox>
@@ -63,16 +63,16 @@ public:
 
   QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem&, const QModelIndex&) const override
   {
-    QComboBox* editor = new QComboBox(parent);
-    auto       f      = editor->font();
+    auto* editor = new QComboBox(parent);
+    auto  f      = editor->font();
     f.setPointSize(10);
     editor->setFont(f);
 
     QSqlQuery query(Database_Manager::current_sql());
-    query.prepare("SELECT * FROM tenants;");
+    query.prepare("SELECT * FROM tenant;");
     if (query.exec()) {
       while (query.next()) {
-        editor->addItem(query.value("name").toString(), query.value("tenant_id").toInt());
+        editor->addItem(query.value("name").toString(), query.value("id").toInt());
       }
     }
 
@@ -83,7 +83,7 @@ public:
   {
     QString    currentTenant = index.data(Qt::EditRole).toString();
     QComboBox* combo         = static_cast<QComboBox*>(editor);
-    int        idx           = combo->findText(currentTenant);
+    qsizetype  idx           = combo->findText(currentTenant);
     if (idx >= 0) combo->setCurrentIndex(idx);
   }
 

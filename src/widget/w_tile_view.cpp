@@ -24,8 +24,8 @@ void W_Tile_View::add_widget(QWidget* widget)
 
 void W_Tile_View::clear()
 {
-  while (auto item = flowlayout->takeAt(0)) {
-    delete item->widget();
+  while (auto* item = flowlayout->takeAt(0)) {
+    if (auto* widget = item->widget()) widget->deleteLater();
     delete item;
   }
 }

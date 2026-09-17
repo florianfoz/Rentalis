@@ -3,7 +3,7 @@
 #include "base.h"
 #include "database/database.h"
 #include "database/manager.h"
-#include "entities/property.h"
+#include "entity/property.h"
 #include "ui_w_dashboard_check_rents_distribution.h"
 
 #include <QMessageBox>
@@ -21,15 +21,11 @@ W_Dashboard_check_rents_distribution::W_Dashboard_check_rents_distribution(QWidg
 
   ui->lw_properties->clear();
 
-  if (auto properties = Database_Manager::current_database()->all_records(ETable::Property)) {
-    while (properties->next()) {
-      auto             name = properties->value("name").toString();
-      auto             id   = properties->value("property_id").toInt();
-      QListWidgetItem* item = new QListWidgetItem(name, ui->lw_properties);
-      item->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-      item->setData(Qt::UserRole, id);
-      item->setCheckState(Qt::Checked);
-    }
+  for (const auto& rec : Property::all_records()) {
+    auto* item = new QListWidgetItem(rec.name, ui->lw_properties);
+    item->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+    item->setData(Qt::UserRole, rec.id);
+    item->setCheckState(Qt::Checked);
   }
 
   no_refresh = true;
@@ -39,7 +35,9 @@ W_Dashboard_check_rents_distribution::W_Dashboard_check_rents_distribution(QWidg
 
   auto& db = Database_Manager::instance();
 
-  connect(&db, &Database_Manager::signal_db_updated, [this]() { refresh(); });
+  connect(&db, &Database_Manager::signal_db_updated, [this](ETable table) {
+    if (table == ETable::Rent || table == ETable::NONE) refresh();
+  });
   connect(&db, &Database_Manager::signal_db_changed, [this]() { refresh(); });
 
   no_refresh = false;
@@ -98,19 +96,19 @@ void W_Dashboard_check_rents_distribution::refresh()
     QString start_date_str = ui->de_date_start->date().toString(Qt::ISODate);
     QString end_date_str   = ui->de_date_end->date().toString(Qt::ISODate);
 
-    auto query = QSqlQuery(Database_Manager::current_database()->sql());
+    auto query = QSqlQuery(Database_Manager::current_sql());
     query.prepare(R"(
-            SELECT SUM(rents.rent) as sum_rent, SUM(rents.housing_aid) as sum_housing_aid
-            FROM rents
-            WHERE rents.property_id = :property_id
-            AND rents.date >= :start_date
-            AND rents.date < :end_date;
+            SELECT SUM(rent.rent) as sum_rent, SUM(rent.housing_aid) as sum_housing_aid
+            FROM rent
+            WHERE rent.property_id = :property_id
+            AND rent.date >= :start_date
+            AND rent.date < :end_date;
         )");
     query.bindValue(":property_id", build_id);
     query.bindValue(":start_date", start_date_str);
     query.bindValue(":end_date", end_date_str);
 
-    if (!Database::query_check(&query, "dashboard rents SELECT") || !query.next()) {
+    if (!Database_Manager::current_recorder()->query_check(&query, "dashboard rent SELECT") || !query.next()) {
       no_refresh = false;
       return;
     }
@@ -120,8 +118,6 @@ void W_Dashboard_check_rents_distribution::refresh()
     float sum_income      = sum_rent + sum_housing_aid;
 
     auto name = Property::read_record(build_id).name;
-
-    qDebug() << name << ": rent: " << sum_rent << ", housing_aid:" << sum_housing_aid;
 
     income_series->append(name, sum_income);
   }
@@ -135,12 +131,12 @@ void W_Dashboard_check_rents_distribution::refresh()
   chart->layout()->setContentsMargins(0, 0, 0, 0);
 
   if (auto* last_chart = ui->l_chart->takeAt(0)) {
-    delete last_chart->widget();
+    if (auto* widget = last_chart->widget()) widget->deleteLater();
     delete last_chart;
   }
 
   // Show
-  QChartView* view = new QChartView(chart);
+  auto* view = new QChartView(chart);
   view->setRenderHint(QPainter::Antialiasing);
 
 
@@ -154,7 +150,7 @@ void W_Dashboard_check_rents_distribution::refresh()
         QString name  = slice->label();
         double  value = slice->value();
 
-        QToolTip::showText(QCursor::pos(), QString("%1 : %2").arg(name).arg(ftom(value)));
+        QToolTip::showText(QCursor::pos(), QString("%1 : %2").arg(name).arg(ftom((float)value)));
       }
     });
   }

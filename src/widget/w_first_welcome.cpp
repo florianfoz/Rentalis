@@ -1,9 +1,9 @@
 #include "widget/w_first_welcome.h"
 
 #include "base.h"
-#include "rentalis_settings.h"
+#include "preferences.h"
 #include "ui_w_first_welcome.h"
-#include "widget/w_database_choice.h"
+#include "widget/database/w_database_choice.h"
 
 #include <QDir>
 #include <QLocale>
@@ -30,21 +30,21 @@ W_First_Welcome::W_First_Welcome(QWidget* parent)
     ui->cb_language->addItem(iso.nativeLanguageName() + ", " + iso.nativeTerritoryName(), iso.name());
   }
 
-  int lang_index = ui->cb_language->findData(RentalisSettings::locale().name());
+  int lang_index = ui->cb_language->findData(Preferences::locale().name());
   ui->cb_language->setCurrentIndex(lang_index);
 }
 
 W_First_Welcome::~W_First_Welcome()
 {
-  QString lang_iso           = ui->cb_language->currentData().toString();
-  RentalisSettings::language = lang_iso;
+  QString lang_iso      = ui->cb_language->currentData().toString();
+  Preferences::language = lang_iso;
 
   delete ui;
 }
 
 void W_First_Welcome::on_b_next_clicked()
 {
-  auto* w_db_choice = new W_Database_Choice();
-  w_db_choice->setModal(true);
-  w_db_choice->exec();
+  auto* w = new W_Database_Choice();
+  w->setModal(true);
+  w->exec();
 }

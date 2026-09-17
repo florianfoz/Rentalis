@@ -1,7 +1,7 @@
 #include "base.h"
-#include "database/manager.h"
 #include "mainmenu.h"
-#include "rentalis_settings.h"
+#include "preferences.h"
+#include "savemanager.h"
 
 #include <QApplication>
 #include <QLibraryInfo>
@@ -20,28 +20,25 @@ int main(int argc, char* argv[])
 
   QCoreApplication::setApplicationName("Rentalis");
 
+  Preferences::load();
+  SaveManager::engage_autosave();
+
 
   if (init_welcome() == QDialog::Rejected) return 0;
-
-  WAIT_DATABASE_TO_START = false;
-
-  init_save_path();
-
-  init_print_path();
 
   init_traductions();
 
   init_themes();
 
-  app.setStyleSheet(RentalisSettings::theme_css());
+  app.setStyleSheet(Preferences::theme_css());
 
   QTranslator translator;
-  if (translator.load(RentalisSettings::locale().name())) {
+  if (translator.load(Preferences::locale().name())) {
     QApplication::installTranslator(&translator);
-    qDebug() << "Language " << RentalisSettings::locale() << " loaded !";
+    qDebug() << "Language " << Preferences::locale() << " loaded !";
   }
 
-  Database_Manager::menu = new MainMenu();
-  Database_Manager::menu->showMaximized();
+  auto* menu = new MainMenu();
+  menu->showMaximized();
   return QApplication::exec();
 }

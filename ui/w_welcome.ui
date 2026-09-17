@@ -93,7 +93,7 @@
   <customwidget>
    <class>W_Database_Manager</class>
    <extends>QWidget</extends>
-   <header>w_database_manager.h</header>
+   <header>database/w_database_manager.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
