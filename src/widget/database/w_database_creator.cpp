@@ -104,6 +104,11 @@ void W_Database_Creator::create()
   is_creation_successful = database.is_valid();
 }
 
+void W_Database_Creator::remove_dialog_buttons()
+{
+  ui->buttonBox->close();
+}
+
 
 void W_Database_Creator::on_buttonBox_accepted()
 {

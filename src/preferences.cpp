@@ -17,10 +17,18 @@ void Preferences::load()
   language      = settings.value("software/language", QLocale::system().name()).toString();
   ask_ai_url    = settings.value("software/ask_ai_url", "https://your-domain.com/c/new?prompt=%1&submit=%2").toString();
   theme         = settings.value("software/theme", "ERROR").toString();
-  custom_theme  = settings.value("software/custom_theme", THEME_LIGHT_CSS).toString();
-  autosave      = settings.value("software/autosave", false).toBool();
-  autosave_override          = settings.value("software/autosave_override", false).toBool();
-  autosave_frequency_minutes = settings.value("software/autosave_frequency_minutes", 0.0F).toFloat();
+
+  QFile file_custom_theme(QFileInfo(settings.fileName()).absoluteDir().filePath("custom_theme.css"));
+  if (file_custom_theme.open(QIODeviceBase::WriteOnly | QIODevice::Text)) {
+    QTextStream s(&file_custom_theme);
+    s >> custom_theme;
+    file_custom_theme.close();
+  }
+
+
+  autosave                   = settings.value("software/autosave", true).toBool();
+  autosave_override          = settings.value("software/autosave_override", true).toBool();
+  autosave_frequency_minutes = settings.value("software/autosave_frequency_minutes", 15.0F).toFloat();
 
   SaveManager::engage_autosave();
 
@@ -85,7 +93,14 @@ void Preferences::save()
   settings.setValue("software/language", language);
   settings.setValue("software/ask_ai_url", ask_ai_url);
   settings.setValue("software/theme", theme);
-  settings.setValue("software/custom_theme", custom_theme);
+
+  QFile file_custom_theme(QFileInfo(settings.fileName()).absoluteDir().filePath("custom_theme.css"));
+  if (file_custom_theme.open(QIODeviceBase::WriteOnly | QIODevice::Text)) {
+    QTextStream s(&file_custom_theme);
+    s << custom_theme;
+    file_custom_theme.close();
+  }
+
   settings.setValue("software/autosave", autosave);
   settings.setValue("software/autosave_override", autosave_override);
   settings.setValue("software/autosave_frequency_minutes", autosave_frequency_minutes);

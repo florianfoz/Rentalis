@@ -211,6 +211,8 @@ DEFINE_ENUM(ELeaseType, uint8_t, //
 
 QString getLocaleFromFile(const QString& fileName);
 
+// fallback on english
+QString get_doc_path_localized(const QString& doc_name);
 
 QString ftod(float val);
 QString itod(int val);

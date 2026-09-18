@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
+    <width>546</width>
     <height>432</height>
    </rect>
   </property>
@@ -65,7 +65,13 @@
       <enum>QTabWidget::TabShape::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
      </property>
      <property name="elideMode">
       <enum>Qt::TextElideMode::ElideNone</enum>
@@ -640,7 +646,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>426</width>
+               <width>472</width>
                <height>397</height>
               </rect>
              </property>

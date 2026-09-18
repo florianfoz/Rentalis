@@ -17,12 +17,6 @@ W_Comment_Dialog::W_Comment_Dialog(int rent_id)
 {
   ui->setupUi(this);
 
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Ok))
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setObjectName("Ok");
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Cancel))
-    ui->buttonBox->button(QDialogButtonBox::Cancel)->setObjectName("Cancel");
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Apply))
-    ui->buttonBox->button(QDialogButtonBox::Apply)->setObjectName("Apply");
 
   setWindowTitle(tr("Comment Rent"));
   resize(400, 300);

@@ -53,8 +53,6 @@ set(SRC
 ./src/enum_lite.h
 ./src/forward.h
 ./src/main.cpp
-./src/mainmenu.cpp
-./src/mainmenu.h
 ./src/pch.h
 ./src/preferences.cpp
 ./src/preferences.h
@@ -65,8 +63,6 @@ set(SRC
 ./src/record/relation.h
 ./src/savemanager.cpp
 ./src/savemanager.h
-./src/widget/database/w_database_choice.cpp
-./src/widget/database/w_database_choice.h
 ./src/widget/database/w_database.cpp
 ./src/widget/database/w_database_creator.cpp
 ./src/widget/database/w_database_creator.h
@@ -153,6 +149,10 @@ set(SRC
 ./src/widget/w_first_welcome.h
 ./src/widget/w_flowlayout.cpp
 ./src/widget/w_flowlayout.h
+./src/widget/w_help.cpp
+./src/widget/w_help.h
+./src/widget/w_mainmenu.cpp
+./src/widget/w_mainmenu.h
 ./src/widget/w_preferences.cpp
 ./src/widget/w_preferences.h
 ./src/widget/w_tile_view.cpp
@@ -166,8 +166,7 @@ set(SRC
 # command getter
 # find ./ui -type f -name "*.ui" | sort
 set(UI
-       
-./ui/database/w_database_choice.ui
+      
 ./ui/database/w_database_creator.ui
 ./ui/database/w_database_current_info.ui
 ./ui/database/w_database_importation.ui
@@ -204,17 +203,17 @@ set(UI
 ./ui/entity/w_tenant_creator.ui
 ./ui/entity/w_tenant_manager.ui
 ./ui/entity/w_tenant.ui
-./ui/mainmenu.ui
+./ui/w_mainmenu.ui
 ./ui/w_ask_ai.ui
 ./ui/w_dashboard_check_property.ui
 ./ui/w_dashboard_check_rents_distribution.ui
 ./ui/w_dashboard.ui
 ./ui/w_files_view.ui
 ./ui/w_first_welcome.ui
+./ui/w_help.ui
 ./ui/w_preferences.ui
 ./ui/w_tile_view.ui
 ./ui/w_welcome.ui
-
 
 
 )
@@ -223,6 +222,8 @@ set(UI
 set(QRC
     ${CMAKE_CURRENT_SOURCE_DIR}/resources/database.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/themes.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations.qrc
 )
 
 set(CMAKE_AUTOUIC ON)
@@ -239,6 +240,20 @@ qt_add_executable(Rentalis
     ${SRC}
     ${UI}
     ${QRC}
+)
+
+file(GLOB_RECURSE DOCS_FILES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/resources/docs/*"
+)
+
+qt_add_resources(Rentalis "docs" 
+    PREFIX "/docs"
+    BASE "${CMAKE_SOURCE_DIR}"
+    FILES
+        "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE"
+        "${CMAKE_CURRENT_SOURCE_DIR}/NOTICE"
+        "${CMAKE_CURRENT_SOURCE_DIR}/README.md"
+        ${DOCS_FILES}
 )
 
 target_include_directories(Rentalis

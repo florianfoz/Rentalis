@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainMenu</class>
- <widget class="QMainWindow" name="MainMenu">
+ <class>W_MainMenu</class>
+ <widget class="QMainWindow" name="W_MainMenu">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -1626,6 +1626,7 @@
     <property name="toolTipsVisible">
      <bool>false</bool>
     </property>
+    <addaction name="a_help"/>
     <addaction name="a_about"/>
     <addaction name="a_welcome"/>
     <addaction name="a_first_welcome"/>
@@ -1977,6 +1978,15 @@
    </property>
    <property name="text">
     <string>First Welcome</string>
+   </property>
+  </action>
+  <action name="a_help">
+   <property name="icon">
+    <iconset resource="../resources/icons.qrc">
+     <normaloff>:/assets/dialog-information.svg</normaloff>:/assets/dialog-information.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Help</string>
    </property>
   </action>
  </widget>
