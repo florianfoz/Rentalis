@@ -2,8 +2,7 @@
 # ----------------------------------------------------------------------------
 
 .vscode
-.flatpak
-.flatpak-builder
+.flatpak*
 .CMakePresets.json
 .cache
 *.csv
