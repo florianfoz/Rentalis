@@ -128,6 +128,8 @@ cd Rentalis
 
 Then configure and build the project using your preferred CMake workflow.
 
+Check and modify `CMakePresets.json` file to adapt your current Qt configuration.
+
 ## Data
 
 Rentalis uses SQL-based data management.
