@@ -2,20 +2,5 @@
     "cmake.useCMakePresets": "always",
     "cmake.configureOnOpen": true,
     "cmake.automaticReconfigure": true,
-    "cmake.buildBeforeRun": true,
-    "[linux]": {
-        "cmake.configureSettings": {
-            "CMAKE_PREFIX_PATH": "${env:HOME}/Qt/6.11.2/gcc_64"
-        }
-    },
-    "[windows]": {
-        "cmake.configureSettings": {
-            "CMAKE_PREFIX_PATH": "C:/Qt/6.11.2/msvc2022_64"
-        }
-    },
-    "[osx]": {
-        "cmake.configureSettings": {
-            "CMAKE_PREFIX_PATH": "${env:HOME}/Qt/6.11.2/macos"
-        }
-    }
+    "cmake.buildBeforeRun": true
 }
