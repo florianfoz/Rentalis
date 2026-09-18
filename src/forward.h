@@ -14,7 +14,7 @@ class QString;
 class QSize;
 
 class CssHighlighter;
-class MainMenu;
+class W_MainMenu;
 class Database_Manifest;
 class Database;
 class MoneyDelegate;

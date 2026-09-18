@@ -19,17 +19,17 @@ class QPushButton;
 QT_BEGIN_NAMESPACE
 namespace Ui
 {
-class MainMenu;
+class W_MainMenu;
 }
 QT_END_NAMESPACE
 
-class MainMenu : public QMainWindow
+class W_MainMenu : public QMainWindow
 {
   Q_OBJECT
 
 public:
-  MainMenu(QWidget* parent = nullptr);
-  ~MainMenu();
+  W_MainMenu(QWidget* parent = nullptr);
+  ~W_MainMenu();
 
   void refresh();
 
@@ -40,6 +40,8 @@ public:
 
 private slots:
   void on_a_about_triggered();
+
+  void on_a_help_triggered();
 
   void on_a_save_triggered();
 
@@ -122,6 +124,6 @@ private slots:
   void on_a_preferences_triggered();
 
 private:
-  Ui::MainMenu* ui;
+  Ui::W_MainMenu* ui;
 };
 #endif // MAINMENU_H

@@ -83,6 +83,17 @@ QString getLocaleFromFile(const QString& fileName)
   return {};
 }
 
+QString get_doc_path_localized(const QString& doc_name)
+{
+  const QFile fallback_res(":/docs/" + doc_name);
+  QFile       src(":/docs/" + Preferences::locale().name() + "/" + doc_name);
+
+  if (src.exists()) return src.fileName();
+
+  return fallback_res.exists() ? fallback_res.fileName() : QString();
+}
+
+
 QString ftod(float val)
 {
 
@@ -131,7 +142,7 @@ int init_welcome()
   if (!QFile::exists(QSettings("Rentalis", "Rentalis").fileName())) {
     auto* w = new W_First_Welcome();
     w->setModal(true);
-    return w->exec();
+    w->exec();
   }
 
   auto* w = new W_Welcome();

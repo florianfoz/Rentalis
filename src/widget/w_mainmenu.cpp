@@ -1,9 +1,10 @@
-#include "mainmenu.h"
+#include "w_mainmenu.h"
 
 #include "base.h"
 #include "database/manager.h"
 #include "database/w_database_manager.h"
-#include "ui_mainmenu.h"
+#include "ui_w_mainmenu.h"
+#include "w_help.h"
 #include "widget/database/w_database_creator.h"
 #include "widget/entity/w_invoice_creator.h"
 #include "widget/entity/w_property_creator.h"
@@ -26,9 +27,9 @@
 #include <QUrl>
 
 
-MainMenu::MainMenu(QWidget* parent)
+W_MainMenu::W_MainMenu(QWidget* parent)
   : QMainWindow(parent)
-  , ui(new Ui::MainMenu)
+  , ui(new Ui::W_MainMenu)
 {
   ui->setupUi(this);
 
@@ -75,12 +76,12 @@ MainMenu::MainMenu(QWidget* parent)
   ui->l_menu->show();
 }
 
-MainMenu::~MainMenu()
+W_MainMenu::~W_MainMenu()
 {
   delete ui;
 }
 
-void MainMenu::refresh()
+void W_MainMenu::refresh()
 {
   /*
       ui->w_menu->refresh();
@@ -94,13 +95,13 @@ void MainMenu::refresh()
       */
 }
 
-void MainMenu::open_database_menu()
+void W_MainMenu::open_database_menu()
 {
   ui->b_databases->click();
 }
 
 
-void MainMenu::on_a_about_triggered()
+void W_MainMenu::on_a_about_triggered()
 {
   auto* msg = new QMessageBox();
   msg->setWindowTitle(tr("About Rentalis Software"));
@@ -111,31 +112,37 @@ void MainMenu::on_a_about_triggered()
   msg->exec();
 }
 
-void MainMenu::on_a_save_triggered()
+void W_MainMenu::on_a_help_triggered()
 {
-  auto cre = W_Database_Creator();
-  cre.setModal(true);
-  cre.exec();
+  auto* w = new W_Help();
+  w->exec();
 }
 
-void MainMenu::on_a_open_saves_file_triggered()
+void W_MainMenu::on_a_save_triggered()
+{
+  auto* w = new W_Database_Creator();
+  w->setModal(true);
+  w->exec();
+}
+
+void W_MainMenu::on_a_open_saves_file_triggered()
 {
   QDesktopServices::openUrl(QUrl::fromLocalFile(SAVE_PATH()));
 }
 
-void MainMenu::on_a_open_sources_file_triggered()
+void W_MainMenu::on_a_open_sources_file_triggered()
 {
   auto f = QFileInfo(DATABASE_PATH());
   QDesktopServices::openUrl(QUrl::fromLocalFile(f.absolutePath()));
 }
 
-void MainMenu::on_a_open_prints_file_triggered()
+void W_MainMenu::on_a_open_prints_file_triggered()
 {
   auto f = QFileInfo(PRINT_PATH());
   QDesktopServices::openUrl(QUrl::fromLocalFile(f.absolutePath()));
 }
 
-void MainMenu::on_a_restart_triggered()
+void W_MainMenu::on_a_restart_triggered()
 {
   QString program = QCoreApplication::applicationFilePath();
   QProcess::startDetached(program, QStringList());
@@ -143,13 +150,13 @@ void MainMenu::on_a_restart_triggered()
 }
 
 
-void MainMenu::on_a_quit_triggered()
+void W_MainMenu::on_a_quit_triggered()
 {
   QCoreApplication::quit();
 }
 
 
-void MainMenu::on_a_new_database_triggered()
+void W_MainMenu::on_a_new_database_triggered()
 {
   auto cre = W_Database_Creator();
   cre.setModal(true);
@@ -157,7 +164,7 @@ void MainMenu::on_a_new_database_triggered()
 }
 
 
-void MainMenu::on_a_new_invoice_triggered()
+void W_MainMenu::on_a_new_invoice_triggered()
 {
   auto cre = W_Invoice_Creator();
   cre.setModal(true);
@@ -165,7 +172,7 @@ void MainMenu::on_a_new_invoice_triggered()
 }
 
 
-void MainMenu::on_a_new_receipt_triggered()
+void W_MainMenu::on_a_new_receipt_triggered()
 {
   auto cre = W_Receipt_Creator();
   cre.setModal(true);
@@ -173,7 +180,7 @@ void MainMenu::on_a_new_receipt_triggered()
 }
 
 
-void MainMenu::on_a_new_tenant_triggered()
+void W_MainMenu::on_a_new_tenant_triggered()
 {
   auto cre = W_Tenant_Creator();
   cre.setModal(true);
@@ -181,7 +188,7 @@ void MainMenu::on_a_new_tenant_triggered()
 }
 
 
-void MainMenu::on_a_new_property_triggered()
+void W_MainMenu::on_a_new_property_triggered()
 {
   auto cre = W_Property_Creator();
   cre.setModal(true);
@@ -189,13 +196,13 @@ void MainMenu::on_a_new_property_triggered()
 }
 
 
-void MainMenu::on_a_web_declaration_triggered()
+void W_MainMenu::on_a_web_declaration_triggered()
 {
   QDesktopServices::openUrl(QUrl("https://www.impots.gouv.fr/particulier/je-declare-mes-locations"));
 }
 
 
-void MainMenu::on_a_web_taxes_triggered()
+void W_MainMenu::on_a_web_taxes_triggered()
 {
   QDesktopServices::openUrl(
       QUrl("https://www.economie.gouv.fr/particuliers/gerer-mon-argent/investir-dans-limmobilier/"
@@ -203,13 +210,13 @@ void MainMenu::on_a_web_taxes_triggered()
 }
 
 
-void MainMenu::on_a_web_rent_revision_triggered()
+void W_MainMenu::on_a_web_rent_revision_triggered()
 {
   QDesktopServices::openUrl(QUrl("https://www.anil.org/outils/outils-de-calcul/revision-de-loyer/"));
 }
 
 
-void MainMenu::on_a_calc_rent_revision_triggered()
+void W_MainMenu::on_a_calc_rent_revision_triggered()
 {
   auto* w = new W_Rent_Tool_Revision();
   w->setWindowTitle(tr("Rent Revision"));
@@ -219,7 +226,7 @@ void MainMenu::on_a_calc_rent_revision_triggered()
 }
 
 
-void MainMenu::on_a_calc_taxes_triggered()
+void W_MainMenu::on_a_calc_taxes_triggered()
 {
   auto* w = new W_Rent_Tool_Declaration();
   w->setWindowTitle(tr("Tax Regime"));
@@ -229,7 +236,7 @@ void MainMenu::on_a_calc_taxes_triggered()
 }
 
 
-void MainMenu::on_b_databases_clicked()
+void W_MainMenu::on_b_databases_clicked()
 {
   ui->stackedWidget->setCurrentIndex(7);
   for (auto& elem : indicators) {
@@ -241,7 +248,7 @@ void MainMenu::on_b_databases_clicked()
 }
 
 
-void MainMenu::on_b_properties_clicked()
+void W_MainMenu::on_b_properties_clicked()
 {
   ui->stackedWidget->setCurrentIndex(5);
   for (auto& elem : indicators) {
@@ -253,7 +260,7 @@ void MainMenu::on_b_properties_clicked()
 }
 
 
-void MainMenu::on_b_tenants_clicked()
+void W_MainMenu::on_b_tenants_clicked()
 {
   ui->stackedWidget->setCurrentIndex(4);
   for (auto& elem : indicators) {
@@ -265,7 +272,7 @@ void MainMenu::on_b_tenants_clicked()
 }
 
 
-void MainMenu::on_b_receipts_clicked()
+void W_MainMenu::on_b_receipts_clicked()
 {
   ui->stackedWidget->setCurrentIndex(3);
   for (auto& elem : indicators) {
@@ -277,7 +284,7 @@ void MainMenu::on_b_receipts_clicked()
 }
 
 
-void MainMenu::on_b_invoices_clicked()
+void W_MainMenu::on_b_invoices_clicked()
 {
   ui->stackedWidget->setCurrentIndex(2);
   for (auto& elem : indicators) {
@@ -289,7 +296,7 @@ void MainMenu::on_b_invoices_clicked()
 }
 
 
-void MainMenu::on_b_rents_clicked()
+void W_MainMenu::on_b_rents_clicked()
 {
   ui->stackedWidget->setCurrentIndex(1);
   for (auto& elem : indicators) {
@@ -300,7 +307,7 @@ void MainMenu::on_b_rents_clicked()
   refresh();
 }
 
-void MainMenu::on_b_landlords_clicked()
+void W_MainMenu::on_b_landlords_clicked()
 {
   ui->stackedWidget->setCurrentIndex(6);
   for (auto& elem : indicators) {
@@ -312,7 +319,7 @@ void MainMenu::on_b_landlords_clicked()
 }
 
 
-void MainMenu::on_b_menu_clicked()
+void W_MainMenu::on_b_menu_clicked()
 {
   ui->stackedWidget->setCurrentIndex(0);
   for (auto& elem : indicators) {
@@ -324,7 +331,7 @@ void MainMenu::on_b_menu_clicked()
 }
 
 
-void MainMenu::on_b_maintenaces_clicked()
+void W_MainMenu::on_b_maintenaces_clicked()
 {
   ui->stackedWidget->setCurrentIndex(8);
   for (auto& elem : indicators) {
@@ -336,7 +343,7 @@ void MainMenu::on_b_maintenaces_clicked()
 }
 
 
-void MainMenu::on_b_damages_clicked()
+void W_MainMenu::on_b_damages_clicked()
 {
   ui->stackedWidget->setCurrentIndex(9);
   for (auto& elem : indicators) {
@@ -348,14 +355,14 @@ void MainMenu::on_b_damages_clicked()
 }
 
 
-void MainMenu::on_b_source_clicked()
+void W_MainMenu::on_b_source_clicked()
 {
   auto f = QFileInfo(DATABASE_PATH());
   QDesktopServices::openUrl(QUrl::fromLocalFile(f.absolutePath()));
 }
 
 
-void MainMenu::on_b_reboot_clicked()
+void W_MainMenu::on_b_reboot_clicked()
 {
   QString program = QCoreApplication::applicationFilePath();
   QProcess::startDetached(program, QStringList());
@@ -363,25 +370,25 @@ void MainMenu::on_b_reboot_clicked()
 }
 
 
-void MainMenu::on_b_shutdown_clicked()
+void W_MainMenu::on_b_shutdown_clicked()
 {
   QCoreApplication::quit();
 }
 
-void MainMenu::on_b_prints_clicked()
+void W_MainMenu::on_b_prints_clicked()
 {
   auto f = QFileInfo(PRINT_PATH());
   QDesktopServices::openUrl(QUrl::fromLocalFile(f.absolutePath()));
 }
 
-void MainMenu::on_b_saves_file_clicked()
+void W_MainMenu::on_b_saves_file_clicked()
 {
   auto f = QFileInfo(SAVE_PATH());
   QDesktopServices::openUrl(QUrl::fromLocalFile(f.absolutePath()));
 }
 
 
-void MainMenu::on_b_settings_clicked()
+void W_MainMenu::on_b_settings_clicked()
 {
   static W_Preferences* w = nullptr;
   if (w) w->close();
@@ -393,7 +400,7 @@ void MainMenu::on_b_settings_clicked()
 }
 
 
-void MainMenu::resizeEvent(QResizeEvent* event)
+void W_MainMenu::resizeEvent(QResizeEvent* event)
 {
   QMainWindow::resizeEvent(event);
 
@@ -413,7 +420,7 @@ void MainMenu::resizeEvent(QResizeEvent* event)
 }
 
 
-void MainMenu::on_a_database_settings_triggered()
+void W_MainMenu::on_a_database_settings_triggered()
 {
   auto* w = new W_Database_Creator(nullptr, DATABASE_PATH());
   w->setWindowTitle(tr("Database Settings"));
@@ -422,20 +429,20 @@ void MainMenu::on_a_database_settings_triggered()
 }
 
 
-void MainMenu::on_a_welcome_triggered()
+void W_MainMenu::on_a_welcome_triggered()
 {
   auto* w = new W_Welcome();
   w->exec();
 }
 
-void MainMenu::on_a_first_welcome_triggered()
+void W_MainMenu::on_a_first_welcome_triggered()
 {
   auto* w = new W_First_Welcome();
   w->exec();
 }
 
 
-void MainMenu::on_b_sidebar_clicked()
+void W_MainMenu::on_b_sidebar_clicked()
 {
   auto* msg = new QMessageBox();
   msg->setWindowTitle(tr("About Rentalis Software"));
@@ -447,7 +454,7 @@ void MainMenu::on_b_sidebar_clicked()
 }
 
 
-void MainMenu::on_b_side_panel_clicked()
+void W_MainMenu::on_b_side_panel_clicked()
 {
 
 
@@ -471,7 +478,7 @@ void MainMenu::on_b_side_panel_clicked()
 }
 
 
-void MainMenu::on_b_new_window_clicked()
+void W_MainMenu::on_b_new_window_clicked()
 {
   int      page_index = ui->stackedWidget->currentIndex();
   QWidget* w          = nullptr;
@@ -497,7 +504,7 @@ void MainMenu::on_b_new_window_clicked()
 }
 
 
-void MainMenu::on_a_preferences_triggered()
+void W_MainMenu::on_a_preferences_triggered()
 {
   auto* w = new W_Preferences(this);
   w->show();

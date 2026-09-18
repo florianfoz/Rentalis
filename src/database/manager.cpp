@@ -5,8 +5,8 @@
 #include "database/manifest.h"
 #include "database/w_database_creator.h"
 #include "database/w_database_manager.h"
-#include "mainmenu.h"
 #include "preferences.h"
+#include "widget/w_mainmenu.h"
 
 #include <QDir>
 #include <QFile>

@@ -62,6 +62,11 @@ W_Rent::~W_Rent()
 
 void W_Rent::refresh()
 {
+  if (rent.property_id == INVALID_ID)
+    ui->stackedWidget->setCurrentIndex(0);
+  else
+    ui->stackedWidget->setCurrentIndex(2);
+
   if (!rent.is_valid()) {
     dosent_exist();
     return;
@@ -134,13 +139,22 @@ void W_Rent::set_block_signals(bool block)
 void W_Rent::enterEvent(QEnterEvent* event)
 {
   Q_UNUSED(event);
-  ui->stackedWidget->setCurrentIndex(rent.is_valid() ? 1 : 0);
+
+  if (rent.property_id == INVALID_ID)
+    ui->stackedWidget->setCurrentIndex(0);
+  else
+    ui->stackedWidget->setCurrentIndex(rent.is_valid() ? 2 : 1);
 }
 
 void W_Rent::leaveEvent(QEvent* event)
 {
   Q_UNUSED(event);
-  ui->stackedWidget->setCurrentIndex(1);
+
+  if (rent.property_id == INVALID_ID)
+    ui->stackedWidget->setCurrentIndex(0);
+  else
+    ui->stackedWidget->setCurrentIndex(2);
+
   if (!not_created && rent.is_dirty()) (void)rent.save_record();
 }
 

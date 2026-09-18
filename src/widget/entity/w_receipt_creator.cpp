@@ -22,13 +22,6 @@ W_Receipt_Creator::W_Receipt_Creator(qsizetype id)
 {
   ui->setupUi(this);
 
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Ok))
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setObjectName("Ok");
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Cancel))
-    ui->buttonBox->button(QDialogButtonBox::Cancel)->setObjectName("Cancel");
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Apply))
-    ui->buttonBox->button(QDialogButtonBox::Apply)->setObjectName("Apply");
-
   if (id == -1)
     setWindowTitle(tr("Receipt Creation"));
   else
@@ -110,7 +103,6 @@ void W_Receipt_Creator::clear()
 
 void W_Receipt_Creator::inject_data()
 {
-  int tenant_id          = ui->cb_tenant->currentData().toInt();
   receipt.tenant_id      = ui->cb_tenant->currentData().toInt();
   receipt.start_date     = ui->de_date_start->date();
   receipt.end_date       = ui->de_date_end->date();

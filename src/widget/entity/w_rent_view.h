@@ -36,6 +36,8 @@ private slots:
 
   void on_b_graph_mode_clicked();
 
+  void on_b_destroy_clicked();
+
 private:
   Ui::W_Rent_View* ui;
 };

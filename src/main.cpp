@@ -1,7 +1,7 @@
 #include "base.h"
-#include "mainmenu.h"
 #include "preferences.h"
 #include "savemanager.h"
+#include "widget/w_mainmenu.h"
 
 #include <QApplication>
 #include <QLibraryInfo>
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
     qDebug() << "Language " << Preferences::locale() << " loaded !";
   }
 
-  auto* menu = new MainMenu();
+  auto* menu = new W_MainMenu();
   menu->showMaximized();
   return QApplication::exec();
 }

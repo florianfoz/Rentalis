@@ -16,13 +16,6 @@ W_Damage_Creator::W_Damage_Creator(qsizetype id)
 {
   ui->setupUi(this);
 
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Ok))
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setObjectName("Ok");
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Cancel))
-    ui->buttonBox->button(QDialogButtonBox::Cancel)->setObjectName("Cancel");
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Apply))
-    ui->buttonBox->button(QDialogButtonBox::Apply)->setObjectName("Apply");
-
   if (id == -1)
     setWindowTitle(tr("Damage Creation"));
   else

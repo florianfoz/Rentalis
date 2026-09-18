@@ -143,3 +143,8 @@ void W_Rent_View::on_b_graph_mode_clicked()
     ui->b_graph_mode->setIcon(QIcon(":/assets/report.svg"));
   }
 }
+
+void W_Rent_View::on_b_destroy_clicked()
+{
+  close();
+}

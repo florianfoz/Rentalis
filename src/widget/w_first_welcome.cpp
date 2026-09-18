@@ -3,7 +3,7 @@
 #include "base.h"
 #include "preferences.h"
 #include "ui_w_first_welcome.h"
-#include "widget/database/w_database_choice.h"
+#include "w_welcome.h"
 
 #include <QDir>
 #include <QLocale>
@@ -44,7 +44,5 @@ W_First_Welcome::~W_First_Welcome()
 
 void W_First_Welcome::on_b_next_clicked()
 {
-  auto* w = new W_Database_Choice();
-  w->setModal(true);
-  w->exec();
+  close();
 }

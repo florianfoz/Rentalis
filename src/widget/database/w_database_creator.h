@@ -35,6 +35,9 @@ public:
 
   void create();
 
+  // for preferences windows case
+  void remove_dialog_buttons();
+
 private slots:
   void on_buttonBox_accepted();
 

@@ -19,14 +19,10 @@ W_Preferences::W_Preferences(QWidget* parent)
 {
   ui->setupUi(this);
 
-  ui->layout_db_settings->addWidget(new W_Database_Creator(this, Database_Manager::current_database()->folder_path()));
+  auto* db_creator = new W_Database_Creator(this, Database_Manager::current_database()->folder_path());
+  ui->layout_db_settings->addWidget(db_creator);
 
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Ok))
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setObjectName("Ok");
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Cancel))
-    ui->buttonBox->button(QDialogButtonBox::Cancel)->setObjectName("Cancel");
-  if (auto* btn = ui->buttonBox->button(QDialogButtonBox::Apply))
-    ui->buttonBox->button(QDialogButtonBox::Apply)->setObjectName("Apply");
+  db_creator->remove_dialog_buttons();
 
   high = new CssHighlighter(ui->te_custom_theme_CSS->document());
 
@@ -68,6 +64,10 @@ W_Preferences::W_Preferences(QWidget* parent)
   ui->cb_theme->setCurrentIndex(theme_index);
 
   ui->te_custom_theme_CSS->setText(Preferences::custom_theme);
+
+  ui->cbox_autosave_activate->setChecked(Preferences::autosave);
+  ui->cbox_autosave_override->setChecked(Preferences::autosave_override);
+  ui->ds_autosave_frequency->setValue(Preferences::autosave_frequency_minutes);
 }
 
 W_Preferences::~W_Preferences()
@@ -77,10 +77,13 @@ W_Preferences::~W_Preferences()
 
 void W_Preferences::update_settings()
 {
-  Preferences::ask_ai_url   = ui->le_ask_ai_url->text();
-  Preferences::language     = ui->cb_language->currentData().toString();
-  Preferences::theme        = ui->cb_theme->currentData().toString();
-  Preferences::custom_theme = ui->te_custom_theme_CSS->toPlainText();
+  Preferences::ask_ai_url                 = ui->le_ask_ai_url->text();
+  Preferences::language                   = ui->cb_language->currentData().toString();
+  Preferences::theme                      = ui->cb_theme->currentData().toString();
+  Preferences::custom_theme               = ui->te_custom_theme_CSS->toPlainText();
+  Preferences::autosave                   = ui->cbox_autosave_activate->isChecked();
+  Preferences::autosave_override          = ui->cbox_autosave_override->isChecked();
+  Preferences::autosave_frequency_minutes = ui->ds_autosave_frequency->value();
 
   qApp->setStyleSheet(Preferences::theme_css());
 
