@@ -2,6 +2,16 @@
 
 Chronique synthétique et rétrospective du développement du projet, à travers les interactions entre le client et l'auteur.
 
+## US-00 - Créer une solution numérique à l'activité
+
+En tant que client, je veux bénéficier d'une solution numérique pour mes processus, afin de me concentrer sur le développement de mon activité. 
+
+**Critères d'acceptation :**
+- Numérisation de tous les processus.
+- Gestion des bâtiments, loyers, locataires, propriétaires, dommages, réparations.
+- Logiciel viable et utilisable sur Windows 11 sans connexion Internet.
+
+> Voir: Note de cadrage
 
 ## US-01 – Générer une quittance (Must)
 
@@ -25,10 +35,11 @@ En tant que propriétaire, je veux envoyer des e-mails à mes locataires afin de
 
 ## US-02-01 – Rejet de l'envoi automatique des e-mails (Won't)
 
-En tant que développeur, je veux conserver un logiciel relativement simple et cohérent afin d'assurer sa fiabilité et de répondre aux exigences principales du client. En effet, cette fonctionnalité nécessiterait l'utilisation des API des fournisseurs de messagerie ou d'un autre mécanisme d'envoi.
+En tant que développeur, je veux conserver un logiciel relativement simple et cohérent afin d'assurer sa fiabilité et de répondre aux exigences principales du client. 
 
-**Critères d'acceptation :**
+**Justification :**
 - L'e-mail est prérempli à l'aide d'un lien `mailto:` et indique les pièces jointes à ajouter.
+- Cette fonctionnalité nécessiterait l'utilisation des API des fournisseurs de messagerie ou d'un autre mécanisme d'envoi.
 
 ## US-03 – Intégrité des données (Must)
 
@@ -38,11 +49,11 @@ En tant qu'utilisateur, je veux disposer d'une base de données fiable afin d'é
 - Présence de boutons explicites `Appliquer`, `Confirmer`, `Enregistrer` et `Supprimer` pour valider les modifications.
 - Affichage de messages d'alerte en cas d'opérations dangereuses ou de suppression (Must).
 
-## US-03-1 – Problèmes de saisie (Must)
+## US-03-01 – Problèmes de saisie (Must)
 
 En tant que développeur, je veux m'assurer que le client renseigne correctement les champs afin de garantir la cohérence de la base de données.
 
-**Critères d'acceptation :**
+**Justifications :**
 - Les formulaires d'enregistrement vérifient certains champs afin d'assurer la cohérence des données selon le contexte (dates, locataire, etc.) (Should).
 - Les champs sont paramétrés afin de restreindre les formats de données autorisés (prix, valeurs numériques, texte, etc.).
 
@@ -81,9 +92,8 @@ En tant que propriétaire, je veux pouvoir calculer certains paramètres fiscaux
 
 ## US-07-01 – Rejet du remplissage des documents fiscaux (Won't)
 
-En tant que développeur ayant étudié le droit fiscal durant ma formation universitaire, je veux délimiter clairement le périmètre fonctionnel couvert par le logiciel afin de conserver une solution viable et pertinente.
+En tant que développeur, je veux délimiter clairement le périmètre fonctionnel couvert par le logiciel afin de conserver une solution viable et pertinente.
 
-Il faut également éviter de générer des déclarations erronées à l'aide d'un logiciel qui ne serait pas à jour au regard des dernières réglementations de l'État. Par ailleurs, l'accès aux formulaires de déclaration fiscale implique le traitement de données sensibles, auquel le logiciel n'est pas destiné.
-
-**Critères d'acceptation :**
+**Justifications :**
 - Présence de raccourcis vers les sites officiels de l'État concernant les déclarations et les régimes fiscaux.
+- Ayant étudié le droit fiscal durant ma formation universitaire, mieux vaut éviter de générer des déclarations erronées à l'aide d'un logiciel qui ne serait pas à jour au regard des dernières réglementations de l'État. Par ailleurs, l'accès aux formulaires de déclaration fiscale implique le traitement de données sensibles, auquel le logiciel n'est pas destiné.
