@@ -7,7 +7,7 @@ Cela concerne la version livrée au client.
 Certaines priorités diffèrent, en raison de l'évolution des besoins à l'usage, visible dans les user stories.
 
 | ID | Exigence | Priorité | Source |
-|-|-|-|-|-|
+|-|-|-|-|
 | EF-01 | Le logiciel doit gérer les bâtiments. | Must | E-01, Note de cadrage § 3-1 |
 | EF-02 | Le logiciel doit gérer les loyers. | Must | E-01, Note de cadrage § 3-1 |
 | EF-03 | Le logiciel doit gérer les locataires. | Must | E-01, Note de cadrage § 3-1 |
