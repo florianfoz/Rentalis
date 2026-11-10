@@ -17,4 +17,4 @@ Documentation rétrospective, rédigée a posteriori à partir du projet d'origi
 | ENF-11 | Le logiciel doit fonctionner sans connexion Internet sous Windows 11. | Must | Note de cadrage § 7, E-00 | |
 | ENF-12 | Les données doivent pouvoir être exportées dans un format indépendant du logiciel. | Must | Note de cadrage § 3-3 | |
 | ENF-13 | Le logiciel doit être relativement léger et réactif. | Must | Note de cadrage § 7, E-00 | |
-| EF-14 | Le logiciel doit être ergonomique, permettre d'effectuer des opérations en quelques clics et demeurer relativement simple d'utilisation. | Must | Note de cadrage § 3-2, Schéma des processus | |
+| EF-14 | Le logiciel doit être ergonomique, permettre d'effectuer des opérations en quelques clics et demeurer relativement simple d'utilisation. | Must | Note de cadrage § 3-2, Schémas des processus | |
