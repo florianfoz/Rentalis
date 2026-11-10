@@ -134,7 +134,7 @@ Classement des demandes selon la méthode MoSCoW (voir partie 4 – Périmètre)
 
 **Ouverture du projet :**
 
-Publication d'une version open source, améliorée par rapport à la version originale publiée sur GitHub.
+Une version open source du projet a été publié, améliorée par rapport à la version originale publiée sur GitHub.
 
 Volonté de rendre le logiciel évolutif et réutilisable.
 
