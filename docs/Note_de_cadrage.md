@@ -54,6 +54,9 @@ Cette problématique engendrait une succession d'inconvénients :
 - Allègement de la charge cognitive.
 
 ## 4 – Périmètre
+C'est le périmètre initiale.
+Les modifications ou besoins apparus à l’usage sont consignés dans le journal et les user stories.
+Certaines priorités ont pu être revues au cours du développement.
 
 **Fonctionnalités primaires (Must)**
 - Implémentation de chaque processus dans des menus séparés.
