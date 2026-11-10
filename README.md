@@ -7,6 +7,23 @@ Rentalis is an open-source property management application designed to simplify 
 
 It is built with **C++ / Qt 6** and provides a desktop-oriented management environment with SQL data storage, document generation, printing, email assistance, tax calculation, configurable charts and AI-assisted features.
 
+## Documentation - Business Analysis
+
+The `docs/` directory contains the project's functional and methodological documentation, produced as part of the Business Analysis activities carried out for Rentalis.
+
+The documentation is written in **French**, reflecting the language used throughout the client's business activities.
+
+It includes:
+
+- **Project Framing Document [`Note de cadrage`](/docs/Note_de_cadrage.md)**: project context, objectives, scope, stakeholders, constraints and risks.
+- **Requirements Specification [`Cahier des charges`](/docs/Cahier_des_charges.md)**: functional and non-functional requirements, priorities and verification criteria.
+- **User Stories [`User Stories`](/docs/User_Stories.md)**: user needs, expected behaviour and functional acceptance considerations.
+- **Process Diagrams** [`Schéma des processus`](docs/Schéma_des_processus.md): visual representations of business workflows and processes.
+- **Change Log [`Journal des évolutions`](/docs/Journal_des_évolutions.md)**: project history, functional changes, technical decisions and scope evolution.
+
+These documents illustrate the Business Analysis process behind Rentalis, from understanding the client's needs and defining the functional scope to managing requirements and project evolution.
+
+
 ## Features
 
 * 🏠 Property management
