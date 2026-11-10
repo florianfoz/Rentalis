@@ -49,7 +49,7 @@ D -. Génération des données mailto .-> E
 E --> L{Facture reçue par le locataire}
 ```
 
-**Gains :**
+**Gains : (estimations auteur)**
 
 | Critère | Avant | Après |
 |---|---:|---:|
@@ -106,7 +106,7 @@ D -. Génération des données mailto .-> F
 F --> L{Quittance reçue par le locataire}
 ```
 
-**Gains :**
+**Gains : (estimations auteur)**
 
 | Critère | Avant | Après |
 |---|---:|---:|
