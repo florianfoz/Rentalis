@@ -182,3 +182,12 @@ Révision ou suspension de certaines fonctionnalités trop spécifiques :
 - Généralisation du code de Ligarium.
 
 > Évolution actuelle
+
+## E-14 - Publication des documentations du projet
+10/11/2026
+
+- Publication de la note de cadrage
+- Publication du journal des évolutions
+- Publication du cahier des charges
+- Publication des schémas des processus
+- Publication de user stories
