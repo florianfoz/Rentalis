@@ -7,13 +7,13 @@ Cela concerne la version livrée au client.
 Certaines priorités diffèrent, en raison de l'évolution des besoins à l'usage, visible dans les user stories.
 
 | ID | Exigence | Priorité | Source |
-|-|-|-|-|
-| EF-01 | Le logiciel doit gérer les bâtiments. | Must | E-01, Note de cadrage § 3-1 |
-| EF-02 | Le logiciel doit gérer les loyers. | Must | E-01, Note de cadrage § 3-1 |
-| EF-03 | Le logiciel doit gérer les locataires. | Must | E-01, Note de cadrage § 3-1 |
-| EF-04 | Le logiciel doit gérer les propriétaires. | Must | E-01, Note de cadrage § 3-1 |
-| EF-05 | Le logiciel doit gérer les dommages. | Must | E-01, Note de cadrage § 3-1 |
-| EF-06 | Le logiciel doit gérer les réparations. | Must | E-01, Note de cadrage § 3-1 |
+|-|-|-|-| 
+| EF-01 | Le logiciel doit gérer les bâtiments. | Must | E-01, US-00, Note de cadrage § 3-1 |
+| EF-02 | Le logiciel doit gérer les loyers. | Must | E-01, US-00, Note de cadrage § 3-1 |
+| EF-03 | Le logiciel doit gérer les locataires. | Must | E-01, US-00, Note de cadrage § 3-1 |
+| EF-04 | Le logiciel doit gérer les propriétaires. | Must | E-01, US-00, Note de cadrage § 3-1 |
+| EF-05 | Le logiciel doit gérer les dommages. | Must | E-01, US-00, Note de cadrage § 3-1 |
+| EF-06 | Le logiciel doit gérer les réparations. | Must | E-01, US-00, Note de cadrage § 3-1 |
 | EF-07 | Le logiciel doit générer une quittance au format PDF non modifiable pour un locataire et une période donnés. | Must | US-01, E-02, E-03 |
 | EF-08 | Le logiciel doit générer une facture au format PDF non modifiable pour un locataire et une période donnés. | Must | US-01, E-02, E-03 |
 | EF-09 | Le logiciel doit préparer un e-mail prérempli (destinataire, objet, formule de politesse) à partir d'une quittance ou d'une facture et indiquer les pièces jointes. | Must | US-02, E-04 |
