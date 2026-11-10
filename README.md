@@ -18,7 +18,7 @@ It includes:
 - **Project Framing Document [`Note de cadrage`](/docs/Note_de_cadrage.md)**: project context, objectives, scope, stakeholders, constraints and risks.
 - **Requirements Specification [`Cahier des charges`](/docs/Cahier_des_charges.md)**: functional and non-functional requirements, priorities and verification criteria.
 - **User Stories [`User Stories`](/docs/User_Stories.md)**: user needs, expected behaviour and functional acceptance considerations.
-- **Process Diagrams** [`Schéma des processus`](docs/Schéma_des_processus.md): visual representations of business workflows and processes.
+- **Process Diagrams** [`Schémas des processus`](docs/Schémas_des_processus.md): visual representations of business workflows and processes.
 - **Change Log [`Journal des évolutions`](/docs/Journal_des_évolutions.md)**: project history, functional changes, technical decisions and scope evolution.
 
 These documents illustrate the Business Analysis process behind Rentalis, from understanding the client's needs and defining the functional scope to managing requirements and project evolution.
