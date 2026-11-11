@@ -20,7 +20,7 @@ Certaines priorités diffèrent, en raison de l'évolution des besoins à l'usag
 | EF-10 | Le logiciel doit assurer l'intégrité de la base de données lors d'opérations dangereuses, telles que les suppressions. | Must | US-03, E-05 |
 | EF-11 | Le logiciel doit assurer la cohérence et la mise en forme des données saisies dans les champs prévus à cet effet. | Must | US-03-1, E-05 |
 | EF-12 | Le logiciel doit permettre de sauvegarder différentes bases de données à la demande, avec une date, une description et une catégorie, ou de réaliser des sauvegardes automatiques. | Could | US-05, E-07 |
-| EF-13 | Le logiciel doit proposer une interaction simplifiée avec n'importe quel chatbot d'IA, tout en garantissant l'anonymisation des données transmises et le respect de la vie privée. | Should | US-04, E-06 |
+| EF-13 | Le logiciel doit proposer une interaction simplifiée avec n'importe quel chatbot d'IA, tout en garantissant la pseudonymisation des données transmises et le respect de la vie privée (seul les données numériques et dates sont transmises). | Should | US-04, E-06 |
 | EF-14 | Le logiciel doit afficher une vue globale de l'activité sous la forme d'un tableau de bord comprenant des filtres et des graphiques. | Should | US-06, E-08, Note de cadrage § 3-3 |
 | EF-15 | Le logiciel doit calculer certains paramètres fiscaux et faciliter les déclarations. | Could | US-07 |
 | ENF-01 | Le logiciel doit fonctionner sans connexion Internet sous Windows 11. | Must | Note de cadrage § 7, E-00 |
