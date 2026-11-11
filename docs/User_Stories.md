@@ -64,7 +64,7 @@ En tant qu'utilisateur, je veux pouvoir utiliser des IA dans le cadre de mon act
 **Critères d'acceptation :**
 - Aucune IA n'est intégrée directement au logiciel et aucune dépendance externe à un service d'IA n'est imposée (Must).
 - Des prompts sont générés en moins de 3 clics à partir de contextes de données précis.
-- Les données transmises sont anonymisées (Must).
+- Les données transmises sont pseudonymisées, les données numériques et dates sont transmises (Must).
 
 ## US-05 – Oubli des sauvegardes (Could)
 
